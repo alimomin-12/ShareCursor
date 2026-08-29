@@ -63,9 +63,8 @@ Move the cursor into a bordered edge to hand off; F12 toggles manually.
   (protocol, framing, geometry) stays testable without it.
 - **Every new wire message gets a round-trip test.** Every geometry/state helper
   (`edge.rs`, `cursor.rs`) gets unit tests — they encode the UX rules.
-- **Latency is a tracked metric.** Before/after a change on the input path, run
-  `bench --encrypted` and confirm no regression. The autoresearch log
-  (`autoresearch.jsonl`) records the history.
+- **Latency is a tracked metric.** Before and after a change on the input path,
+  run `bench --encrypted` and confirm no regression.
 
 ## Adding a feature (checklist)
 
@@ -89,5 +88,4 @@ packaging/macos/   # build-app.sh → ShareCursor.app + .dmg
 packaging/windows/ # sharecursor.iss → Inno Setup installer
 .github/workflows/ # CI + release automation
 docs/              # this documentation
-autoresearch.*     # experiment log + backlog (latency history)
 ```

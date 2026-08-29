@@ -30,7 +30,6 @@ pub const TOGGLE_KEY: rdev::Key = rdev::Key::F12;
 //  * hide it from a background app via the private `SetsCursorInBackground`,
 //  * keep warping it to the screen centre so it never hits an edge,
 //  * zero the local-events suppression interval so warps don't lag.
-// See references/macos-cursor-capture.md.
 #[cfg(target_os = "macos")]
 mod mac_cursor {
     use std::os::raw::{c_char, c_void};

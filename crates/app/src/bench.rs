@@ -19,8 +19,8 @@ fn now_nanos(start: Instant) -> u64 {
     start.elapsed().as_nanos() as u64
 }
 
-/// Run `count` round trips over loopback and print latency statistics as
-/// autoresearch-style `METRIC` lines.
+/// Run `count` round trips over loopback and print machine-readable latency
+/// statistics as `METRIC` lines.
 pub fn run(count: usize, encrypted: bool) -> anyhow::Result<()> {
     let loopback = |port: u16| SocketAddr::V4(SocketAddrV4::new(Ipv4Addr::LOCALHOST, port));
 

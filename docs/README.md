@@ -2,8 +2,8 @@
 
 This folder is the single source of truth for **what** ShareCursor is, **why**
 it is built the way it is, and **how** to develop, test, and release it. It is
-written so that a new contributor (or an AI agent picking up the work later) can
-get fully up to speed and continue without breaking anything.
+written so that new contributors can understand the project and continue work
+without breaking established behavior.
 
 ## Start here
 
@@ -15,8 +15,6 @@ get fully up to speed and continue without breaking anything.
 | Build, run, test, or add a feature | [DEVELOPMENT.md](./DEVELOPMENT.md) |
 | Cut a new version / publish installers | [RELEASING.md](./RELEASING.md) |
 | Know *why* a design choice was made | [DECISIONS.md](./DECISIONS.md) |
-| See what was built, phase by phase | [HISTORY.md](./HISTORY.md) |
-| Rank the site / grow discoverability | [SEO.md](./SEO.md) |
 | Install as an end user (past the unsigned-app warnings) | [INSTALL.md](./INSTALL.md) |
 | Actually use it (set up + connect Mac ↔ Windows) | [USAGE.md](./USAGE.md) |
 | Install overview | [../README.md](../README.md) |

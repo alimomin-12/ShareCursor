@@ -80,9 +80,8 @@ Move the cursor into a bordered edge to hand off; F12 toggles manually.
     encode the UX rules.
   </Accordion>
   <Accordion title="Latency is a tracked metric" icon="gauge-high">
-    Before/after a change on the input path, run `bench --encrypted` and confirm
-    no regression. The autoresearch log (`autoresearch.jsonl`) records the
-    history.
+    Before and after a change on the input path, run `bench --encrypted` and
+    confirm no regression.
   </Accordion>
 </AccordionGroup>
 
@@ -119,7 +118,6 @@ packaging/macos/   # build-app.sh → ShareCursor.app + .dmg
 packaging/windows/ # sharecursor.iss → Inno Setup installer
 .github/workflows/ # CI + release automation
 docs/              # source documentation
-autoresearch.*     # experiment log + backlog (latency history)
 ```
 
 ## Next
