@@ -3,7 +3,7 @@
 **/target/
 **/*.rs.bk
 *.pdb
-# NOTE: Cargo.lock is intentionally committed — ShareClick is an
+# NOTE: Cargo.lock is intentionally committed — ShareCursor is an
 # application (binary), so we pin exact dependency versions.
 
 # ── Packaging output ────────────────────────────────────────────

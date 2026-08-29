@@ -1,4 +1,4 @@
-# ShareClick — ideas & optimization backlog
+# ShareCursor — ideas & optimization backlog
 
 ## Research summary (competitors)
 - **Deskflow** = official OSS successor to Synergy v1.15; most mature free option; clipboard ✅, TLS by default. File drag&drop only partial.
@@ -37,7 +37,7 @@
 - **GUI settings editor** in the tray instead of opening the TOML by hand.
 - **Real end-to-end lag measurement** vs ShareMouse/Deskflow (photodiode / high-speed camera) to substantiate the "lowest lag" claim.
 
-## Latency optimization ideas (measure with `shareclick bench`)
+## Latency optimization ideas (measure with `sharecursor bench`)
 - Try QUIC for the bulk channel only (keep UDP raw for input) — encryption + reliability without HOL-blocking input.
 - Busy-poll vs sleep on the server send loop: current 500µs sleep adds up to 0.5ms; consider adaptive spin when a burst is in flight.
 - `SO_BUSY_POLL` / real-time thread priority for the capture + send threads.

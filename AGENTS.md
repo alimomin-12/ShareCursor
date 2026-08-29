@@ -1,4 +1,4 @@
-# Agent Rules for ShareClick
+# Agent Rules for ShareCursor
 
 Rules for any AI agent (and human contributors) working in this repository.
 
