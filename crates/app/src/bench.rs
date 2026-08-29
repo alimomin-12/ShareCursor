@@ -10,8 +10,8 @@ use std::net::{Ipv4Addr, SocketAddr, SocketAddrV4};
 use std::sync::Arc;
 use std::time::{Duration, Instant};
 
-use shareclick_protocol::crypto::{Handshake, Role};
-use shareclick_protocol::InputMsg;
+use sharecursor_protocol::crypto::{Handshake, Role};
+use sharecursor_protocol::InputMsg;
 
 use crate::transport::InputChannel;
 

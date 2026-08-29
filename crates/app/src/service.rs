@@ -1,17 +1,18 @@
-//! Install ShareClick as a background service that auto-starts on login and
+//! Install ShareCursor as a background service that auto-starts on login and
 //! keeps running — no terminal, no second app to open.
 //!
 //! * **macOS:** a per-user LaunchAgent (`~/Library/LaunchAgents`) running
-//!   `shareclick run`, relaunched by launchd if it dies (`KeepAlive`).
-//! * **Windows:** an `HKCU\…\Run` entry launching `shareclick run`, which hides
+//!   `sharecursor run`, relaunched by launchd if it dies (`KeepAlive`).
+//! * **Windows:** an `HKCU\…\Run` entry launching `sharecursor run`, which hides
 //!   its own console window immediately.
 
-#![cfg(feature = "native")]
-
-use std::path::PathBuf;
 use std::process::Command;
 
-const LABEL: &str = "com.shareclick.agent";
+#[cfg(target_os = "macos")]
+use std::path::PathBuf;
+
+#[cfg(target_os = "macos")]
+const LABEL: &str = "com.sharecursor.agent";
 
 /// Install + start the background service for the current user.
 pub fn install() -> anyhow::Result<()> {
@@ -91,9 +92,9 @@ fn install_macos(exe: &std::path::Path) -> anyhow::Result<()> {
     if !status.success() {
         anyhow::bail!("launchctl load failed");
     }
-    println!("ShareClick installed as a login service (LaunchAgent).");
+    println!("ShareCursor installed as a login service (LaunchAgent).");
     println!("It will start automatically on every login and run in the background.");
-    println!("Stop/remove it with:  shareclick uninstall-service");
+    println!("Stop/remove it with:  sharecursor uninstall-service");
     Ok(())
 }
 
@@ -106,7 +107,7 @@ fn uninstall_macos() -> anyhow::Result<()> {
     if path.exists() {
         std::fs::remove_file(&path)?;
     }
-    println!("ShareClick login service removed.");
+    println!("ShareCursor login service removed.");
     Ok(())
 }
 
@@ -119,7 +120,7 @@ fn install_windows(exe: &std::path::Path) -> anyhow::Result<()> {
             "add",
             r"HKCU\Software\Microsoft\Windows\CurrentVersion\Run",
             "/v",
-            "ShareClick",
+            "ShareCursor",
             "/t",
             "REG_SZ",
             "/d",
@@ -130,9 +131,9 @@ fn install_windows(exe: &std::path::Path) -> anyhow::Result<()> {
     if !status.success() {
         anyhow::bail!("failed to write the startup registry entry");
     }
-    println!("ShareClick installed to start on login (runs in the background, no window).");
-    println!("Start it now without logging out:  shareclick run");
-    println!("Remove it with:  shareclick uninstall-service");
+    println!("ShareCursor installed to start on login (runs in the background, no window).");
+    println!("Start it now without logging out:  sharecursor run");
+    println!("Remove it with:  sharecursor uninstall-service");
     Ok(())
 }
 
@@ -143,10 +144,10 @@ fn uninstall_windows() -> anyhow::Result<()> {
             "delete",
             r"HKCU\Software\Microsoft\Windows\CurrentVersion\Run",
             "/v",
-            "ShareClick",
+            "ShareCursor",
             "/f",
         ])
         .status();
-    println!("ShareClick login entry removed.");
+    println!("ShareCursor login entry removed.");
     Ok(())
 }

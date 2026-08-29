@@ -9,22 +9,20 @@
 //!     connection. From then on every byte on the wire is authenticated
 //!     ChaCha20-Poly1305.
 
-#![cfg(feature = "native")]
-
 use std::net::{SocketAddr, TcpListener, TcpStream, ToSocketAddrs};
 use std::sync::atomic::Ordering;
 use std::sync::mpsc::{self, Receiver};
 use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
-use shareclick_protocol::crypto::{Role, Session};
-use shareclick_protocol::{BulkMsg, ClipboardData, Edge, InputEvent, InputMsg};
+use sharecursor_protocol::crypto::{Role, Session};
+use sharecursor_protocol::{BulkMsg, ClipboardData, Edge, InputEvent, InputMsg};
 
 /// A batch that releases every modifier key on the client. Sent on every
 /// control hand-off so a modifier held during the switch can't stay stuck down
 /// on the other machine (the classic "Alt+Tab / Ctrl stuck" bug).
 fn release_all_modifiers() -> InputMsg {
-    use shareclick_protocol::Key::{LAlt, LCtrl, LMeta, LShift, RAlt, RCtrl, RMeta, RShift};
+    use sharecursor_protocol::Key::{LAlt, LCtrl, LMeta, LShift, RAlt, RCtrl, RMeta, RShift};
     InputMsg::Events(vec![
         InputEvent::Key {
             key: LCtrl,
@@ -175,7 +173,7 @@ fn build_shared(cfg: &Config) -> Shared {
 /// `refresh` = the user just re-arranged; the peer must adopt unconditionally.
 fn my_hello(cfg_name: &str, sh: &Shared, refresh: bool) -> BulkMsg {
     BulkMsg::Hello {
-        version: shareclick_protocol::PROTOCOL_VERSION,
+        version: sharecursor_protocol::PROTOCOL_VERSION,
         name: cfg_name.to_string(),
         screen: sh.screen,
         edge: *sh.border.lock().unwrap(),
@@ -205,7 +203,7 @@ fn load_config() -> anyhow::Result<Config> {
     let path = Config::default_path();
     if !path.exists() {
         anyhow::bail!(
-            "no config at {} — run `shareclick init-config` and edit the PSK + layout first",
+            "no config at {} — run `sharecursor init-config` and edit the PSK + layout first",
             path.display()
         );
     }

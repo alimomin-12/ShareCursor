@@ -2,10 +2,8 @@
 //!
 //! Requires Accessibility permission on macOS and runs best on the UI thread.
 
-#![cfg(feature = "native")]
-
 use enigo::{Axis, Button as EButton, Coordinate, Direction, Enigo, Keyboard, Mouse, Settings};
-use shareclick_protocol::{InputEvent, MouseButton};
+use sharecursor_protocol::{InputEvent, MouseButton};
 
 use crate::keymap;
 
@@ -77,14 +75,14 @@ impl Injector {
                 // Cmd on macOS (Ctrl+C → Cmd+C).
                 #[cfg(target_os = "windows")]
                 let key = match key {
-                    shareclick_protocol::Key::LMeta => shareclick_protocol::Key::LCtrl,
-                    shareclick_protocol::Key::RMeta => shareclick_protocol::Key::RCtrl,
+                    sharecursor_protocol::Key::LMeta => sharecursor_protocol::Key::LCtrl,
+                    sharecursor_protocol::Key::RMeta => sharecursor_protocol::Key::RCtrl,
                     k => k,
                 };
                 #[cfg(target_os = "macos")]
                 let key = match key {
-                    shareclick_protocol::Key::LCtrl => shareclick_protocol::Key::LMeta,
-                    shareclick_protocol::Key::RCtrl => shareclick_protocol::Key::RMeta,
+                    sharecursor_protocol::Key::LCtrl => sharecursor_protocol::Key::LMeta,
+                    sharecursor_protocol::Key::RCtrl => sharecursor_protocol::Key::RMeta,
                     k => k,
                 };
                 if let Some(k) = keymap::to_enigo(key) {

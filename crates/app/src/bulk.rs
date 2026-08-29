@@ -8,8 +8,8 @@ use std::io::{Read, Write};
 use std::net::TcpStream;
 use std::sync::Arc;
 
-use shareclick_protocol::crypto::{Handshake, Role, Session};
-use shareclick_protocol::BulkMsg;
+use sharecursor_protocol::crypto::{Handshake, Role, Session};
+use sharecursor_protocol::BulkMsg;
 
 /// Max frame size we will accept, to avoid unbounded allocations from a peer.
 const MAX_FRAME: u32 = 64 * 1024 * 1024; // 64 MiB
@@ -118,7 +118,7 @@ impl BulkConn {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use shareclick_protocol::ClipboardData;
+    use sharecursor_protocol::ClipboardData;
     use std::net::{TcpListener, TcpStream};
 
     #[test]

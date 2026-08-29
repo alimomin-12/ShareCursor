@@ -2,7 +2,7 @@
 //!
 //! Unlike a passive listener, `grab` lets us **consume** events so the local
 //! machine does not react while control has been handed to the remote client —
-//! this is what turns ShareClick from an input *mirror* into a real KVM.
+//! this is what turns ShareCursor from an input *mirror* into a real KVM.
 //!
 //! A toggle hotkey ([`TOGGLE_KEY`]) flips the shared `active` flag:
 //!  * **active**   → events are forwarded to the client and swallowed locally.
@@ -11,14 +11,12 @@
 //! rdev reports **absolute** cursor positions; we convert to relative deltas so
 //! the client's cursor tracks motion without coupling to screen geometry.
 
-#![cfg(feature = "native")]
-
 use std::sync::atomic::Ordering;
 use std::sync::mpsc::Sender;
 use std::sync::{Arc, Mutex};
 
 use rdev::{Event, EventType};
-use shareclick_protocol::{Edge, InputEvent, MouseButton};
+use sharecursor_protocol::{Edge, InputEvent, MouseButton};
 
 use crate::control::Control;
 use crate::edge::EdgeConfig;

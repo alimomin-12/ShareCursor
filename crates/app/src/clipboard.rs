@@ -9,8 +9,6 @@
 //! send a local change), we remember a fingerprint of it so the watcher does
 //! not bounce it straight back into an infinite loop.
 
-#![cfg(feature = "native")]
-
 use std::borrow::Cow;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
@@ -19,7 +17,7 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use arboard::{Clipboard, ImageData};
-use shareclick_protocol::{BulkMsg, ClipboardData};
+use sharecursor_protocol::{BulkMsg, ClipboardData};
 
 /// A cheap fingerprint of the current clipboard, used to detect real changes
 /// and to suppress echoes.

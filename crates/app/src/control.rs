@@ -15,7 +15,7 @@
 use std::sync::atomic::AtomicBool;
 use std::sync::Mutex;
 
-use shareclick_protocol::Edge;
+use sharecursor_protocol::Edge;
 
 /// Shared, thread-safe control state.
 pub struct Control {

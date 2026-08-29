@@ -4013,7 +4013,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "shareclick"
+name = "sharecursor"
 version = "0.1.0"
 dependencies = [
  "anyhow",
@@ -4025,7 +4025,7 @@ dependencies = [
  "mdns-sd",
  "rdev",
  "serde",
- "shareclick-protocol",
+ "sharecursor-protocol",
  "tao",
  "thiserror 2.0.18",
  "toml 0.8.2",
@@ -4037,7 +4037,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "shareclick-protocol"
+name = "sharecursor-protocol"
 version = "0.1.0"
 dependencies = [
  "chacha20poly1305",

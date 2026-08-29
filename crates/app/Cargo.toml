@@ -1,16 +1,16 @@
 [package]
-name = "shareclick"
+name = "sharecursor"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-default-run = "shareclick"
+default-run = "sharecursor"
 
 [[bin]]
-name = "shareclick"
+name = "sharecursor"
 path = "src/main.rs"
 
 [dependencies]
-shareclick-protocol = { path = "../protocol" }
+sharecursor-protocol = { path = "../protocol" }
 serde.workspace = true
 anyhow.workspace = true
 thiserror.workspace = true

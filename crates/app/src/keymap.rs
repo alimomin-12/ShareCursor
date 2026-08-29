@@ -1,7 +1,7 @@
-//! Translation between native key representations and ShareClick's portable
+//! Translation between native key representations and ShareCursor's portable
 //! [`Key`]. Capture uses [`from_rdev`]; injection uses [`to_enigo`].
 
-use shareclick_protocol::Key;
+use sharecursor_protocol::Key;
 
 /// Map an `rdev` key (as seen by the capturing server) into a portable [`Key`].
 #[cfg(feature = "native")]

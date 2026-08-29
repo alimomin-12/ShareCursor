@@ -1,6 +1,6 @@
 //! Visual settings + monitor-arrangement window (like macOS "Displays").
 //!
-//! Drag the second monitor around the first to say where it sits; ShareClick
+//! Drag the second monitor around the first to say where it sits; ShareCursor
 //! computes the edge adjacency so you can just push the cursor across (no
 //! hotkey). Saves to the same `config.toml` the CLI uses.
 
@@ -210,14 +210,14 @@ pub fn run() -> anyhow::Result<()> {
                 width: 64,
                 height: 64,
             }))
-            .with_title("ShareClick — Settings & Monitor Manager"),
+            .with_title("ShareCursor — Settings & Monitor Manager"),
         ..Default::default()
     };
     eframe::run_native(
-        "ShareClick Settings",
+        "ShareCursor Settings",
         options,
         Box::new(|cc| {
-            // Clean light theme with the ShareClick blue accent.
+            // Clean light theme with the ShareCursor blue accent.
             cc.egui_ctx.set_visuals(egui::Visuals::light());
             let mut style = (*cc.egui_ctx.style()).clone();
             style.spacing.item_spacing = egui::vec2(10.0, 10.0);
@@ -405,7 +405,7 @@ impl SettingsApp {
 impl eframe::App for SettingsApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading("ShareClick settings");
+            ui.heading("ShareCursor settings");
             ui.add_space(6.0);
 
             egui::Grid::new("fields").num_columns(2).spacing([12.0, 8.0]).show(ui, |ui| {

@@ -1,4 +1,4 @@
-//! ShareClick — a low-latency, open-source software KVM.
+//! ShareCursor — a low-latency, open-source software KVM.
 //!
 //! Move one keyboard & mouse (and the clipboard, and files) between machines
 //! over the LAN with the lowest possible input lag.
@@ -34,7 +34,7 @@ use clap::{Parser, Subcommand};
 
 #[derive(Parser)]
 #[command(
-    name = "shareclick",
+    name = "sharecursor",
     version,
     about = "Low-latency open-source software KVM"
 )]
@@ -85,14 +85,14 @@ enum Command {
     /// Zero-config auto-pairing: find the other machine on the LAN and connect
     /// automatically — no IP, no role picking.
     Pair,
-    /// Install ShareClick as a login service: auto-starts in the background on
+    /// Install ShareCursor as a login service: auto-starts in the background on
     /// every login, runs the configured role, no terminal, no second app.
     InstallService,
     /// Remove the login service installed by `install-service`.
     UninstallService,
     /// Launch the menu-bar (macOS) / system-tray (Windows) app.
     Tray,
-    /// Discover ShareClick servers on the local network via mDNS.
+    /// Discover ShareCursor servers on the local network via mDNS.
     Discover,
     /// Print the detected screen size (debug).
     ScreenInfo,
@@ -197,7 +197,7 @@ fn main() -> anyhow::Result<()> {
         Command::Discover => {
             let found = discovery::list(std::time::Duration::from_secs(3))?;
             if found.is_empty() {
-                println!("no ShareClick servers found on the local network");
+                println!("no ShareCursor servers found on the local network");
             } else {
                 for (name, addr, _id) in found {
                     println!("{name}  ->  {addr}");

@@ -1,4 +1,4 @@
-//! ShareClick wire protocol.
+//! ShareCursor wire protocol.
 //!
 //! Two logical channels:
 //!  * **Input channel** (UDP): latency-critical, tiny, delta-encoded events.

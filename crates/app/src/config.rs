@@ -8,7 +8,7 @@
 use std::path::{Path, PathBuf};
 
 use serde::{Deserialize, Serialize};
-use shareclick_protocol::Edge;
+use sharecursor_protocol::Edge;
 
 /// Top-level configuration.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
@@ -93,11 +93,11 @@ impl Config {
         id
     }
 
-    /// Default config path, e.g. `~/.config/shareclick/config.toml`.
+    /// Default config path, e.g. `~/.config/sharecursor/config.toml`.
     pub fn default_path() -> PathBuf {
         dirs::config_dir()
             .unwrap_or_else(|| PathBuf::from("."))
-            .join("shareclick")
+            .join("sharecursor")
             .join("config.toml")
     }
 

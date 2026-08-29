@@ -1,18 +1,16 @@
-//! Zero-config peer discovery over mDNS (`_shareclick._udp.local.`).
+//! Zero-config peer discovery over mDNS (`_sharecursor._udp.local.`).
 //!
 //! The server advertises its name + port; a client can find it without anyone
 //! typing an IP address. Discovery only locates the peer — the encrypted
 //! handshake still authenticates it, so an imposter advertising the same
 //! service cannot impersonate the real server without the PSK.
 
-#![cfg(feature = "native")]
-
 use std::net::{IpAddr, SocketAddr};
 use std::time::{Duration, Instant};
 
 use mdns_sd::{ServiceDaemon, ServiceEvent, ServiceInfo};
 
-const SERVICE_TYPE: &str = "_shareclick._udp.local.";
+const SERVICE_TYPE: &str = "_sharecursor._udp.local.";
 
 /// Keeps the advertised service alive; drop to stop advertising.
 pub struct Advertiser {
@@ -37,7 +35,7 @@ pub fn advertise(name: &str, port: u16, id: &str) -> anyhow::Result<Advertiser> 
     Ok(Advertiser { _daemon: daemon })
 }
 
-/// Browse for a ShareClick server for up to `timeout`, returning the first
+/// Browse for a ShareCursor server for up to `timeout`, returning the first
 /// resolved IPv4 socket address.
 pub fn discover(timeout: Duration) -> anyhow::Result<Option<SocketAddr>> {
     let daemon = ServiceDaemon::new()?;

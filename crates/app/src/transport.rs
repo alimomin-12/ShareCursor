@@ -11,8 +11,8 @@ use std::net::{SocketAddr, UdpSocket};
 use std::sync::atomic::{AtomicU32, Ordering};
 use std::sync::Arc;
 
-use shareclick_protocol::crypto::Session;
-use shareclick_protocol::{InputMsg, InputPacket};
+use sharecursor_protocol::crypto::Session;
+use sharecursor_protocol::{InputMsg, InputPacket};
 
 /// A UDP endpoint for the input channel.
 pub struct InputChannel {

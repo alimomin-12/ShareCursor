@@ -38,10 +38,10 @@ pub fn run() -> anyhow::Result<()> {
     }));
 
     // Menu items — ids captured so we can match clicks.
-    let item_status = MenuItem::new("ShareClick — idle", false, None);
+    let item_status = MenuItem::new("ShareCursor — idle", false, None);
     let item_start = MenuItem::new("Start (find & connect the other PC)", true, None);
     let item_settings = MenuItem::new("Settings & Monitor Manager…", true, None);
-    let item_quit = MenuItem::new("Quit ShareClick", true, None);
+    let item_quit = MenuItem::new("Quit ShareCursor", true, None);
 
     let id_start = item_start.id().clone();
     let id_settings = item_settings.id().clone();
@@ -61,7 +61,7 @@ pub fn run() -> anyhow::Result<()> {
     // Start every login. Without a role, wait for a menu choice.
     // One button, one behaviour: auto-pair (role in the config only decides who
     // listens; control is symmetric either way). Starts immediately on launch.
-    item_status.set_text("ShareClick — pairing…");
+    item_status.set_text("ShareCursor — pairing…");
     spawn_pair();
 
     // The tray icon must be created after the loop starts on macOS, so we build
@@ -76,7 +76,7 @@ pub fn run() -> anyhow::Result<()> {
             Event::NewEvents(tao::event::StartCause::Init) => {
                 let icon = brand_icon();
                 match TrayIconBuilder::new()
-                    .with_tooltip("ShareClick — low-latency KVM")
+                    .with_tooltip("ShareCursor — low-latency KVM")
                     .with_menu(Box::new(menu_holder.clone()))
                     .with_icon(icon)
                     .build()
@@ -92,7 +92,7 @@ pub fn run() -> anyhow::Result<()> {
                 if ev.id == id_quit {
                     *control_flow = ControlFlow::Exit;
                 } else if ev.id == id_start {
-                    item_status.set_text("ShareClick — pairing…");
+                    item_status.set_text("ShareCursor — pairing…");
                     spawn_pair();
                 } else if ev.id == id_settings {
                     open_settings(&config_path);
@@ -126,7 +126,7 @@ fn spawn_pair() {
     });
 }
 
-/// Open the visual settings window (a separate `shareclick settings` process,
+/// Open the visual settings window (a separate `sharecursor settings` process,
 /// so it has its own event loop). Falls back to opening the config file.
 fn open_settings(path: &PathBuf) {
     if let Ok(exe) = std::env::current_exe() {
@@ -169,7 +169,7 @@ fn open_path(path: &PathBuf) -> std::io::Result<()> {
         .map(|_| ())
 }
 
-/// The ShareClick brand icon (a blue cursor-click glyph) — pre-rendered to raw
+/// The ShareCursor brand icon (a blue cursor-click glyph) — pre-rendered to raw
 /// 64×64 RGBA and embedded so we ship no image files or SVG renderer.
 fn brand_icon() -> Icon {
     const S: u32 = 64;

@@ -4,7 +4,7 @@
 //! manager layout, control is handed to that neighbour — the seamless
 //! "just push the mouse to the other screen" behaviour, no hotkey needed.
 
-use shareclick_protocol::Edge;
+use sharecursor_protocol::Edge;
 
 /// Which edges of this machine's screen border another machine, plus the
 /// screen size used to test the cursor position.
