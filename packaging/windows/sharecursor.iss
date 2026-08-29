@@ -1,17 +1,17 @@
-; Inno Setup script for ShareClick — produces a one-click Windows installer.
+; Inno Setup script for ShareCursor — produces a one-click Windows installer.
 ;
 ; Build (on Windows, after `cargo build --release --features tray`):
-;   iscc /DMyAppVersion=0.1.0 packaging\windows\shareclick.iss
+;   iscc /DMyAppVersion=0.1.0 packaging\windows\sharecursor.iss
 ;
-; Output: packaging\windows\Output\ShareClick-Setup-<version>.exe
+; Output: packaging\windows\Output\ShareCursor-Setup-<version>.exe
 
 #ifndef MyAppVersion
   #define MyAppVersion "0.1.0"
 #endif
-#define MyAppName "ShareClick"
-#define MyAppPublisher "ShareClick"
-#define MyAppExeName "shareclick.exe"
-#define MyAppURL "https://github.com/phun333/ShareClick"
+#define MyAppName "ShareCursor"
+#define MyAppPublisher "ShareCursor"
+#define MyAppExeName "sharecursor.exe"
+#define MyAppURL "https://github.com/phun333/ShareCursor"
 
 [Setup]
 AppId={{9F5B2C31-4E8A-4C1F-9A2D-7B3E6C1A0D42}
@@ -25,11 +25,11 @@ DisableProgramGroupPage=yes
 ; Install for the current user only → no admin prompt (nicer UX).
 PrivilegesRequired=lowest
 OutputDir=Output
-OutputBaseFilename=ShareClick-Setup-{#MyAppVersion}
+OutputBaseFilename=ShareCursor-Setup-{#MyAppVersion}
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
-SetupIconFile=shareclick.ico
+SetupIconFile=sharecursor.ico
 UninstallDisplayIcon={app}\{#MyAppExeName}
 ArchitecturesAllowed=x64compatible
 ArchitecturesInstallIn64BitMode=x64compatible
@@ -39,7 +39,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a &desktop shortcut"; GroupDescription: "Additional shortcuts:"
-Name: "startupicon"; Description: "Start ShareClick automatically when I log in"; GroupDescription: "Startup:"; Flags: unchecked
+Name: "startupicon"; Description: "Start ShareCursor automatically when I log in"; GroupDescription: "Startup:"; Flags: unchecked
 
 [Files]
 Source: "..\..\target\release\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion

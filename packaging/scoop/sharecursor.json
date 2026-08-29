@@ -1,26 +1,26 @@
 {
   "version": "0.5.2-test",
   "description": "Software KVM — share keyboard, mouse, clipboard & files between Mac and Windows over the LAN.",
-  "homepage": "https://phun333.github.io/ShareClick/",
+  "homepage": "https://sharecursor.com/",
   "license": "MIT",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/phun333/ShareClick/releases/download/v0.5.2-test/ShareClick-Setup-0.5.2-test.exe",
+      "url": "https://github.com/phun333/ShareCursor/releases/download/v0.5.2-test/ShareCursor-Setup-0.5.2-test.exe",
       "hash": "23346439b0ea43c8dedf3045e50259b81bd1f2004eed010050bd80a9cbe938f1"
     }
   },
   "innosetup": true,
-  "bin": "shareclick.exe",
+  "bin": "sharecursor.exe",
   "shortcuts": [
-    ["shareclick.exe", "ShareClick"]
+    ["sharecursor.exe", "ShareCursor"]
   ],
   "checkver": {
-    "github": "https://github.com/phun333/ShareClick"
+    "github": "https://github.com/phun333/ShareCursor"
   },
   "autoupdate": {
     "architecture": {
       "64bit": {
-        "url": "https://github.com/phun333/ShareClick/releases/download/v$version/ShareClick-Setup-$version.exe"
+        "url": "https://github.com/phun333/ShareCursor/releases/download/v$version/ShareCursor-Setup-$version.exe"
       }
     }
   }

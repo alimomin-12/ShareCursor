@@ -22,7 +22,7 @@ jobs:
         with:
           targets: aarch64-apple-darwin,x86_64-apple-darwin
       - uses: Swatinem/rust-cache@v2
-      - name: Build ShareClick.app + .dmg
+      - name: Build ShareCursor.app + .dmg
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           bash packaging/macos/build-app.sh "$VERSION"
@@ -49,7 +49,7 @@ jobs:
           if (-not $version) { $version = "0.0.0" }
           choco install innosetup --no-progress -y
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" `
-            "/DMyAppVersion=$version" packaging\windows\shareclick.iss
+            "/DMyAppVersion=$version" packaging\windows\sharecursor.iss
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -74,24 +74,24 @@ jobs:
           generate_release_notes: true
           prerelease: ${{ contains(github.ref_name, '-') }}
           body: |
-            ## ShareClick ${{ github.ref_name }}
+            ## ShareCursor ${{ github.ref_name }}
 
             **Download & install — no Rust required:**
-            * **macOS:** `ShareClick-*.dmg` → open, drag ShareClick to Applications.
+            * **macOS:** `ShareCursor-*.dmg` → open, drag ShareCursor to Applications.
               Then grant **Accessibility** + **Input Monitoring**.
-            * **Windows:** `ShareClick-Setup-*.exe` → run it (no admin needed).
+            * **Windows:** `ShareCursor-Setup-*.exe` → run it (no admin needed).
 
             **Note: these builds are unsigned** (no paid certificate), so you'll see a
             one-time OS warning — normal for open-source apps.
             * **macOS** "app is damaged / can't be opened": open Terminal and run
-              `xattr -cr /Applications/ShareClick.app`, then launch it. (Or
+              `xattr -cr /Applications/ShareCursor.app`, then launch it. (Or
               right-click the app → Open, or System Settings → Privacy & Security
               → Open Anyway.)
             * **Windows** SmartScreen: **More info → Run anyway**.
 
-            Install help: https://github.com/phun333/ShareClick/blob/main/docs/INSTALL.md
+            Install help: https://github.com/phun333/ShareCursor/blob/main/docs/INSTALL.md
 
             **How to use it:** open the app (menu-bar / tray) → **Settings** → set
             the same passphrase + layout on both machines → **Start Server** on one,
             **Start Client** on the other. Full step-by-step (Mac + Windows):
-            https://github.com/phun333/ShareClick/blob/main/docs/USAGE.md
+            https://github.com/phun333/ShareCursor/blob/main/docs/USAGE.md

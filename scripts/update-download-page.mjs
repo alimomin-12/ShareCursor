@@ -15,7 +15,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, resolve } from "node:path";
 
-const REPO = process.env.SHARECLICK_REPO || "phun333/ShareClick";
+const REPO = process.env.SHARECURSOR_REPO || "phun333/ShareCursor";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const PAGE = resolve(__dirname, "..", "mintlify", "download.mdx");
 const START = "{/* AUTO-DOWNLOAD:START";
@@ -23,7 +23,7 @@ const END = "{/* AUTO-DOWNLOAD:END */}";
 const RELEASES_LATEST = `https://github.com/${REPO}/releases/latest`;
 
 async function fetchLatestRelease() {
-  const headers = { "User-Agent": "shareclick-docs", Accept: "application/vnd.github+json" };
+  const headers = { "User-Agent": "sharecursor-docs", Accept: "application/vnd.github+json" };
   if (process.env.GITHUB_TOKEN) headers.Authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
 
   // Prefer the newest non-draft release (falls back through the list so a

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Build ShareClick.app (a menu-bar app) and a distributable ShareClick.dmg.
+# Build ShareCursor.app (a menu-bar app) and a distributable ShareCursor.dmg.
 #
 # Usage:
 #   packaging/macos/build-app.sh [version]
 #
 # Produces:
-#   dist/ShareClick.app
-#   dist/ShareClick-<version>.dmg
+#   dist/ShareCursor.app
+#   dist/ShareCursor-<version>.dmg
 #
 # By default it builds a universal (arm64 + x86_64) binary so a single .dmg runs
 # on both Apple Silicon and Intel Macs. If a target toolchain is missing it
@@ -16,10 +16,10 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../.."
 VERSION="${1:-$(grep -m1 '^version' Cargo.toml | sed 's/.*"\(.*\)".*/\1/')}"
-APP="dist/ShareClick.app"
-BIN_NAME="shareclick"
+APP="dist/ShareCursor.app"
+BIN_NAME="sharecursor"
 
-echo "==> Building ShareClick $VERSION (features: tray)"
+echo "==> Building ShareCursor $VERSION (features: tray)"
 
 build_universal() {
   rustup target add aarch64-apple-darwin x86_64-apple-darwin >/dev/null 2>&1 || true
@@ -60,9 +60,9 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>CFBundleName</key><string>ShareClick</string>
-  <key>CFBundleDisplayName</key><string>ShareClick</string>
-  <key>CFBundleIdentifier</key><string>com.shareclick.ShareClick</string>
+  <key>CFBundleName</key><string>ShareCursor</string>
+  <key>CFBundleDisplayName</key><string>ShareCursor</string>
+  <key>CFBundleIdentifier</key><string>com.sharecursor.ShareCursor</string>
   <key>CFBundleVersion</key><string>$VERSION</string>
   <key>CFBundleShortVersionString</key><string>$VERSION</string>
   <key>CFBundleExecutable</key><string>$BIN_NAME</string>
@@ -80,12 +80,12 @@ codesign --force --deep --sign - "$APP" 2>/dev/null || \
   echo "   codesign unavailable; users may need right-click > Open"
 
 echo "==> Creating DMG"
-DMG="dist/ShareClick-$VERSION.dmg"
+DMG="dist/ShareCursor-$VERSION.dmg"
 rm -f "$DMG"
 STAGING="$(mktemp -d)"
 cp -R "$APP" "$STAGING/"
 ln -s /Applications "$STAGING/Applications"
-hdiutil create -volname "ShareClick" -srcfolder "$STAGING" -ov -format UDZO "$DMG" >/dev/null
+hdiutil create -volname "ShareCursor" -srcfolder "$STAGING" -ov -format UDZO "$DMG" >/dev/null
 rm -rf "$STAGING"
 
 echo ""
@@ -93,5 +93,5 @@ echo "Done:"
 echo "  $APP"
 echo "  $DMG"
 echo ""
-echo "Users: drag ShareClick to Applications, then grant Accessibility +"
+echo "Users: drag ShareCursor to Applications, then grant Accessibility +"
 echo "Input Monitoring permission on first launch."
