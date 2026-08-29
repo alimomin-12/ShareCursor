@@ -1,2 +1,8 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Keep documentation and the static website out of GitHub language statistics.
+# These files remain visible in diffs and continue to deploy normally.
+docs/** linguist-documentation
+mintlify/** linguist-documentation
+site/** linguist-documentation
