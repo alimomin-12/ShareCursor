@@ -6,6 +6,7 @@
 //! * **Windows:** an `HKCU\…\Run` entry launching `sharecursor run`, which hides
 //!   its own console window immediately.
 
+#[cfg(any(target_os = "macos", target_os = "windows"))]
 use std::process::Command;
 
 #[cfg(target_os = "macos")]
