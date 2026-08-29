@@ -1,7 +1,6 @@
 :root{
   --bg:#fafafa; --card:#fff; --ink:#111; --muted:#6b7280;
   --line:#e7e7e7; --line-strong:#d9d9d9; --accent:#2563eb; --radius:14px;
-  /* Emil Kowalski easing curves — stronger than default CSS easings */
   --ease-out:cubic-bezier(0.23,1,0.32,1);
   --ease-in-out:cubic-bezier(0.77,0,0.175,1);
 }
@@ -9,7 +8,7 @@
 html{interpolate-size:allow-keywords}
 body{
   margin:0;background:var(--bg);color:var(--ink);
-  font-family:'JetBrains Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  font-family:ui-monospace,'SFMono-Regular','Cascadia Code',Consolas,'Liberation Mono',Menlo,monospace;
   font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
   min-height:100vh;display:flex;flex-direction:column;
 }
@@ -123,7 +122,7 @@ article .updated{color:var(--muted);font-size:12.5px;margin-top:-4px}
 .verdict{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:20px 22px;margin:8px 0 8px}
 .verdict b{color:var(--ink)}
 
-footer{border-top:1px solid var(--line);margin-top:50px;padding:22px 0;color:var(--muted);font-size:12.5px;text-align:center}
+footer{border-top:1px solid var(--line);margin-top:50px;padding:22px 24px;color:var(--muted);font-size:12.5px;text-align:center;line-height:1.8}
 footer a{color:var(--muted)}
 footer a:hover{color:var(--ink)}
 

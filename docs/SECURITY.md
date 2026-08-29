@@ -68,6 +68,13 @@ collide.
   `%APPDATA%\sharecursor\config.toml` (Windows). Protect it with normal file
   permissions.
 
+## Reporting a vulnerability
+
+Do not open a public issue for a suspected vulnerability. Use GitHub's
+[private security advisory form](https://github.com/phun333/ShareCursor/security/advisories/new)
+and include the affected version, operating systems, impact, and reproducible
+steps. Do not include real passphrases, clipboard contents, or private files.
+
 ## Tests
 
 `crypto.rs` unit tests assert: round-trip both directions; wrong PSK fails;

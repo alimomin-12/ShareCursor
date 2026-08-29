@@ -1,18 +1,9 @@
 # ShareCursor — full website content
 
-> This file contains the complete text of the ShareCursor marketing site in one
-> place for machine reading. ShareCursor is a free, open-source software KVM: one
-> keyboard and mouse control a Mac and a Windows PC over the LAN, with encrypted
-> clipboard and file sharing. The product requires no ShareCursor account or cloud
-> service. Source: https://github.com/phun333/ShareCursor
+> Consolidated content from ShareCursor's public Markdown pages for machine readers and offline reference.
+> Last content update: August 29, 2026.
 
-> Updated: August 22, 2026. The ~6 µs latency figure used below is measured
-> loopback transport overhead, not full end-to-end device latency or a direct
-> competitor benchmark.
-
----
-
-Source page: https://sharecursor.com/index.md
+Source: https://sharecursor.com/index.md
 
 # ShareCursor — share one keyboard & mouse across Mac and Windows
 
@@ -31,6 +22,13 @@ Input Leap, with a low-latency UDP input path (~6 µs measured loopback transpor
 - **Download:** https://github.com/phun333/ShareCursor/releases
 - **Source:** https://github.com/phun333/ShareCursor
 
+## Development status
+
+ShareCursor is under active development and may not work reliably on every macOS
+and Windows setup. If you try it, please [report bugs](https://github.com/phun333/ShareCursor/issues/new?template=bug_report.yml),
+[suggest improvements](https://github.com/phun333/ShareCursor/issues/new?template=feature_request.yml), or
+[contribute a fix](https://github.com/phun333/ShareCursor/blob/main/CONTRIBUTING.md).
+
 ## Features
 
 - Share one keyboard and mouse across Mac and Windows
@@ -44,28 +42,26 @@ Input Leap, with a low-latency UDP input path (~6 µs measured loopback transpor
 ## FAQ
 
 **What is ShareCursor?**
-ShareCursor is a free, open-source software KVM. It lets one keyboard and mouse
-control both a Mac and a Windows PC over your local network, with clipboard and
-file sharing built in. Everything is end-to-end encrypted and runs LAN-only — no
-hardware, no cloud, no account.
+ShareCursor is a free, open-source software KVM for controlling a Mac and a
+Windows PC with one keyboard and mouse over your local network. It is under
+active development, so reliability may vary by setup.
 
 **Is ShareCursor free?**
 Yes. It is completely free and open source (MIT / Apache-2.0). No account, no
 subscription, no cloud.
 
 **Does it share a mouse and keyboard between Mac and Windows?**
-Yes. ShareCursor is a software KVM: one keyboard and mouse control both your Mac
-and Windows PC over the local network. Move the cursor to a screen edge to switch
-machines.
+That is what ShareCursor is built to do. Current builds let one keyboard and
+mouse control a Mac and a Windows PC over the local network, but compatibility
+may vary during development.
 
 **Is ShareCursor a free alternative to Synergy and ShareMouse?**
-Yes. It does what paid tools like Synergy and ShareMouse do — input sharing,
-clipboard sync and file transfer — but it is free, open source, and built for
-lower input lag.
+ShareCursor is being developed as a free, open-source alternative with input
+sharing, clipboard sync, file transfer, and a focus on lower input lag.
 
 **Does it sync the clipboard and transfer files?**
-Yes. The clipboard (text and images) syncs automatically, and you can send files
-straight across the encrypted connection.
+Current builds include clipboard sync for text and images plus encrypted file
+transfer. These features may not work reliably on every setup yet.
 
 **Is it secure and does it need the internet?**
 It runs on your local network only — no cloud. Every channel is end-to-end
@@ -82,10 +78,9 @@ shared passphrase.
 - [Share clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md)
 - [Pricing](https://sharecursor.com/pricing.md)
 - [Install help](https://github.com/phun333/ShareCursor/blob/main/docs/INSTALL.md)
-
 ---
 
-Source page: https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md
+Source: https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md
 
 # How to share a mouse & keyboard between Mac and Windows
 
@@ -177,10 +172,9 @@ That's it. One keyboard, one mouse, one clipboard across your Mac and Windows PC
 - [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
 - [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
 - [Back to home](https://sharecursor.com/index.md)
-
 ---
 
-Source page: https://sharecursor.com/share-clipboard-between-mac-and-windows.md
+Source: https://sharecursor.com/share-clipboard-between-mac-and-windows.md
 
 # How to share clipboard between Mac and Windows
 
@@ -294,10 +288,9 @@ Mac-to-Windows clipboard sharing.
 - [Share one mouse and keyboard between Mac and Windows](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
 - [What is a software KVM?](https://sharecursor.com/what-is-a-software-kvm.md)
 - [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
-
 ---
 
-Source page: https://sharecursor.com/what-is-a-software-kvm.md
+Source: https://sharecursor.com/what-is-a-software-kvm.md
 
 # What is a software KVM?
 
@@ -351,10 +344,9 @@ workspace — one keyboard, one mouse, one clipboard — without any extra hardw
 - [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
 - [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
 - [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
-
 ---
 
-Source page: https://sharecursor.com/synergy-alternatives.md
+Source: https://sharecursor.com/synergy-alternatives.md
 
 # 7 Synergy alternatives compared for 2026
 
@@ -520,10 +512,9 @@ claims should be checked again before a purchase or large deployment.
 - [ShareCursor vs ShareMouse](https://sharecursor.com/vs-sharemouse.md)
 - [ShareCursor vs Barrier](https://sharecursor.com/vs-barrier.md)
 - [Share clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md)
-
 ---
 
-Source page: https://sharecursor.com/vs-synergy.md
+Source: https://sharecursor.com/vs-synergy.md
 
 # ShareCursor vs Synergy
 
@@ -622,10 +613,9 @@ file-transfer tests.
 - [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
 - [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
 - [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
-
 ---
 
-Source page: https://sharecursor.com/vs-sharemouse.md
+Source: https://sharecursor.com/vs-sharemouse.md
 
 # ShareCursor vs ShareMouse
 
@@ -719,10 +709,9 @@ transfer have all been tested.
 - [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
 - [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
 - [Keyboard-and-mouse sharing alternatives](https://sharecursor.com/synergy-alternatives.md)
-
 ---
 
-Source page: https://sharecursor.com/vs-barrier.md
+Source: https://sharecursor.com/vs-barrier.md
 
 # ShareCursor vs Barrier
 
@@ -794,10 +783,9 @@ before choosing a replacement.
 - [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
 - [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
 - [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
-
 ---
 
-Source page: https://sharecursor.com/vs-mouse-without-borders.md
+Source: https://sharecursor.com/vs-mouse-without-borders.md
 
 # ShareCursor vs Mouse Without Borders
 
@@ -869,10 +857,9 @@ end-to-end benchmark against the Microsoft tool.
 - [Mac and Windows clipboard guide](https://sharecursor.com/share-clipboard-between-mac-and-windows.md)
 - [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
 - [Keyboard-and-mouse sharing alternatives](https://sharecursor.com/synergy-alternatives.md)
-
 ---
 
-Source page: https://sharecursor.com/vs-universal-control.md
+Source: https://sharecursor.com/vs-universal-control.md
 
 # Universal Control for Windows: ShareCursor vs Apple Universal Control
 
@@ -951,10 +938,9 @@ you plan to use.
 - [Mac and Windows setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
 - [Share clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md)
 - [Compare software KVM options](https://sharecursor.com/synergy-alternatives.md)
-
 ---
 
-Source page: https://sharecursor.com/vs-input-leap.md
+Source: https://sharecursor.com/vs-input-leap.md
 
 # ShareCursor vs Input Leap
 
@@ -1008,10 +994,9 @@ also evaluate Deskflow.
 - [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
 - [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
 - [2026 Synergy alternatives comparison](https://sharecursor.com/synergy-alternatives.md)
-
 ---
 
-Source page: https://sharecursor.com/pricing.md
+Source: https://sharecursor.com/pricing.md
 
 # Pricing — ShareCursor
 
@@ -1029,3 +1014,71 @@ subscriptions, and no license for the number of computers you use.
 - Requirements: both machines on the same local network (LAN); no cloud account
 
 Download: https://github.com/phun333/ShareCursor/releases
+---
+
+Source: https://sharecursor.com/support.md
+
+# Support — ShareCursor
+
+> ShareCursor is an early-development open-source project. Documentation and community support are public so fixes can benefit everyone.
+
+## Install and configure
+
+- Start with the [quickstart](https://docs.sharecursor.com/quickstart).
+- Use the [installation guide](https://docs.sharecursor.com/installation) for macOS permissions and Windows warnings.
+- Review [configuration](https://docs.sharecursor.com/configuration) and [troubleshooting](https://docs.sharecursor.com/troubleshooting) for connection and input issues.
+
+## Report a problem
+
+Search the [existing issues](https://github.com/phun333/ShareCursor/issues) first. If the problem is new, open a [bug report](https://github.com/phun333/ShareCursor/issues/new?template=bug_report.yml) and include both operating-system versions, the ShareCursor version, the role of each computer, and reproducible steps.
+
+Do not include the shared passphrase, private clipboard contents, transferred files, or other secrets in an issue or log excerpt.
+
+## Request an improvement
+
+Use the [feature request form](https://github.com/phun333/ShareCursor/issues/new?template=feature_request.yml). Explain the two-computer setup and the problem the change would solve.
+
+## Report a security vulnerability
+
+Do not open a public issue for a suspected vulnerability. Use GitHub's [private security advisory form](https://github.com/phun333/ShareCursor/security/advisories/new) so maintainers can review the report before details are disclosed.
+
+## System requirements
+
+| Platform | Supported setup |
+|---|---|
+| macOS | macOS 11 or newer; Accessibility and Input Monitoring permissions |
+| Windows | Windows 10 or 11, x64; private-network firewall access |
+| Network | Both computers on the same trusted LAN or Wi-Fi network |
+---
+
+Source: https://sharecursor.com/privacy.md
+
+# Privacy — ShareCursor
+
+> ShareCursor is designed to work without an account or cloud service. The app communicates directly between paired computers on the same local network.
+
+Last updated: August 29, 2026.
+
+## The ShareCursor app
+
+- **No account:** the app has no registration or sign-in system.
+- **No product telemetry:** the app does not send usage analytics, crash reports, clipboard contents, input events, or transferred files to the ShareCursor project.
+- **Local communication:** keyboard and mouse events, clipboard data, and files travel directly between paired computers over the local network.
+- **Local configuration:** settings and the shared passphrase are stored on each computer. Protect the local account and configuration file with normal operating-system permissions.
+- **Local discovery:** mDNS can advertise and discover ShareCursor peers on the local network. The shared passphrase is still required to authenticate a connection.
+
+## Website analytics
+
+The public website uses [Umami Cloud](https://umami.is/privacy) for aggregate, cookieless analytics. ShareCursor records page views and clicks on release links so the documentation and download flow can be improved. It does not use advertising trackers or create an account profile.
+
+Requests to GitHub, Mintlify, and other external sites are governed by those services' privacy policies after you follow an external link.
+
+## Data retention and requests
+
+The ShareCursor project does not operate an application backend that receives user content. Website analytics are retained in the configured Umami Cloud account according to Umami's service and retention settings.
+
+For a privacy question, open a [GitHub issue](https://github.com/phun333/ShareCursor/issues/new/choose). Do not put passwords, private files, or other sensitive information in a public issue.
+
+## Changes
+
+This page will be updated if the app begins collecting data or the website's analytics setup changes. Material changes will be recorded in the project changelog.

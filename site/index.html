@@ -5,16 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ShareCursor: share mouse &amp; keyboard between Mac &amp; Windows</title>
 <meta name="description" content="Free open-source software KVM. Share one keyboard, mouse, clipboard &amp; files between your Mac and Windows PC over the LAN. Encrypted, low-latency, no cloud." />
-<meta name="keywords" content="software KVM, share mouse keyboard mac windows, Synergy alternative, ShareMouse alternative, Barrier alternative, free KVM software, share clipboard mac and windows, control two computers one keyboard mouse, Universal Control for Windows, open source KVM" />
 <meta name="author" content="wiredaddict" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#fafafa" />
 <link rel="canonical" href="https://sharecursor.com/" />
 <link rel="alternate" type="text/markdown" href="index.md" title="Markdown version (for LLMs)" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-<!-- Google Search Console verification: paste your token, then uncomment -->
-<!-- <meta name="google-site-verification" content="PASTE_TOKEN_HERE" /> -->
-
+<link rel="apple-touch-icon" href="sharecursor-icon-192.png" />
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ShareCursor" />
@@ -36,88 +33,140 @@
 <meta name="twitter:image" content="https://sharecursor.com/sharecursor-og.png" />
 <meta name="twitter:image:alt" content="ShareCursor — one keyboard and mouse across Mac and Windows" />
 
-<!-- Structured data: SoftwareApplication (free) + FAQ -->
+<!-- Structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "ShareCursor",
-  "alternateName": "ShareCursor Software KVM",
-  "applicationCategory": "UtilitiesApplication",
-  "operatingSystem": "macOS, Windows",
-  "description": "Free open-source software KVM to share one keyboard, mouse, clipboard and files between Mac and Windows over the LAN. Encrypted and low-latency. A free alternative to Synergy and ShareMouse.",
-  "url": "https://sharecursor.com/",
-  "downloadUrl": "https://github.com/phun333/ShareCursor/releases",
-  "softwareVersion": "0.6.0-test",
-  "isAccessibleForFree": true,
-  "license": "https://opensource.org/license/mit",
-  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "featureList": [
-    "Share one keyboard and mouse across Mac and Windows",
-    "Clipboard sync (text and images)",
-    "File transfer over the LAN",
-    "End-to-end encryption (X25519 + ChaCha20-Poly1305)",
-    "Automatic screen-edge switching",
-    "mDNS zero-config discovery"
-  ],
-  "image": "https://sharecursor.com/sharecursor-og.png",
-  "author": { "@type": "Person", "name": "wiredaddict", "url": "https://x.com/wiredaddict" },
-  "sameAs": [
-    "https://github.com/phun333/ShareCursor",
-    "https://x.com/wiredaddict"
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://sharecursor.com/#organization",
+      "name": "ShareCursor",
+      "url": "https://sharecursor.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://sharecursor.com/sharecursor-icon-512.png",
+        "width": 512,
+        "height": 512
+      },
+      "description": "Open-source software KVM for sharing a keyboard, mouse, clipboard and files between Mac and Windows.",
+      "founder": {
+        "@type": "Person",
+        "name": "wiredaddict",
+        "url": "https://x.com/wiredaddict"
+      },
+      "sameAs": [
+        "https://github.com/phun333/ShareCursor",
+        "https://x.com/wiredaddict"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://sharecursor.com/#website",
+      "name": "ShareCursor",
+      "alternateName": "ShareCursor Software KVM",
+      "url": "https://sharecursor.com/",
+      "inLanguage": "en",
+      "description": "Free, open-source software KVM to share one keyboard, mouse, clipboard and files between a Mac and a Windows PC over the LAN.",
+      "publisher": {
+        "@id": "https://sharecursor.com/#organization"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://sharecursor.com/#software",
+      "name": "ShareCursor",
+      "alternateName": "ShareCursor Software KVM",
+      "applicationCategory": "UtilitiesApplication",
+      "applicationSubCategory": "Software KVM",
+      "operatingSystem": "macOS 11 or newer; Windows 10 or 11 (x64)",
+      "description": "Free open-source software KVM to share one keyboard, mouse, clipboard and files between Mac and Windows over the LAN. Encrypted and low-latency. A free alternative to Synergy and ShareMouse.",
+      "url": "https://sharecursor.com/",
+      "downloadUrl": "https://github.com/phun333/ShareCursor/releases",
+      "softwareVersion": "0.6.0",
+      "isAccessibleForFree": true,
+      "license": [
+        "https://github.com/phun333/ShareCursor/blob/main/LICENSE-MIT",
+        "https://github.com/phun333/ShareCursor/blob/main/LICENSE-APACHE"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Share one keyboard and mouse across Mac and Windows",
+        "Clipboard sync (text and images)",
+        "File transfer over the LAN",
+        "End-to-end encryption (X25519 + ChaCha20-Poly1305)",
+        "Automatic screen-edge switching",
+        "mDNS zero-config discovery"
+      ],
+      "image": "https://sharecursor.com/sharecursor-og.png",
+      "author": {
+        "@id": "https://sharecursor.com/#organization"
+      },
+      "sameAs": [
+        "https://github.com/phun333/ShareCursor"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://sharecursor.com/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is ShareCursor?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ShareCursor is a free, open-source software KVM for controlling a Mac and a Windows PC with one keyboard and mouse over your local network. It is under active development, so reliability may vary by setup."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is ShareCursor free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. ShareCursor is completely free and open source (MIT OR Apache-2.0). No account, no subscription, no cloud."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it share a mouse and keyboard between Mac and Windows?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "That is what ShareCursor is built to do. Current builds let one keyboard and mouse control a Mac and a Windows PC over the local network, but compatibility may vary during development."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is ShareCursor a free alternative to Synergy and ShareMouse?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ShareCursor is being developed as a free, open-source alternative with input sharing, clipboard sync, file transfer, and a focus on lower input lag."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it sync the clipboard and transfer files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Current builds include clipboard sync for text and images plus encrypted file transfer. These features may not work reliably on every setup yet."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it secure and does it need the internet?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It runs on your local network only — no cloud. Every channel is end-to-end encrypted with X25519 key exchange and ChaCha20-Poly1305, authenticated by a shared passphrase."
+          }
+        }
+      ]
+    }
   ]
 }
 </script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "What is ShareCursor?",
-      "acceptedAnswer": { "@type": "Answer", "text": "ShareCursor is a free, open-source software KVM for controlling a Mac and a Windows PC with one keyboard and mouse over your local network. It is under active development, so reliability may vary by setup." } },
-    { "@type": "Question", "name": "Is ShareCursor free?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Yes. ShareCursor is completely free and open source (MIT / Apache-2.0). No account, no subscription, no cloud." } },
-    { "@type": "Question", "name": "Does it share a mouse and keyboard between Mac and Windows?",
-      "acceptedAnswer": { "@type": "Answer", "text": "That is what ShareCursor is built to do. Current builds let one keyboard and mouse control a Mac and a Windows PC over the local network, but compatibility may vary during development." } },
-    { "@type": "Question", "name": "Is ShareCursor a free alternative to Synergy and ShareMouse?",
-      "acceptedAnswer": { "@type": "Answer", "text": "ShareCursor is being developed as a free, open-source alternative with input sharing, clipboard sync, file transfer, and a focus on lower input lag." } },
-    { "@type": "Question", "name": "Does it sync the clipboard and transfer files?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Current builds include clipboard sync for text and images plus encrypted file transfer. These features may not work reliably on every setup yet." } },
-    { "@type": "Question", "name": "Is it secure and does it need the internet?",
-      "acceptedAnswer": { "@type": "Answer", "text": "It runs on your local network only — no cloud. Every channel is end-to-end encrypted with X25519 key exchange and ChaCha20-Poly1305, authenticated by a shared passphrase." } }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "ShareCursor",
-  "alternateName": "ShareCursor Software KVM",
-  "url": "https://sharecursor.com/",
-  "inLanguage": "en",
-  "description": "Free, open-source software KVM to share one keyboard, mouse, clipboard and files between a Mac and a Windows PC over the LAN.",
-  "publisher": { "@type": "Organization", "name": "ShareCursor", "url": "https://github.com/phun333/ShareCursor" }
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "ShareCursor",
-  "url": "https://sharecursor.com/",
-  "logo": "https://sharecursor.com/sharecursor-og.png",
-  "description": "Open-source software KVM for sharing a keyboard, mouse, clipboard and files between Mac and Windows.",
-  "founder": { "@type": "Person", "name": "wiredaddict", "url": "https://x.com/wiredaddict" },
-  "sameAs": [
-    "https://github.com/phun333/ShareCursor",
-    "https://x.com/wiredaddict"
-  ]
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="manifest" href="manifest.webmanifest">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="19332134-ef62-4f1c-be25-531b327c4223"></script>
@@ -127,7 +176,6 @@
 <div class="wrap">
   <header>
     <nav class="hnav">
-      <!-- Replace the href with your live Mintlify docs URL after connecting the repo to Mintlify. -->
       <a class="doclink" href="https://docs.sharecursor.com">Docs</a>
       <a class="icon" href="https://x.com/wiredaddict" aria-label="X (Twitter)">
         <svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -167,7 +215,7 @@
 
     <div class="facts">
       <span class="slider"><span class="track"></span><span class="knob"></span></span>
-      <span><b>~6&nbsp;µs</b> lag</span>
+      <span><b>~6&nbsp;µs</b> loopback overhead</span>
       <span class="s"></span>
       <span><b>encrypted</b></span>
       <span class="s"></span>
@@ -175,7 +223,7 @@
     </div>
 
     <div class="feat">
-      <div><b>low-latency input</b><span>UDP transport, ~6µs</span></div>
+      <div><b>low-latency input</b><span>UDP loopback, ~6&nbsp;µs</span></div>
       <div><b>encrypted</b><span>X25519 · ChaCha20</span></div>
       <div><b>clipboard &amp; files</b><span>text, images, files</span></div>
       <div><b>edge switch</b><span>push to the border</span></div>
@@ -227,6 +275,13 @@
     <a href="what-is-a-software-kvm.html">what is a software KVM?</a>
   </p>
 </div>
+
+  <footer>
+    <a href="./">sharecursor</a> · <a href="how-to-share-mouse-keyboard-mac-windows.html">Setup</a> ·
+    <a href="synergy-alternatives.html">Comparisons</a> · <a href="https://docs.sharecursor.com">Docs</a> ·
+    <a href="support.html">Support</a> · <a href="privacy.html">Privacy</a> ·
+    <a href="https://github.com/phun333/ShareCursor">GitHub</a> · MIT OR Apache-2.0
+  </footer>
 
 <script>
   (function(){

@@ -1,13 +1,18 @@
 {
+  "id": "/",
   "name": "ShareCursor",
   "short_name": "ShareCursor",
   "description": "Free open-source software KVM: share one keyboard, mouse, clipboard and files between Mac and Windows.",
+  "lang": "en",
   "start_url": "/",
   "scope": "/",
   "display": "browser",
+  "categories": ["utilities", "productivity"],
   "background_color": "#fafafa",
   "theme_color": "#fafafa",
   "icons": [
-    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+    { "src": "sharecursor-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "sharecursor-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "sharecursor-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ]
 }

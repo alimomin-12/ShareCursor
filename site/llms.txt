@@ -31,6 +31,8 @@ is the preferred source for machine reading.
 - [ShareCursor vs Universal Control](https://sharecursor.com/vs-universal-control.md): Universal Control for Windows (Apple's is Apple-only)
 - [ShareCursor vs Input Leap](https://sharecursor.com/vs-input-leap.md): updated after Input Leap was archived in July 2026
 - [Pricing](https://sharecursor.com/pricing.md): free
+- [Support](https://sharecursor.com/support.md): installation help, issue reporting and private security reporting
+- [Privacy](https://sharecursor.com/privacy.md): app data handling and website analytics
 - [Install guide](https://github.com/phun333/ShareCursor/blob/main/docs/INSTALL.md)
 - [Source code](https://github.com/phun333/ShareCursor)
 - [Download](https://github.com/phun333/ShareCursor/releases)
