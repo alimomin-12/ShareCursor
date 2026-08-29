@@ -39,8 +39,8 @@ version`. All crates inherit it.
    git push origin main --tags
    ```
 6. **Wait for CI.** `.github/workflows/release.yml` builds and attaches:
-   - `ShareClick-X.Y.Z.dmg` (macOS universal, arm64 + Intel)
-   - `ShareClick-Setup-X.Y.Z.exe` (Windows installer)
+   - `ShareCursor-X.Y.Z.dmg` (macOS universal, arm64 + Intel)
+   - `ShareCursor-Setup-X.Y.Z.exe` (Windows installer)
    to a GitHub Release with auto-generated notes.
 7. **Smoke-test the artifacts** on both OSes (install, launch, connect once).
 8. **Announce** — the Release page is the download link for users.
@@ -51,18 +51,18 @@ version`. All crates inherit it.
 - `macos` job (macos-14): adds both Apple targets, runs
   `packaging/macos/build-app.sh $VERSION` → universal `.app` + `.dmg`.
 - `windows` job (windows-latest): `cargo build --release --features tray`, then
-  `choco install innosetup` and `ISCC /DMyAppVersion=$VERSION shareclick.iss` →
+  `choco install innosetup` and `ISCC /DMyAppVersion=$VERSION sharecursor.iss` →
   `.exe` installer.
 - `release` job: downloads both artifacts and publishes the GitHub Release.
 
 ## Building installers locally (optional)
 
 ```bash
-# macOS (produces dist/ShareClick.app + dist/ShareClick-<ver>.dmg)
+# macOS (produces dist/ShareCursor.app + dist/ShareCursor-<ver>.dmg)
 bash packaging/macos/build-app.sh 0.1.0
 
 # Windows (in a Windows shell, after cargo build --release --features tray)
-iscc /DMyAppVersion=0.1.0 packaging\windows\shareclick.iss
+iscc /DMyAppVersion=0.1.0 packaging\windows\sharecursor.iss
 ```
 
 ## Code signing & notarization (current status)

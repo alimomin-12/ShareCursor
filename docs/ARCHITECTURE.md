@@ -120,7 +120,7 @@ and sends `Leave`; the server clears `active`. See
 
 ## Where the latency actually goes
 
-Measured on loopback with `shareclick bench --encrypted`:
+Measured on loopback with `sharecursor bench --encrypted`:
 
 - Transport (serialize + seal + socket + open + deserialize): **~6.5 µs one-way**
 - Encryption adds **~20 ns** (ChaCha20-Poly1305 on tiny packets).

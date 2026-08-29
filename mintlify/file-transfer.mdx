@@ -1,17 +1,17 @@
 ---
 title: "File transfer"
-description: "Send files between your machines over ShareClick's reliable, chunked, resumable-by-offset transfer channel."
+description: "Send files between your machines over ShareCursor's reliable, chunked, resumable-by-offset transfer channel."
 icon: "file-arrow-up"
 ---
 
 Once two machines are connected, the clipboard syncs automatically and you can
-send files across the **bulk channel** (TCP) — the reliable side of ShareClick's
+send files across the **bulk channel** (TCP) — the reliable side of ShareCursor's
 [dual-channel design](/concepts/architecture).
 
 ## Send a file
 
 ```bash
-shareclick send-file 192.168.1.20:24800 ./report.pdf
+sharecursor send-file 192.168.1.20:24800 ./report.pdf
 ```
 
 The file lands in `./received/` on the peer. Use the **other** machine's
@@ -28,7 +28,7 @@ The file lands in `./received/` on the peer. Use the **other** machine's
   </Step>
   <Step title="Find it in ./received">
     On the receiving machine, look in the `received/` directory next to where
-    ShareClick runs.
+    ShareCursor runs.
   </Step>
 </Steps>
 

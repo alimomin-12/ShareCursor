@@ -1,10 +1,10 @@
-# Product marketing context — ShareClick
+# Product marketing context — ShareCursor
 
 Shared context for the marketing skills. Read this before asking the user
 questions.
 
 ## What it is
-ShareClick is a **free, open-source software KVM**: it shares one keyboard,
+ShareCursor is a **free, open-source software KVM**: it shares one keyboard,
 mouse, clipboard and files between a Mac and a Windows PC over the local network.
 No KVM hardware, no cloud, no account. Encrypted end-to-end with a low-latency
 UDP input path (~6 µs measured loopback transport overhead). Menu-bar app on macOS, system tray
@@ -46,20 +46,20 @@ on Windows.
   discovery (no IPs to type).
 
 ## Assets & links
-- Site: https://phun333.github.io/ShareClick/
-- Repo: https://github.com/phun333/ShareClick
+- Site: https://sharecursor.com/
+- Repo: https://github.com/phun333/ShareCursor
 - X / Twitter: https://x.com/wiredaddict (handle @wiredaddict)
 - Comparison pages live: /vs-synergy.html, /vs-sharemouse.html, /vs-barrier.html
 - Alternatives hub: /synergy-alternatives.html
 - Setup guide: /how-to-share-mouse-keyboard-mac-windows.html
 - Clipboard guide: /share-clipboard-between-mac-and-windows.html
-- OG image: /og.png (1200×630)
+- OG image: /sharecursor-og.png (1200×630)
 - License: MIT / Apache-2.0. Pricing = Free (no pricing page; "free" counts).
 
 ## Asset gaps to create (needed for directory/PH launch)
 - 5–8 real screenshots (1920×1080) of the app in use.
 - A 60–90s demo video (screen recording of edge-switching + clipboard + file).
-- Square 1024×1024 logo + PNG/SVG logo set (we have favicon.svg + og.png).
+- Square 1024×1024 logo + PNG/SVG logo set (we have favicon.svg + sharecursor-og.png).
 
 ## Constraints / tone
 - Honest, factual, no hype, no fake reviews/ratings, no keyword stuffing.

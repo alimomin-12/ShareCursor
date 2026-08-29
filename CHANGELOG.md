@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to ShareClick are documented here. The format is based on
+All notable changes to ShareCursor are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project follows
 [Semantic Versioning](https://semver.org/). See
 [docs/RELEASING.md](./docs/RELEASING.md) for the release process.
@@ -19,7 +19,7 @@ All notable changes to ShareClick are documented here. The format is based on
   "away" at a time; the visited machine's real cursor is driven directly, so
   crossings feel like real adjacent monitors. (Protocol v4.)
 - **Zero-config auto-pairing** — both machines advertise + search on the LAN
-  and connect automatically: no IPs, no role picking (`shareclick pair`, and
+  and connect automatically: no IPs, no role picking (`sharecursor pair`, and
   the default when no role is set).
 - **One-machine layout setup** — the monitor arrangement is exchanged in the
   handshake; the other machine adopts the mirrored layout automatically.
@@ -27,7 +27,7 @@ All notable changes to ShareClick are documented here. The format is based on
   actually overlap (with the arrangement offset); elsewhere the edge is a wall.
 - **Fully dynamic screen sizes** — always live-detected, reported in the
   handshake, never typed by hand.
-- **Background service** — `shareclick install-service` auto-starts ShareClick
+- **Background service** — `sharecursor install-service` auto-starts ShareCursor
   on login (macOS LaunchAgent / Windows startup), no terminal needed.
 - **Server/Client/auto role selector** + no-overlap monitor arrangement UI.
 - **Brand icon** everywhere: tray, settings window, site favicon, macOS .app
@@ -37,12 +37,15 @@ All notable changes to ShareClick are documented here. The format is based on
   + warp-to-centre + live position), so the pointer truly *leaves* one screen
   and appears on the other instead of mirroring.
 - **Visual settings & monitor-arrangement window** (`gui` feature) — drag the two
-  monitors to lay them out like macOS Displays; ShareClick computes the edge
+  monitors to lay them out like macOS Displays; ShareCursor computes the edge
   adjacency and saves the config. Opened from the tray **Settings**.
 - **Automatic remote screen size** — the client reports its resolution on connect
   (like Deskflow's DINF), so the arrangement window shows the real size.
 
 ### Changed
+- **Project identity and website domain** — renamed the application, executables,
+  packages, installers, documentation, and repository references to ShareCursor.
+  The canonical website URL is now `https://sharecursor.com/`.
 - **Development status and contribution guidance** — the website, README, and
   documentation now explain that compatibility may vary during active
   development and link to bug reports, feedback, and pull requests. GitHub issue
@@ -87,5 +90,5 @@ First release. A complete, low-latency, open-source software KVM.
 - Builds are unsigned (Gatekeeper/SmartScreen prompt on first launch).
 - One client at a time; no sliding-window UDP anti-replay yet.
 
-[Unreleased]: https://github.com/phun333/ShareClick/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/phun333/ShareClick/releases/tag/v0.1.0
+[Unreleased]: https://github.com/phun333/ShareCursor/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/phun333/ShareCursor/releases/tag/v0.1.0

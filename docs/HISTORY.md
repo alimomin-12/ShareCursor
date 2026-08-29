@@ -1,12 +1,12 @@
 # Build history — what was built, why, and how
 
-This is the narrative record of how ShareClick came to be, written so anyone
+This is the narrative record of how ShareCursor came to be, written so anyone
 (human or AI) resuming the project understands the intent behind each stage. The
 machine-readable version — every experiment, its metric, and its rationale — is
 in `autoresearch.jsonl` at the repo root; this file is the human summary.
 
 The project was built by an AI agent in an autonomous loop that tracks input
-latency as its primary metric (`shareclick bench`). Every change was compiled,
+latency as its primary metric (`sharecursor bench`). Every change was compiled,
 unit-tested where verifiable, and checked for latency regression.
 
 ## Phase 0 — Research (before any code)
@@ -73,7 +73,7 @@ The realization that end users won't install Rust drove packaging:
 - No-argument launch opens the tray (double-click UX).
 - `packaging/macos/build-app.sh`: universal (arm64 + Intel) menu-bar `.app` +
   `.dmg`.
-- `packaging/windows/shareclick.iss`: one-click Inno Setup installer.
+- `packaging/windows/sharecursor.iss`: one-click Inno Setup installer.
 - `.github/workflows/release.yml`: on every `vX.Y.Z` tag, CI builds and publishes
   both installers to a GitHub Release. See [RELEASING.md](./RELEASING.md).
 

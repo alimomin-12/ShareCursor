@@ -1,6 +1,6 @@
-# ShareClick Docs (Mintlify)
+# ShareCursor Docs (Mintlify)
 
-AI/LLM-friendly, human-beautiful documentation for ShareClick, built with
+AI/LLM-friendly, human-beautiful documentation for ShareCursor, built with
 [Mintlify](https://mintlify.com).
 
 ## Structure

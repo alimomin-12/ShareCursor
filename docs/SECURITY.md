@@ -51,7 +51,7 @@ collide.
 - Imposter advertising the same mDNS service (rejected without the PSK).
 
 **Out of scope (documented limitations):**
-- A compromised endpoint (malware on either machine) — ShareClick injects input
+- A compromised endpoint (malware on either machine) — ShareCursor injects input
   by design, so an attacker with code execution already wins.
 - Denial of service by flooding UDP — mitigated only by being LAN-local.
 - **Replay within a session:** the counter prevents accepting an *old* counter,
@@ -64,8 +64,8 @@ collide.
 
 - Use a **long, random PSK**, identical on both machines. Never commit it.
 - The config file holds the PSK in plaintext at
-  `~/Library/Application Support/shareclick/config.toml` (macOS) /
-  `%APPDATA%\shareclick\config.toml` (Windows). Protect it with normal file
+  `~/Library/Application Support/sharecursor/config.toml` (macOS) /
+  `%APPDATA%\sharecursor\config.toml` (Windows). Protect it with normal file
   permissions.
 
 ## Tests

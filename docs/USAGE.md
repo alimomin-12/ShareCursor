@@ -1,6 +1,6 @@
-# Using ShareClick
+# Using ShareCursor
 
-How to actually share your keyboard, mouse, clipboard and files once ShareClick
+How to actually share your keyboard, mouse, clipboard and files once ShareCursor
 is installed on both machines. Two ways: the **app UI** (easiest) or the
 **terminal** (best for a first test, because you can see the logs).
 
@@ -11,13 +11,13 @@ haven't installed yet, see [INSTALL.md](./INSTALL.md).
 
 ## Key idea (read this first)
 
-- ShareClick is **symmetric** (like ShareMouse): once connected, **both
+- ShareCursor is **symmetric** (like ShareMouse): once connected, **both
   machines' mice and keyboards work** — grab whichever you like. Push the
   cursor through the shared screen edge and it crosses to the other machine;
   push it back and it returns.
 - "Server" vs "client" only decides **who listens** for the connection — it
   doesn't matter for control. Easiest: don't pick at all and use
-  **auto-pairing** (`shareclick pair`, or just leave the role unset): the two
+  **auto-pairing** (`sharecursor pair`, or just leave the role unset): the two
   machines find each other on the LAN and connect — **no IP addresses**.
 - Both machines need the **same passphrase** (it authenticates + encrypts).
 - Both machines must be on the **same Wi‑Fi / network**.
@@ -30,7 +30,7 @@ haven't installed yet, see [INSTALL.md](./INSTALL.md).
 
 ### On BOTH machines: open Settings and set the passphrase
 
-1. Launch ShareClick. It lives in the **menu bar** (macOS, top‑right) or the
+1. Launch ShareCursor. It lives in the **menu bar** (macOS, top‑right) or the
    **system tray** (Windows, bottom‑right).
 2. Click the icon → **Settings & Monitor Manager**. This opens the visual
    settings window.
@@ -88,7 +88,7 @@ left   = "mac"
 ### Then start it
 
 1. **On the Mac:** grant permissions the first time — System Settings → Privacy &
-   Security → enable **Accessibility** and **Input Monitoring** for ShareClick.
+   Security → enable **Accessibility** and **Input Monitoring** for ShareCursor.
    Then tray icon → **Start Server**.
 2. **On the Windows PC:** tray icon → **Start Client**. Allow it through the
    **firewall** when Windows asks (Private networks → Allow).
@@ -111,9 +111,9 @@ to diagnose.
 ### macOS (server)
 ```bash
 # from the app, or the built binary:
-shareclick init-config                 # writes the config once
-open -e ~/Library/Application\ Support/shareclick/config.toml   # edit + save
-shareclick serve                       # start the server
+sharecursor init-config                 # writes the config once
+open -e ~/Library/Application\ Support/sharecursor/config.toml   # edit + save
+sharecursor serve                       # start the server
 ```
 Grant **Accessibility** + **Input Monitoring** to the Terminal (or the app) in
 System Settings → Privacy & Security, then run `serve` again.
@@ -121,11 +121,11 @@ System Settings → Privacy & Security, then run `serve` again.
 ### Windows (client)
 Open **PowerShell** and find the installed exe:
 ```powershell
-$exe = Get-ChildItem "$env:LOCALAPPDATA\Programs\ShareClick","$env:ProgramFiles\ShareClick" `
-       -Filter shareclick.exe -Recurse -ErrorAction SilentlyContinue |
+$exe = Get-ChildItem "$env:LOCALAPPDATA\Programs\ShareCursor","$env:ProgramFiles\ShareCursor" `
+       -Filter sharecursor.exe -Recurse -ErrorAction SilentlyContinue |
        Select-Object -First 1 -ExpandProperty FullName
 & $exe init-config
-notepad "$env:APPDATA\shareclick\config.toml"    # edit (name=windows, same psk, server_host=Mac IP) + save
+notepad "$env:APPDATA\sharecursor\config.toml"    # edit (name=windows, same psk, server_host=Mac IP) + save
 & $exe connect                                    # allow through the firewall when asked
 ```
 
@@ -133,7 +133,7 @@ You should see **"client authenticated (encrypted session established)"** on the
 Mac. Then test the edge switch, clipboard, and:
 ```bash
 # send a file to the other machine (use the OTHER machine's IP:port)
-shareclick send-file 192.168.1.30:24800 ./report.pdf   # lands in ./received there
+sharecursor send-file 192.168.1.30:24800 ./report.pdf   # lands in ./received there
 ```
 
 ---
@@ -170,10 +170,10 @@ find the server automatically over mDNS — running `connect` with no
 |---|---|
 | Mouse doesn't move (Mac server) | Enable **Accessibility** *and* **Input Monitoring**; quit and reopen after granting. |
 | `handshake/auth failed` | The `psk` isn't identical on both machines. |
-| Client can't connect | Same Wi‑Fi? Firewall allowed on Windows? Correct `server_host` IP? Try `shareclick discover`. |
+| Client can't connect | Same Wi‑Fi? Firewall allowed on Windows? Correct `server_host` IP? Try `sharecursor discover`. |
 | `name ... is not present` | `name` must match a `[[machines]]` entry. |
 | Nothing happens at the edge | Check the layout edges (`right`/`left`) and that `auto_edge_switch = true`. **Hold both Shift keys** to toggle control from the keyboard (reliable escape). |
-| Windows: no tray icon after launching | New icons hide under the **"^" (show hidden icons)** arrow by the clock — drag ShareClick onto the taskbar. For a first test you can skip the tray entirely and run `shareclick.exe connect` from PowerShell. |
+| Windows: no tray icon after launching | New icons hide under the **"^" (show hidden icons)** arrow by the clock — drag ShareCursor onto the taskbar. For a first test you can skip the tray entirely and run `sharecursor.exe connect` from PowerShell. |
 
 Still stuck? Open an issue with the terminal output from both machines:
-<https://github.com/phun333/ShareClick/issues>.
+<https://github.com/phun333/ShareCursor/issues>.

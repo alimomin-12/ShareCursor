@@ -5,14 +5,14 @@ Off-site presence is the single biggest lever for both SEO rankings and getting
 
 ## Ready-to-paste copy
 
-**Name:** ShareClick
+**Name:** ShareCursor
 
 **One-liner (≤60 chars):** Share one keyboard & mouse across Mac and Windows.
 
 **Tagline (≤100 chars):** Free, open-source software KVM — one keyboard, mouse,
 clipboard & files across Mac and Windows. Encrypted, low-latency, no cloud.
 
-**Short description (≤240 chars):** ShareClick is a free, open-source software
+**Short description (≤240 chars):** ShareCursor is a free, open-source software
 KVM. One keyboard and mouse control both a Mac and a Windows PC over your LAN,
 with clipboard (text + images) and file sharing built in. End-to-end encrypted,
 LAN-only, ~6 µs input transport. A free alternative to Synergy and ShareMouse.
@@ -22,9 +22,9 @@ LAN-only, ~6 µs input transport. A free alternative to Synergy and ShareMouse.
 **Categories / tags:** software KVM, KVM switch, productivity, developer tools,
 remote desktop, keyboard & mouse sharing, open source, Mac, Windows.
 
-**Links:** Website https://phun333.github.io/ShareClick/ · Repo
-https://github.com/phun333/ShareClick · Releases (downloads) ·
-Homebrew `brew install --cask phun333/tap/shareclick`.
+**Links:** Website https://sharecursor.com/ · Repo
+https://github.com/phun333/ShareCursor · Releases (downloads) ·
+Homebrew `brew install --cask phun333/tap/sharecursor`.
 
 **Alternative to:** Synergy, ShareMouse, Barrier, Input Leap, Mouse Without
 Borders; the cross-platform answer to Apple Universal Control.
@@ -39,8 +39,9 @@ Borders; the cross-platform answer to Apple Universal Control.
 - [ ] **Product Hunt** — launch the app. Prep a gallery + first comment. Best
       Tue–Thu 12:01am PT. https://www.producthunt.com
 - [ ] **GitHub** — topics set. Add a social-preview image (Settings → Social
-      preview) using `site/og.png`. Pin the repo on your profile.
-- [ ] **Hacker News** — "Show HN: ShareClick – open-source software KVM for
+      preview) using `assets/sharecursor-github-social-preview.png`. Pin the repo
+      on your profile.
+- [ ] **Hacker News** — "Show HN: ShareCursor – open-source software KVM for
       Mac↔Windows". Link the repo, reply to comments.
 - [ ] **Reddit** — r/macapps, r/software, r/opensource, r/homelab, r/mac,
       r/windows. Lead with the problem (Mac↔Windows on one desk), not the pitch.

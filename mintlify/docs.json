@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "ShareClick",
+  "name": "ShareCursor",
   "description": "A low-latency, open-source software KVM. Share one keyboard, mouse, clipboard and files between macOS and Windows over your LAN, end-to-end encrypted.",
   "colors": {
     "primary": "#2563eb",
@@ -12,7 +12,7 @@
   "logo": {
     "light": "/logo/logo-light.svg",
     "dark": "/logo/logo-dark.svg",
-    "href": "https://phun333.github.io/ShareClick/"
+    "href": "https://sharecursor.com/"
   },
   "navigation": {
     "tabs": [
@@ -78,7 +78,7 @@
       "anchors": [
         {
           "anchor": "GitHub",
-          "href": "https://github.com/phun333/ShareClick",
+          "href": "https://github.com/phun333/ShareCursor",
           "icon": "github"
         },
         {
@@ -88,7 +88,7 @@
         },
         {
           "anchor": "Website",
-          "href": "https://phun333.github.io/ShareClick/",
+          "href": "https://sharecursor.com/",
           "icon": "globe"
         }
       ]
@@ -98,7 +98,7 @@
     "links": [
       {
         "label": "GitHub",
-        "href": "https://github.com/phun333/ShareClick"
+        "href": "https://github.com/phun333/ShareCursor"
       }
     ],
     "primary": {
@@ -109,30 +109,30 @@
   },
   "footer": {
     "socials": {
-      "github": "https://github.com/phun333/ShareClick"
+      "github": "https://github.com/phun333/ShareCursor"
     },
     "links": [
       {
         "header": "Product",
         "items": [
           { "label": "Download", "href": "/download" },
-          { "label": "Website", "href": "https://phun333.github.io/ShareClick/" },
-          { "label": "What is a software KVM?", "href": "https://phun333.github.io/ShareClick/what-is-a-software-kvm.html" }
+          { "label": "Website", "href": "https://sharecursor.com/" },
+          { "label": "What is a software KVM?", "href": "https://sharecursor.com/what-is-a-software-kvm.html" }
         ]
       },
       {
         "header": "Resources",
         "items": [
-          { "label": "GitHub", "href": "https://github.com/phun333/ShareClick" },
-          { "label": "Issues", "href": "https://github.com/phun333/ShareClick/issues" },
-          { "label": "Changelog", "href": "https://github.com/phun333/ShareClick/blob/main/CHANGELOG.md" }
+          { "label": "GitHub", "href": "https://github.com/phun333/ShareCursor" },
+          { "label": "Issues", "href": "https://github.com/phun333/ShareCursor/issues" },
+          { "label": "Changelog", "href": "https://github.com/phun333/ShareCursor/blob/main/CHANGELOG.md" }
         ]
       }
     ]
   },
   "seo": {
     "metatags": {
-      "og:site_name": "ShareClick Docs"
+      "og:site_name": "ShareCursor Docs"
     },
     "indexing": "all"
   },

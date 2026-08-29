@@ -1,6 +1,6 @@
 ---
 title: "Security & cryptography"
-description: "ShareClick's WireGuard/Noise-inspired crypto: ephemeral X25519, a pre-shared passphrase, HKDF-SHA256 and ChaCha20-Poly1305 on every channel."
+description: "ShareCursor's WireGuard/Noise-inspired crypto: ephemeral X25519, a pre-shared passphrase, HKDF-SHA256 and ChaCha20-Poly1305 on every channel."
 icon: "shield-halved"
 ---
 
@@ -77,7 +77,7 @@ boring crypto."
     - Imposter advertising the same mDNS service (rejected without the PSK).
   </Tab>
   <Tab title="Out of scope">
-    - **A compromised endpoint** (malware on either machine) — ShareClick injects
+    - **A compromised endpoint** (malware on either machine) — ShareCursor injects
       input by design, so an attacker with code execution already wins.
     - **DoS by flooding UDP** — mitigated only by being LAN-local.
     - **Replay within a session** — the counter prevents accepting an *old*
@@ -93,8 +93,8 @@ boring crypto."
 <Warning>
   Use a **long, random PSK**, identical on both machines, and never commit it.
   The config file holds the PSK in **plaintext** at
-  `~/Library/Application Support/shareclick/config.toml` (macOS) or
-  `%APPDATA%\shareclick\config.toml` (Windows). Protect it with normal file
+  `~/Library/Application Support/sharecursor/config.toml` (macOS) or
+  `%APPDATA%\sharecursor\config.toml` (Windows). Protect it with normal file
   permissions.
 </Warning>
 

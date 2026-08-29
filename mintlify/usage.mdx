@@ -1,10 +1,10 @@
 ---
-title: "Using ShareClick"
-description: "Share your keyboard, mouse, clipboard and files once ShareClick is installed on both machines — via the app UI or the terminal."
+title: "Using ShareCursor"
+description: "Share your keyboard, mouse, clipboard and files once ShareCursor is installed on both machines — via the app UI or the terminal."
 icon: "book-open"
 ---
 
-Two ways to drive ShareClick: the **app UI** (easiest) or the **terminal** (best
+Two ways to drive ShareCursor: the **app UI** (easiest) or the **terminal** (best
 for a first test, because you can see the logs). If the app won't open at all,
 start with [Installation](/installation).
 
@@ -23,14 +23,14 @@ swapping which one runs "server" vs "client".
 
 <Steps>
   <Step title="Set the passphrase on both machines">
-    Launch ShareClick (menu bar on macOS, system tray on Windows) → click the
+    Launch ShareCursor (menu bar on macOS, system tray on Windows) → click the
     icon → **Settings & Monitor Manager**. Set the **shared passphrase** (same on
     both), the machine names, and — on the client — the **server host** (or leave
     blank to auto-discover).
   </Step>
   <Step title="Arrange the screens">
     In the **arrangement** panel, drag the second monitor to where it physically
-    sits next to the first. ShareClick derives which edges border each other.
+    sits next to the first. ShareCursor derives which edges border each other.
     Then **Save**.
 
     <Tip>
@@ -101,17 +101,17 @@ to diagnose.
 
 <CodeGroup>
 ```bash macOS (server)
-shareclick init-config                 # writes the config once
-open -e ~/Library/Application\ Support/shareclick/config.toml   # edit + save
-shareclick serve                       # start the server
+sharecursor init-config                 # writes the config once
+open -e ~/Library/Application\ Support/sharecursor/config.toml   # edit + save
+sharecursor serve                       # start the server
 ```
 
 ```powershell Windows (client)
-$exe = Get-ChildItem "$env:LOCALAPPDATA\Programs\ShareClick","$env:ProgramFiles\ShareClick" `
-       -Filter shareclick.exe -Recurse -ErrorAction SilentlyContinue |
+$exe = Get-ChildItem "$env:LOCALAPPDATA\Programs\ShareCursor","$env:ProgramFiles\ShareCursor" `
+       -Filter sharecursor.exe -Recurse -ErrorAction SilentlyContinue |
        Select-Object -First 1 -ExpandProperty FullName
 & $exe init-config
-notepad "$env:APPDATA\shareclick\config.toml"   # name=windows, same psk, server_host=Mac IP
+notepad "$env:APPDATA\sharecursor\config.toml"   # name=windows, same psk, server_host=Mac IP
 & $exe connect                                   # allow through the firewall when asked
 ```
 </CodeGroup>
@@ -137,20 +137,20 @@ ipconfig
 <Tip>
   With `auto_edge_switch` on and both machines on the same LAN, the client can
   find the server automatically over mDNS — run `connect` with no `server_host`
-  to search for it, or `shareclick discover` to list servers.
+  to search for it, or `sharecursor discover` to list servers.
 </Tip>
 
 ## CLI reference
 
 | Command | Purpose |
 |---|---|
-| `shareclick init-config` | Write an editable `config.toml`. |
-| `shareclick serve` | Start the server (share this machine's input). |
-| `shareclick connect [host]` | Start the client; omit host to auto-discover. |
-| `shareclick discover` | List servers on the network (mDNS). |
-| `shareclick send-file <host:port> <path>` | Send a file to a peer. |
-| `shareclick bench [--encrypted]` | Loopback latency benchmark. |
-| `shareclick tray` | Launch the menu-bar / tray GUI. |
+| `sharecursor init-config` | Write an editable `config.toml`. |
+| `sharecursor serve` | Start the server (share this machine's input). |
+| `sharecursor connect [host]` | Start the client; omit host to auto-discover. |
+| `sharecursor discover` | List servers on the network (mDNS). |
+| `sharecursor send-file <host:port> <path>` | Send a file to a peer. |
+| `sharecursor bench [--encrypted]` | Loopback latency benchmark. |
+| `sharecursor tray` | Launch the menu-bar / tray GUI. |
 
 ## Next
 

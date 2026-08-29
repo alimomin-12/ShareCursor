@@ -1,26 +1,26 @@
 ---
 title: "Installation"
-description: "Install ShareClick on macOS and Windows, and get past the one-time unsigned-app warning."
+description: "Install ShareCursor on macOS and Windows, and get past the one-time unsigned-app warning."
 icon: "download"
 ---
 
-ShareClick is **free and open source**. The builds are **not signed with a paid
+ShareCursor is **free and open source**. The builds are **not signed with a paid
 Apple/Microsoft certificate**, so your OS shows a one-time warning the first time
 you launch it. The app is completely safe — it's the same code you can read in
-[the repo](https://github.com/phun333/ShareClick) — and getting past the warning
+[the repo](https://github.com/phun333/ShareCursor) — and getting past the warning
 takes a few seconds.
 
 ## Package managers (fastest)
 
 <CodeGroup>
 ```bash macOS (Homebrew)
-brew install --cask phun333/tap/shareclick
+brew install --cask phun333/tap/sharecursor
 # if macOS still blocks it:
-xattr -cr "/Applications/ShareClick.app"
+xattr -cr "/Applications/ShareCursor.app"
 ```
 
 ```powershell Windows (Scoop)
-scoop install https://raw.githubusercontent.com/phun333/ShareClick/main/packaging/scoop/shareclick.json
+scoop install https://raw.githubusercontent.com/phun333/ShareCursor/main/packaging/scoop/sharecursor.json
 ```
 </CodeGroup>
 
@@ -30,41 +30,41 @@ Prefer manual installers? Grab them from the [**Download page**](/download).
 
 <Steps>
   <Step title="Install">
-    Download `ShareClick-*.dmg` from the [Download page](/download), open it, and
-    drag **ShareClick** onto the **Applications** folder.
+    Download `ShareCursor-*.dmg` from the [Download page](/download), open it, and
+    drag **ShareCursor** onto the **Applications** folder.
   </Step>
   <Step title="Get past Gatekeeper">
     <Tabs>
       <Tab title="Right-click Open">
         1. Open **Applications** (Finder → Go → Applications).
-        2. **Right-click** (or Control-click) **ShareClick** → **Open**.
+        2. **Right-click** (or Control-click) **ShareCursor** → **Open**.
         3. Click **Open** again in the dialog.
       </Tab>
       <Tab title='"App is damaged" fix'>
         On macOS Sequoia and newer, the right-click option may be missing or you
         may see *"the app is damaged"*. Remove the quarantine flag from Terminal:
         ```bash
-        xattr -cr /Applications/ShareClick.app
+        xattr -cr /Applications/ShareCursor.app
         ```
         Then open the app normally. You won't see the warning again.
       </Tab>
       <Tab title="System Settings">
-        1. Double-click ShareClick — it gets blocked.
+        1. Double-click ShareCursor — it gets blocked.
         2. Open **System Settings → Privacy & Security**.
         3. In the **Security** section, click **Open Anyway** next to
-           *"ShareClick was blocked…"* and confirm with Touch ID / password.
+           *"ShareCursor was blocked…"* and confirm with Touch ID / password.
       </Tab>
     </Tabs>
   </Step>
   <Step title="Grant input permissions (required)">
-    ShareClick moves your mouse & keyboard, so macOS requires two permissions.
+    ShareCursor moves your mouse & keyboard, so macOS requires two permissions.
     In **System Settings → Privacy & Security**:
 
-    - **Accessibility** → enable **ShareClick**
-    - **Input Monitoring** → enable **ShareClick**
+    - **Accessibility** → enable **ShareCursor**
+    - **Input Monitoring** → enable **ShareCursor**
 
     <Warning>
-      Quit and relaunch ShareClick after granting the permissions, or input
+      Quit and relaunch ShareCursor after granting the permissions, or input
       capture/injection won't work.
     </Warning>
   </Step>
@@ -74,7 +74,7 @@ Prefer manual installers? Grab them from the [**Download page**](/download).
 
 <Steps>
   <Step title="Install">
-    Download `ShareClick-Setup-*.exe` from the [Download page](/download) and run
+    Download `ShareCursor-Setup-*.exe` from the [Download page](/download) and run
     it. **No administrator rights needed** — it installs just for you.
   </Step>
   <Step title="Get past SmartScreen">
@@ -83,7 +83,7 @@ Prefer manual installers? Grab them from the [**Download page**](/download).
   </Step>
   <Step title="Allow through the firewall">
     On first `serve` / `connect`, **Windows Defender Firewall** asks to allow
-    ShareClick. Tick **Private networks** and click **Allow access** (port
+    ShareCursor. Tick **Private networks** and click **Allow access** (port
     24800).
   </Step>
 </Steps>
@@ -94,7 +94,7 @@ Prefer manual installers? Grab them from the [**Download page**](/download).
   <Accordion title="Why does my OS warn me?" icon="circle-question">
     Apple and Microsoft charge for the certificates that make these warnings go
     away (Apple: $99/yr + notarization; Windows: ~$200+/yr EV certificate).
-    ShareClick doesn't pay for them yet, so the OS can't verify a paid developer
+    ShareCursor doesn't pay for them yet, so the OS can't verify a paid developer
     identity — hence the one-time warning that every small open-source app gets.
   </Accordion>
   <Accordion title="Is it actually safe?" icon="shield-check">
@@ -113,13 +113,13 @@ Prefer manual installers? Grab them from the [**Download page**](/download).
 
 <CodeGroup>
 ```text macOS
-Drag ShareClick.app from Applications to the Trash.
-Config lives at ~/Library/Application Support/shareclick/
+Drag ShareCursor.app from Applications to the Trash.
+Config lives at ~/Library/Application Support/sharecursor/
 ```
 
 ```text Windows
-Settings → Apps → ShareClick → Uninstall.
-Config lives at %APPDATA%\shareclick\
+Settings → Apps → ShareCursor → Uninstall.
+Config lives at %APPDATA%\sharecursor\
 ```
 </CodeGroup>
 

@@ -1,15 +1,15 @@
 ---
 title: "Latency"
-description: "Where the microseconds actually go — ShareClick's ~6 µs one-way transport overhead and the design decisions that keep input lag minimal."
+description: "Where the microseconds actually go — ShareCursor's ~6 µs one-way transport overhead and the design decisions that keep input lag minimal."
 icon: "gauge-high"
 ---
 
-Lowest input lag is ShareClick's headline feature. Every design choice defers to
+Lowest input lag is ShareCursor's headline feature. Every design choice defers to
 it, and we keep a benchmark in the repo so regressions get caught immediately.
 
 ## Measured overhead
 
-Measured on loopback with `shareclick bench --encrypted`:
+Measured on loopback with `sharecursor bench --encrypted`:
 
 <CardGroup cols={2}>
   <Card title="~6.5 µs one-way" icon="bolt">
@@ -21,7 +21,7 @@ Measured on loopback with `shareclick bench --encrypted`:
 </CardGroup>
 
 ```bash
-$ shareclick bench --count 20000
+$ sharecursor bench --count 20000
 METRIC rtt_median_us=~12     # loopback round-trip
 METRIC oneway_us=~6          # one-way transport overhead
 ```
@@ -29,7 +29,7 @@ METRIC oneway_us=~6          # one-way transport overhead
 <Note>
   **~6 µs one-way** means our code is not the bottleneck. On a real LAN,
   end-to-end input lag is dominated by the network RTT (~0.2–1 ms) and OS event
-  injection — not ShareClick.
+  injection — not ShareCursor.
 </Note>
 
 ## Why it's this fast

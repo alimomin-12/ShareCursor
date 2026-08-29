@@ -1,6 +1,6 @@
-# ShareClick documentation
+# ShareCursor documentation
 
-This folder is the single source of truth for **what** ShareClick is, **why**
+This folder is the single source of truth for **what** ShareCursor is, **why**
 it is built the way it is, and **how** to develop, test, and release it. It is
 written so that a new contributor (or an AI agent picking up the work later) can
 get fully up to speed and continue without breaking anything.
@@ -24,7 +24,7 @@ get fully up to speed and continue without breaking anything.
 
 ## The one-paragraph summary
 
-ShareClick is a low-latency, open-source **software KVM**: it shares one
+ShareCursor is a low-latency, open-source **software KVM**: it shares one
 keyboard, mouse, clipboard, and files between macOS and Windows machines over
 the LAN. Input travels on an unreliable-but-fast **UDP** channel; clipboard and
 files travel on a reliable **TCP** channel. Both are encrypted end-to-end with

@@ -1,7 +1,7 @@
 # SEO / discoverability playbook
 
 Goal: when someone searches for a way to share a mouse & keyboard between Mac and
-Windows — or for a free/open-source Synergy/ShareMouse alternative — **ShareClick
+Windows — or for a free/open-source Synergy/ShareMouse alternative — **ShareCursor
 shows up at the top.** Being free + open source + genuinely better is our unfair
 advantage; this doc is how we turn that into rankings.
 
@@ -40,7 +40,7 @@ these naturally — **never keyword-stuff**; Google punishes it.
   `featureList`, `sameAs` (GitHub + X).
 - **`FAQPage` JSON-LD** matching the visible FAQ → eligible for FAQ rich
   results / "People also ask". (The FAQ text must stay visible on the page.)
-- Open Graph + Twitter Card + `og.png` (1200×630) → rich link previews when
+- Open Graph + Twitter Card + `sharecursor-og.png` (1200×630) → rich link previews when
   shared anywhere.
 - `canonical`, `robots`, `sitemap.xml`, `robots.txt`, `favicon.svg`.
 - Fast static pages, mobile-responsive, HTTPS via GitHub Pages → strong Core
@@ -70,7 +70,7 @@ logins/identity, so they're yours to do:
 
 1. **Google Search Console** → verify (paste the token into the placeholder in
    `site/index.html`), submit `sitemap.xml`, Request Indexing for each page.
-2. **AlternativeTo.net** → add ShareClick under Synergy / ShareMouse / Barrier.
+2. **AlternativeTo.net** → add ShareCursor under Synergy / ShareMouse / Barrier.
 3. **Product Hunt** + **Show HN** + **Reddit** (r/opensource, r/macapps, r/rust).
 4. **awesome-list PRs** (awesome-selfhosted, awesome-rust, awesome-macos).
 5. Ask visitors to **star the repo** (ranking + social proof).
@@ -81,7 +81,7 @@ Detailed how-to for each is below.
 
 ### 1. Get indexed (week 1)
 - [ ] **Google Search Console** (https://search.google.com/search-console):
-  add the property `https://phun333.github.io/ShareClick/`, verify (HTML tag or
+  add the property `https://sharecursor.com/`, verify (HTML tag or
   DNS), then **submit `sitemap.xml`** and use **URL Inspection → Request
   indexing**.
 - [ ] **Bing Webmaster Tools** (https://www.bing.com/webmasters): add + submit
@@ -89,14 +89,14 @@ Detailed how-to for each is below.
 
 ### 2. High-authority backlinks & listings (weeks 1–4)
 Each of these is a do-follow-ish mention Google trusts, and a traffic source:
-- [ ] **AlternativeTo.net** — add ShareClick as an alternative to Synergy,
+- [ ] **AlternativeTo.net** — add ShareCursor as an alternative to Synergy,
   ShareMouse, Barrier, Input Leap. (Huge for "X alternative" searches.)
 - [ ] **awesome-lists PRs** — submit to `awesome-selfhosted`, `awesome-rust`,
   `awesome-macos`, `awesome-sysadmin`, any "awesome KVM / remote" list. A merged
   PR = a backlink from a very high-authority repo.
 - [ ] **Product Hunt** launch (schedule for a Tue–Thu). Tagline + the og image +
   a short demo GIF.
-- [ ] **Hacker News** — "Show HN: ShareClick — free, open-source software KVM
+- [ ] **Hacker News** — "Show HN: ShareCursor — free, open-source software KVM
   (Mac/Windows), lower latency than Synergy". Post the repo, be present in
   comments.
 - [ ] **Reddit** — r/opensource, r/macapps, r/software, r/sysadmin, r/rust
@@ -118,14 +118,14 @@ The repo itself ranks and feeds trust to the site:
 ### 4. Content that wins long-tail (weeks 2+)
 Publish 2–4 short pages/posts targeting exact queries (blog on the repo wiki, or
 extra pages under `site/`):
-- [ ] "ShareClick vs Synergy" and "ShareClick vs ShareMouse" comparison pages —
+- [ ] "ShareCursor vs Synergy" and "ShareCursor vs ShareMouse" comparison pages —
   these intercept people comparing paid tools. Be fair and factual.
 - [ ] "How to share a mouse and keyboard between Mac and Windows (free)" tutorial.
 - [ ] A short YouTube demo (video ranks + embeds + backlink). Title with the
   primary keyword.
 
 ### 5. Optional but strong
-- [ ] **Custom domain** (e.g. `shareclick.app`) → set it in GitHub Pages + a
+- [ ] **Custom domain** (e.g. `sharecursor.app`) → set it in GitHub Pages + a
   `CNAME` file in `site/`; update `canonical`, `og:url`, `sitemap.xml`. A branded
   domain outranks a `github.io` path over time.
 

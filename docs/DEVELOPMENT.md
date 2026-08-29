@@ -33,22 +33,22 @@ special permissions — keep it that way so CI stays green.
 - **macOS:** System Settings → Privacy & Security →
   - **Accessibility** (rdev capture + enigo injection), and
   - **Input Monitoring** (rdev).
-  Add your terminal, or the installed `ShareClick.app`. Permissions are tied to
+  Add your terminal, or the installed `ShareCursor.app`. Permissions are tied to
   the *bundle identity*, so a packaged `.app` remembers the grant; a bare binary
   run from Terminal ties the grant to Terminal.
-- **Windows:** allow `shareclick.exe` through the firewall on first run
+- **Windows:** allow `sharecursor.exe` through the firewall on first run
   (port 24800, TCP + UDP).
 
 ## Running a real two-machine test
 
 ```bash
 # Machine A (has the keyboard/mouse):
-shareclick init-config      # edit psk + [[machines]] layout
-shareclick serve
+sharecursor init-config      # edit psk + [[machines]] layout
+sharecursor serve
 
 # Machine B (same psk, name = its own machine):
-shareclick init-config      # set name, server_host or rely on mDNS
-shareclick connect          # or: shareclick connect <host>
+sharecursor init-config      # set name, server_host or rely on mDNS
+sharecursor connect          # or: sharecursor connect <host>
 ```
 
 Move the cursor into a bordered edge to hand off; F12 toggles manually.
@@ -85,8 +85,8 @@ Move the cursor into a bordered edge to hand off; F12 toggles manually.
 ```
 crates/protocol/   # wire types + crypto (no OS deps)
 crates/app/        # binary: transport, features, CLI, tray
-packaging/macos/   # build-app.sh → ShareClick.app + .dmg
-packaging/windows/ # shareclick.iss → Inno Setup installer
+packaging/macos/   # build-app.sh → ShareCursor.app + .dmg
+packaging/windows/ # sharecursor.iss → Inno Setup installer
 .github/workflows/ # CI + release automation
 docs/              # this documentation
 autoresearch.*     # experiment log + backlog (latency history)

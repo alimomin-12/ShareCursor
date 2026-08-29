@@ -1,12 +1,12 @@
-# Contributing to ShareClick
+# Contributing to ShareCursor
 
 Thanks for your interest in contributing!
 
 ## Getting started
 
 ```sh
-git clone https://github.com/phun333/ShareClick
-cd ShareClick
+git clone https://github.com/phun333/ShareCursor
+cd ShareCursor
 ./scripts/setup-hooks.sh   # install git hooks (do this once!)
 cargo build
 ```
@@ -60,18 +60,18 @@ after the type/scope and a `BREAKING CHANGE:` footer in the body.
 1. Fork and create a branch: `feat/multi-monitor` or `fix/border-jitter`
 2. Keep PRs focused — one logical change per PR
 3. Fill in the PR template; if behavior changed, mention how you tested it
-   (ShareClick is a two-machine app, real hardware testing matters!)
+   (ShareCursor is a two-machine app, real hardware testing matters!)
 4. Update `CHANGELOG.md` for user-facing changes
 
 ## Reporting bugs
 
-Use the [bug report template](https://github.com/phun333/ShareClick/issues/new/choose).
-Since ShareClick runs on **two machines**, always include the OS and version of
+Use the [bug report template](https://github.com/phun333/ShareCursor/issues/new/choose).
+Since ShareCursor runs on **two machines**, always include the OS and version of
 both sides, plus `RUST_LOG=debug` output when possible.
 
 ## License
 
-ShareClick is dual-licensed under [MIT](./LICENSE-MIT) or
+ShareCursor is dual-licensed under [MIT](./LICENSE-MIT) or
 [Apache-2.0](./LICENSE-APACHE), at your option.
 
 Unless you explicitly state otherwise, any contribution intentionally
@@ -81,6 +81,6 @@ terms or conditions.
 
 ## Questions and feedback
 
-Open an [issue](https://github.com/phun333/ShareClick/issues/new/choose) and give
+Open an [issue](https://github.com/phun333/ShareCursor/issues/new/choose) and give
 us enough context to help. Bug reports and improvement ideas are welcome while
-ShareClick is under active development.
+ShareCursor is under active development.

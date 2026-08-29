@@ -5,7 +5,7 @@ icon: "rocket"
 ---
 
 This guide gets you from zero to a working shared keyboard & mouse in about a
-minute. You'll need ShareClick [installed](/installation) on **both** machines
+minute. You'll need ShareCursor [installed](/installation) on **both** machines
 and both on the **same Wi-Fi / network**.
 
 ## Key idea (read this first)
@@ -23,7 +23,7 @@ swap the roles freely.
 
 <Steps>
   <Step title="Open Settings on BOTH machines">
-    Launch ShareClick — it lives in the **menu bar** (macOS, top-right) or the
+    Launch ShareCursor — it lives in the **menu bar** (macOS, top-right) or the
     **system tray** (Windows, bottom-right). Click the icon →
     **Settings & Monitor Manager**.
   </Step>
@@ -34,7 +34,7 @@ swap the roles freely.
   </Step>
   <Step title="Arrange your screens">
     In the arrangement panel, drag the second monitor to where it physically
-    sits (left / right / above / below). ShareClick works out which edges border
+    sits (left / right / above / below). ShareCursor works out which edges border
     each other. Then **Save**.
 
     <Tip>
@@ -44,7 +44,7 @@ swap the roles freely.
     </Tip>
   </Step>
   <Step title="Grant permissions & start (Mac server)">
-    On macOS, grant **Accessibility** and **Input Monitoring** to ShareClick in
+    On macOS, grant **Accessibility** and **Input Monitoring** to ShareCursor in
     System Settings → Privacy & Security. Then tray icon → **Start Server**.
   </Step>
   <Step title="Start the client (Windows)">
@@ -66,9 +66,9 @@ swap the roles freely.
     automatically.
   </Step>
   <Step title="Send a file">
-    Drag a file onto the ShareClick window, or from a terminal:
+    Drag a file onto the ShareCursor window, or from a terminal:
     ```bash
-    shareclick send-file 192.168.1.30:24800 ./report.pdf
+    sharecursor send-file 192.168.1.30:24800 ./report.pdf
     ```
     It lands in `./received` on the peer.
   </Step>
@@ -81,14 +81,14 @@ to diagnose.
 
 <CodeGroup>
 ```bash macOS (server)
-shareclick init-config
-open -e ~/Library/Application\ Support/shareclick/config.toml   # edit + save
-shareclick serve
+sharecursor init-config
+open -e ~/Library/Application\ Support/sharecursor/config.toml   # edit + save
+sharecursor serve
 ```
 
 ```powershell Windows (client)
 & $exe init-config
-notepad "$env:APPDATA\shareclick\config.toml"    # name=windows, same psk, server_host
+notepad "$env:APPDATA\sharecursor\config.toml"    # name=windows, same psk, server_host
 & $exe connect
 ```
 </CodeGroup>

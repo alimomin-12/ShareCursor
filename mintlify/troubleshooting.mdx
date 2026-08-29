@@ -1,20 +1,20 @@
 ---
 title: "Troubleshooting"
-description: "Fixes for the most common ShareClick setup issues — permissions, authentication, connection and edge-switching problems."
+description: "Fixes for the most common ShareCursor setup issues — permissions, authentication, connection and edge-switching problems."
 icon: "wrench"
 ---
 
 Most setup problems fall into a handful of buckets. Find your symptom below; if
-you're still stuck, [open an issue](https://github.com/phun333/ShareClick/issues)
+you're still stuck, [open an issue](https://github.com/phun333/ShareCursor/issues)
 with the terminal output from **both** machines.
 
 ## Common symptoms
 
 <AccordionGroup>
   <Accordion title="Mouse doesn't move (macOS server)" icon="arrow-pointer">
-    Enable **both** **Accessibility** *and* **Input Monitoring** for ShareClick
+    Enable **both** **Accessibility** *and* **Input Monitoring** for ShareCursor
     (or your Terminal, if running from the terminal) in System Settings → Privacy
-    & Security. Then **quit and reopen** ShareClick — permissions only take
+    & Security. Then **quit and reopen** ShareCursor — permissions only take
     effect on relaunch.
   </Accordion>
   <Accordion title="handshake / auth failed" icon="key">
@@ -24,10 +24,10 @@ with the terminal output from **both** machines.
   <Accordion title="Client can't connect" icon="plug-circle-xmark">
     Check all of:
     - Both machines on the **same Wi-Fi / network**?
-    - Windows **firewall** allowed ShareClick (Private networks)?
+    - Windows **firewall** allowed ShareCursor (Private networks)?
     - Correct `server_host` IP on the client?
 
-    Try `shareclick discover` to see if the server is visible over mDNS.
+    Try `sharecursor discover` to see if the server is visible over mDNS.
   </Accordion>
   <Accordion title="name ... is not present" icon="tag">
     The `name` field must match one of the `[[machines]]` entries in the same
@@ -41,13 +41,13 @@ with the terminal output from **both** machines.
   </Accordion>
   <Accordion title="Windows: no tray icon after launching" icon="window-maximize">
     New icons hide under the **"^" (show hidden icons)** arrow by the clock — drag
-    ShareClick onto the taskbar. For a first test you can skip the tray entirely
-    and run `shareclick.exe connect` from PowerShell.
+    ShareCursor onto the taskbar. For a first test you can skip the tray entirely
+    and run `sharecursor.exe connect` from PowerShell.
   </Accordion>
   <Accordion title='macOS: app is damaged / cannot open' icon="triangle-exclamation">
     This is the unsigned-app quarantine flag. Remove it:
     ```bash
-    xattr -cr /Applications/ShareClick.app
+    xattr -cr /Applications/ShareCursor.app
     ```
     Full details in [Installation](/installation).
   </Accordion>
@@ -66,6 +66,6 @@ with the terminal output from **both** machines.
 
 ## Still stuck?
 
-<Card title="Open an issue on GitHub" icon="github" href="https://github.com/phun333/ShareClick/issues" horizontal>
+<Card title="Open an issue on GitHub" icon="github" href="https://github.com/phun333/ShareCursor/issues" horizontal>
   Include the terminal output from both machines so we can help fast.
 </Card>
