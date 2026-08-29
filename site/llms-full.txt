@@ -1,10 +1,10 @@
-# ShareClick — full website content
+# ShareCursor — full website content
 
-> This file contains the complete text of the ShareClick marketing site in one
-> place for machine reading. ShareClick is a free, open-source software KVM: one
+> This file contains the complete text of the ShareCursor marketing site in one
+> place for machine reading. ShareCursor is a free, open-source software KVM: one
 > keyboard and mouse control a Mac and a Windows PC over the LAN, with encrypted
-> clipboard and file sharing. The product requires no ShareClick account or cloud
-> service. Source: https://github.com/phun333/ShareClick
+> clipboard and file sharing. The product requires no ShareCursor account or cloud
+> service. Source: https://github.com/phun333/ShareCursor
 
 > Updated: August 22, 2026. The ~6 µs latency figure used below is measured
 > loopback transport overhead, not full end-to-end device latency or a direct
@@ -12,14 +12,14 @@
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/index.md
+Source page: https://sharecursor.com/index.md
 
-# ShareClick — share one keyboard & mouse across Mac and Windows
+# ShareCursor — share one keyboard & mouse across Mac and Windows
 
 > Free, open-source software KVM. One keyboard, mouse, clipboard and files
 > across a Mac and a Windows PC over your LAN. Encrypted, low-latency, no cloud.
 
-ShareClick is a free, open-source **software KVM**. It lets one keyboard and mouse
+ShareCursor is a free, open-source **software KVM**. It lets one keyboard and mouse
 control both a Mac and a Windows PC over your local network, with clipboard (text
 and images) and file sharing built in. Every channel is end-to-end encrypted
 (X25519 key exchange + ChaCha20-Poly1305) and it runs LAN-only — no hardware, no
@@ -28,8 +28,8 @@ Input Leap, with a low-latency UDP input path (~6 µs measured loopback transpor
 
 - **Price:** Free — open source (MIT / Apache-2.0), unlimited machines
 - **Platforms:** macOS and Windows
-- **Download:** https://github.com/phun333/ShareClick/releases
-- **Source:** https://github.com/phun333/ShareClick
+- **Download:** https://github.com/phun333/ShareCursor/releases
+- **Source:** https://github.com/phun333/ShareCursor
 
 ## Features
 
@@ -43,22 +43,22 @@ Input Leap, with a low-latency UDP input path (~6 µs measured loopback transpor
 
 ## FAQ
 
-**What is ShareClick?**
-ShareClick is a free, open-source software KVM. It lets one keyboard and mouse
+**What is ShareCursor?**
+ShareCursor is a free, open-source software KVM. It lets one keyboard and mouse
 control both a Mac and a Windows PC over your local network, with clipboard and
 file sharing built in. Everything is end-to-end encrypted and runs LAN-only — no
 hardware, no cloud, no account.
 
-**Is ShareClick free?**
+**Is ShareCursor free?**
 Yes. It is completely free and open source (MIT / Apache-2.0). No account, no
 subscription, no cloud.
 
 **Does it share a mouse and keyboard between Mac and Windows?**
-Yes. ShareClick is a software KVM: one keyboard and mouse control both your Mac
+Yes. ShareCursor is a software KVM: one keyboard and mouse control both your Mac
 and Windows PC over the local network. Move the cursor to a screen edge to switch
 machines.
 
-**Is ShareClick a free alternative to Synergy and ShareMouse?**
+**Is ShareCursor a free alternative to Synergy and ShareMouse?**
 Yes. It does what paid tools like Synergy and ShareMouse do — input sharing,
 clipboard sync and file transfer — but it is free, open source, and built for
 lower input lag.
@@ -74,34 +74,34 @@ shared passphrase.
 
 ## More
 
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [ShareClick vs Synergy](https://phun333.github.io/ShareClick/vs-synergy.md)
-- [ShareClick vs ShareMouse](https://phun333.github.io/ShareClick/vs-sharemouse.md)
-- [ShareClick vs Barrier](https://phun333.github.io/ShareClick/vs-barrier.md)
-- [Synergy alternatives compared](https://phun333.github.io/ShareClick/synergy-alternatives.md)
-- [Share clipboard between Mac and Windows](https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.md)
-- [Pricing](https://phun333.github.io/ShareClick/pricing.md)
-- [Install help](https://github.com/phun333/ShareClick/blob/main/docs/INSTALL.md)
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [ShareCursor vs Synergy](https://sharecursor.com/vs-synergy.md)
+- [ShareCursor vs ShareMouse](https://sharecursor.com/vs-sharemouse.md)
+- [ShareCursor vs Barrier](https://sharecursor.com/vs-barrier.md)
+- [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
+- [Share clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md)
+- [Pricing](https://sharecursor.com/pricing.md)
+- [Install help](https://github.com/phun333/ShareCursor/blob/main/docs/INSTALL.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md
+Source page: https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md
 
 # How to share a mouse & keyboard between Mac and Windows
 
 > Step-by-step guide to share one mouse, keyboard, clipboard and files between a
-> Mac and a Windows PC for free with ShareClick, an open-source software KVM.
+> Mac and a Windows PC for free with ShareCursor, an open-source software KVM.
 
 You can control both your Mac and your Windows PC with a single keyboard and
-mouse — for free, no KVM hardware, no cloud. Here's how with **ShareClick**, an
+mouse — for free, no KVM hardware, no cloud. Here's how with **ShareCursor**, an
 open-source software KVM. It takes about three minutes.
 
 ## 1. Install on both machines
 
-Download **ShareClick** from the [releases page](https://github.com/phun333/ShareClick/releases):
+Download **ShareCursor** from the [releases page](https://github.com/phun333/ShareCursor/releases):
 the **.dmg** on your Mac and the **.exe** on your Windows PC. Both launch to the
 menu bar (macOS) / system tray (Windows). First launch blocked? See the
-[install help](https://github.com/phun333/ShareClick/blob/main/docs/INSTALL.md).
+[install help](https://github.com/phun333/ShareCursor/blob/main/docs/INSTALL.md).
 
 ## 2. Set one shared passphrase & layout
 
@@ -111,8 +111,8 @@ machine sits on which screen edge — e.g. the PC is to the right of the Mac.
 
 ## 3. Grant permissions
 
-- **macOS:** System Settings → Privacy & Security → enable **Accessibility** and **Input Monitoring** for ShareClick.
-- **Windows:** allow ShareClick through the firewall when prompted.
+- **macOS:** System Settings → Privacy & Security → enable **Accessibility** and **Input Monitoring** for ShareCursor.
+- **Windows:** allow ShareCursor through the firewall when prompted.
 
 Both machines must be on the same Wi-Fi / LAN.
 
@@ -122,7 +122,7 @@ Slide the cursor into the shared screen edge — your keyboard and mouse now dri
 the other computer. Push back to return. Copy on one machine and paste on the
 other; the **clipboard syncs automatically**, and you can send files too.
 
-## What ShareClick shares
+## What ShareCursor shares
 
 | Capability | Behavior |
 |---|---|
@@ -133,7 +133,7 @@ other; the **clipboard syncs automatically**, and you can send files too.
 | Video/display | Not shared; each computer continues using its own monitor |
 
 If clipboard sharing is your main requirement, see the dedicated guide to
-[sharing a clipboard between Mac and Windows](https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.md).
+[sharing a clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md).
 
 ## Common setup problems
 
@@ -141,13 +141,13 @@ If clipboard sharing is your main requirement, see the dedicated guide to
 
 Confirm that both computers are on the same local network. Guest Wi-Fi often
 blocks devices from reaching each other. On Windows, check that the firewall
-rule allows ShareClick. Wired Ethernet also works and can make network
+rule allows ShareCursor. Wired Ethernet also works and can make network
 troubleshooting simpler.
 
 ### The Mac does not accept remote input
 
 Reopen System Settings, check Accessibility and Input Monitoring, then restart
-ShareClick. macOS permissions are attached to the installed application, so
+ShareCursor. macOS permissions are attached to the installed application, so
 moving or replacing the app can require approval again.
 
 ### The cursor crosses on the wrong side
@@ -164,7 +164,7 @@ Clipboard changes made while disconnected are not queued for later delivery.
 
 ## Software KVM or hardware KVM?
 
-ShareClick is a [software KVM](https://phun333.github.io/ShareClick/what-is-a-software-kvm.md):
+ShareCursor is a [software KVM](https://sharecursor.com/what-is-a-software-kvm.md):
 it shares input over the LAN while every computer keeps its own display. A
 hardware KVM physically switches a keyboard, mouse and monitor between
 computers. Use hardware when one monitor must display several machines or when
@@ -174,17 +174,17 @@ want seamless pointer, clipboard and file movement.
 That's it. One keyboard, one mouse, one clipboard across your Mac and Windows PC —
 **encrypted, low-latency, and free**.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Synergy alternatives compared](https://phun333.github.io/ShareClick/synergy-alternatives.md)
-- [Back to home](https://phun333.github.io/ShareClick/index.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
+- [Back to home](https://sharecursor.com/index.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.md
+Source page: https://sharecursor.com/share-clipboard-between-mac-and-windows.md
 
 # How to share clipboard between Mac and Windows
 
-To share a clipboard between a **Mac and Windows PC**, install ShareClick on both
+To share a clipboard between a **Mac and Windows PC**, install ShareCursor on both
 computers and pair them on the same local network. Copy text or an image on
 either machine and paste it on the other. The transfer stays on your LAN and is
 encrypted end to end.
@@ -194,26 +194,26 @@ encrypted end to end.
 - **Internet required:** No; the computers communicate over the local network
 - **Supported clipboard content:** Text and images
 - **Files:** Sent through a separate encrypted file-transfer channel
-- **Download:** https://github.com/phun333/ShareClick/releases
+- **Download:** https://github.com/phun333/ShareCursor/releases
 
 ## The quickest method
 
 macOS Universal Clipboard does not support Windows, and Windows clipboard sync
 is designed around Windows devices. A cross-platform app fills that gap.
-ShareClick combines clipboard sync with mouse and keyboard sharing, so the two
+ShareCursor combines clipboard sync with mouse and keyboard sharing, so the two
 computers behave like one desk rather than two separate systems.
 
-1. Download ShareClick for macOS and Windows from the official releases page.
+1. Download ShareCursor for macOS and Windows from the official releases page.
 2. Install and start it on both computers connected to the same Wi-Fi or Ethernet LAN.
 3. Pair the computers and confirm the same encrypted connection.
 4. Copy text or an image normally, switch to the other computer, and paste.
 
 No browser tab, cloud drive or message to yourself is required. Clipboard
-monitoring runs in the background while ShareClick is connected.
+monitoring runs in the background while ShareCursor is connected.
 
 ## What can be copied?
 
-| Content | How ShareClick handles it |
+| Content | How ShareCursor handles it |
 |---|---|
 | Plain text | Automatic clipboard sync in both directions |
 | Images | Raw image clipboard data is synchronized |
@@ -222,37 +222,37 @@ monitoring runs in the background while ShareClick is connected.
 
 Clipboard formats differ between operating systems, so rich
 application-specific formatting may not always survive a cross-platform paste.
-Plain text and images are the most portable formats. Files use ShareClick's
+Plain text and images are the most portable formats. Files use ShareCursor's
 file-transfer feature instead of pretending to be clipboard text.
 
 ## How clipboard security works
 
 Clipboard contents can include passwords, tokens and private notes, so transport
-security matters. ShareClick keeps traffic on the local network. Pairing uses an
+security matters. ShareCursor keeps traffic on the local network. Pairing uses an
 authenticated shared secret, while X25519 key exchange and
 ChaCha20-Poly1305 protect both the clipboard and file channels. There is no
-ShareClick account and clipboard data is not stored in a ShareClick cloud
+ShareCursor account and clipboard data is not stored in a ShareCursor cloud
 service.
 
 Only pair computers you control. Clear the clipboard after copying a sensitive
-value, and disconnect ShareClick on networks or machines you do not trust.
+value, and disconnect ShareCursor on networks or machines you do not trust.
 
 ## Troubleshooting clipboard sync
 
 ### Both computers must be connected
 
-Confirm that ShareClick reports a live connection on both machines. Clipboard
+Confirm that ShareCursor reports a live connection on both machines. Clipboard
 changes made while disconnected cannot be delivered retroactively.
 
 ### Check local network and firewall access
 
 Both machines need to reach each other on the same LAN. On Windows, allow
-ShareClick through the firewall. Guest Wi-Fi networks often isolate devices and
+ShareCursor through the firewall. Guest Wi-Fi networks often isolate devices and
 prevent local discovery.
 
 ### Grant macOS permissions
 
-Open macOS System Settings and confirm that ShareClick has the permissions
+Open macOS System Settings and confirm that ShareCursor has the permissions
 requested during setup. Restart the app after changing a permission.
 
 ### Try plain text first
@@ -272,16 +272,16 @@ the same network or when you need long-term file history.
 ## Frequently asked questions
 
 **Can I share a clipboard between Mac and Windows?**
-Yes. Install a cross-platform clipboard tool such as ShareClick on both
+Yes. Install a cross-platform clipboard tool such as ShareCursor on both
 computers. It can copy text and images between macOS and Windows over the local
 network.
 
-**Does ShareClick use the cloud for clipboard sync?**
-No. ShareClick sends clipboard data directly between the paired computers over
+**Does ShareCursor use the cloud for clipboard sync?**
+No. ShareCursor sends clipboard data directly between the paired computers over
 the local network. The connection is authenticated and end-to-end encrypted.
 
 **Can I copy files between Mac and Windows too?**
-Yes. ShareClick includes file transfer over its encrypted reliable channel.
+Yes. ShareCursor includes file transfer over its encrypted reliable channel.
 Clipboard sync handles text and images, while file transfer handles files.
 
 **Does Apple Universal Clipboard work with Windows?**
@@ -291,13 +291,13 @@ Mac-to-Windows clipboard sharing.
 
 ## Related guides
 
-- [Share one mouse and keyboard between Mac and Windows](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [What is a software KVM?](https://phun333.github.io/ShareClick/what-is-a-software-kvm.md)
-- [Synergy alternatives compared](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Share one mouse and keyboard between Mac and Windows](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [What is a software KVM?](https://sharecursor.com/what-is-a-software-kvm.md)
+- [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/what-is-a-software-kvm.md
+Source page: https://sharecursor.com/what-is-a-software-kvm.md
 
 # What is a software KVM?
 
@@ -325,7 +325,7 @@ your local network, while each computer keeps using its own display.
 - When you push the mouse past a shared screen edge, control jumps to the next
   computer; your keystrokes and mouse movements are sent to it over the network.
 - The clipboard syncs automatically, so you can copy on one machine and paste on
-  the other, and many tools (including ShareClick) can send files across too.
+  the other, and many tools (including ShareCursor) can send files across too.
 
 ## Software KVM vs hardware KVM
 
@@ -339,7 +339,7 @@ your local network, while each computer keeps using its own display.
 
 ## Is there a free software KVM for Mac and Windows?
 
-Yes. **ShareClick** is a free, open-source software KVM that shares one keyboard,
+Yes. **ShareCursor** is a free, open-source software KVM that shares one keyboard,
 mouse, clipboard and files between a **Mac and a Windows PC** over the local
 network. Every channel is end-to-end encrypted (X25519 + ChaCha20-Poly1305), it
 runs LAN-only (no cloud), and uses a low-latency UDP input path (~6 µs measured
@@ -348,13 +348,13 @@ loopback transport overhead). It's a free alternative to Synergy, ShareMouse, Ba
 In short: a software KVM turns two computers on your desk into one seamless
 workspace — one keyboard, one mouse, one clipboard — without any extra hardware.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [Synergy alternatives compared](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/synergy-alternatives.md
+Source page: https://sharecursor.com/synergy-alternatives.md
 
 # 7 Synergy alternatives compared for 2026
 
@@ -369,7 +369,7 @@ Reviewed against official product pages and repositories on **August 22, 2026**.
 
 | Tool | Platforms | Clipboard | Files | Status | Best fit |
 |---|---|---|---|---|---|
-| [ShareClick](https://phun333.github.io/ShareClick/) | macOS, Windows | Text + images | Yes | Active, pre-release | Free encrypted Mac + Windows setup |
+| [ShareCursor](https://sharecursor.com/) | macOS, Windows | Text + images | Yes | Active, pre-release | Free encrypted Mac + Windows setup |
 | [Deskflow](https://github.com/deskflow/deskflow) | macOS, Windows, Linux, BSD | Yes | Limited | Active | Mature open-source cross-platform use |
 | [ShareMouse](https://www.sharemouse.com/) | macOS, Windows | Yes | Drag and drop | Commercial | Polished paid Mac + Windows workflow |
 | [Mouse Without Borders](https://learn.microsoft.com/windows/powertoys/mouse-without-borders) | Windows | Yes | Yes | Active in PowerToys | Windows-only desks |
@@ -385,20 +385,20 @@ only need keyboard and mouse input or also expect clipboard images and file
 transfer. Finally, check maintenance, encryption defaults and whether you need
 paid support.
 
-- **Mac + Windows, free and open source:** ShareClick or Deskflow.
+- **Mac + Windows, free and open source:** ShareCursor or Deskflow.
 - **Mac + Windows, polished commercial product:** ShareMouse or Synergy.
 - **Windows only:** Mouse Without Borders in Microsoft PowerToys.
 - **Linux is essential:** Deskflow or Lan Mouse.
 - **Existing Barrier or Input Leap user:** Keep archive status and security maintenance in mind before starting a new deployment.
 
-## 1. ShareClick
+## 1. ShareCursor
 
-**ShareClick** is a free, open-source software KVM focused on sharing a mouse,
+**ShareCursor** is a free, open-source software KVM focused on sharing a mouse,
 keyboard, clipboard and files between macOS and Windows. Input uses a low-latency
 UDP path; clipboard and files use a reliable channel. Both channels are
 end-to-end encrypted, and mDNS discovery avoids manual IP entry.
 
-The trade-off is maturity and platform breadth. ShareClick is currently
+The trade-off is maturity and platform breadth. ShareCursor is currently
 pre-release and does not yet offer production Linux support or commercial
 support. It fits developers and power users who want an inspectable, LAN-only
 Mac-to-Windows tool and are comfortable testing an actively developed
@@ -413,7 +413,7 @@ platform coverage and established codebase make it the safer open-source choice
 when Linux support is required.
 
 Choose Deskflow when broad operating-system support matters more than
-ShareClick's focused Mac-to-Windows file-transfer and low-latency design. As with
+ShareCursor's focused Mac-to-Windows file-transfer and low-latency design. As with
 any cross-platform input tool, verify packaging and Wayland support for the Linux
 distribution you actually use.
 
@@ -450,7 +450,7 @@ tool.
 
 Lan Mouse intentionally does not provide the broader clipboard and file workflow
 offered by full software KVM suites. Choose it when input sharing is the
-requirement. Choose ShareClick, Deskflow, ShareMouse or Mouse Without Borders
+requirement. Choose ShareCursor, Deskflow, ShareMouse or Mouse Without Borders
 when clipboard transfer is part of the job.
 
 ## 6. Input Leap
@@ -478,7 +478,7 @@ input and clipboard data should not be treated like an unchanging utility.
 
 ## Bottom line
 
-- **Choose ShareClick** for a free, encrypted Mac + Windows setup with clipboard images and file transfer, if pre-release software is acceptable.
+- **Choose ShareCursor** for a free, encrypted Mac + Windows setup with clipboard images and file transfer, if pre-release software is acceptable.
 - **Choose Deskflow** for a mature open-source tool with Linux support.
 - **Choose ShareMouse or Synergy** when a commercial product and support are priorities.
 - **Choose Mouse Without Borders** when every computer runs Windows.
@@ -487,13 +487,13 @@ input and clipboard data should not be treated like an unchanging utility.
 
 ### What is a free Synergy alternative for Mac and Windows?
 
-ShareClick is a free, open-source option focused on Mac and Windows. Deskflow is
+ShareCursor is a free, open-source option focused on Mac and Windows. Deskflow is
 another mature open-source choice and also supports Linux.
 
 ### Which Synergy alternative supports Linux?
 
 Deskflow and Lan Mouse support Linux. Input Leap also has Linux builds, but its
-repository was archived in July 2026. ShareClick currently focuses on macOS and
+repository was archived in July 2026. ShareCursor currently focuses on macOS and
 Windows.
 
 ### Is Barrier still maintained?
@@ -504,7 +504,7 @@ no longer receives improvements or security fixes.
 ### Does Mouse Without Borders work on macOS?
 
 No. Microsoft Mouse Without Borders is for Windows computers. Mac-to-Windows
-setups need a cross-platform option such as ShareClick, Deskflow, ShareMouse or
+setups need a cross-platform option such as ShareCursor, Deskflow, ShareMouse or
 Synergy.
 
 ## Sources and update policy
@@ -516,21 +516,21 @@ claims should be checked again before a purchase or large deployment.
 
 ## Related pages
 
-- [ShareClick vs Synergy](https://phun333.github.io/ShareClick/vs-synergy.md)
-- [ShareClick vs ShareMouse](https://phun333.github.io/ShareClick/vs-sharemouse.md)
-- [ShareClick vs Barrier](https://phun333.github.io/ShareClick/vs-barrier.md)
-- [Share clipboard between Mac and Windows](https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.md)
+- [ShareCursor vs Synergy](https://sharecursor.com/vs-synergy.md)
+- [ShareCursor vs ShareMouse](https://sharecursor.com/vs-sharemouse.md)
+- [ShareCursor vs Barrier](https://sharecursor.com/vs-barrier.md)
+- [Share clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/vs-synergy.md
+Source page: https://sharecursor.com/vs-synergy.md
 
-# ShareClick vs Synergy
+# ShareCursor vs Synergy
 
 > A free, open-source Synergy alternative to share mouse, keyboard, clipboard and
 > files between Mac and Windows. Encrypted and designed for low input latency.
 
-Looking for a **free, open-source Synergy alternative**? ShareClick shares one
+Looking for a **free, open-source Synergy alternative**? ShareCursor shares one
 keyboard, mouse, clipboard and files between your Mac and Windows PC with no
 license, encryption on every channel and a transport designed for low input
 latency.
@@ -538,7 +538,7 @@ latency.
 Compared against the [official Synergy product and support pages](https://symless.com/synergy)
 on **August 22, 2026**.
 
-| Feature | ShareClick | Synergy |
+| Feature | ShareCursor | Synergy |
 | --- | --- | --- |
 | Price | **Free** | Paid license |
 | Open source | Yes (MIT / Apache) | Core (Deskflow) yes; app proprietary |
@@ -553,7 +553,7 @@ on **August 22, 2026**.
 
 ## Pricing and licensing
 
-ShareClick is released under MIT or Apache-2.0 and does not require a license
+ShareCursor is released under MIT or Apache-2.0 and does not require a license
 key. Synergy is a commercial product with active license requirements; the
 number of computers and support options depend on the purchased edition.
 Symless changed parts of its licensing policy in 2026, so buyers should use the
@@ -561,27 +561,27 @@ current official license and pricing pages rather than an old third-party
 comparison.
 
 The practical decision is not simply free versus paid. A Synergy license funds a
-mature commercial product and support organization. ShareClick provides source
+mature commercial product and support organization. ShareCursor provides source
 access and no usage fee, but support is community-based and the project is still
 pre-release.
 
 ## Platform support and setup
 
 Synergy supports Windows, macOS and Linux and has a long production history.
-ShareClick currently focuses on macOS and Windows. Both products install an
+ShareCursor currently focuses on macOS and Windows. Both products install an
 application on every computer and switch control when the pointer reaches a
-configured screen edge. ShareClick uses mDNS discovery and exchanges the monitor
+configured screen edge. ShareCursor uses mDNS discovery and exchanges the monitor
 arrangement between paired devices; Synergy 3 also advertises automatic
 configuration and discovery.
 
 Choose Synergy when Linux, older deployment experience or paid support is
-mandatory. Choose ShareClick when the desk is specifically Mac plus Windows and
+mandatory. Choose ShareCursor when the desk is specifically Mac plus Windows and
 open-source licensing is a core requirement.
 
 ## Clipboard, files and security
 
 Both products cover the main software KVM workflow: keyboard and mouse control,
-clipboard sharing and file movement. ShareClick synchronizes text and images and
+clipboard sharing and file movement. ShareCursor synchronizes text and images and
 sends files over a separate reliable channel. Its pairing uses X25519 key
 exchange with ChaCha20-Poly1305 on both input and bulk traffic. Synergy uses TLS
 for encrypted network communication.
@@ -592,54 +592,54 @@ monitor, use a hardware KVM instead.
 
 ## What the latency number means
 
-ShareClick's approximately 6 µs figure is measured transport overhead on a local
+ShareCursor's approximately 6 µs figure is measured transport overhead on a local
 loopback benchmark. It is not a full Mac-to-Windows latency measurement and is
 not a direct benchmark against Synergy. Real input latency also includes capture,
 network, scheduling, display refresh and input injection. The architectural
-difference is factual: ShareClick uses a dedicated UDP input path while reliable
+difference is factual: ShareCursor uses a dedicated UDP input path while reliable
 clipboard and file traffic stays separate.
 
 ## Which should you pick?
 
-- **Choose ShareClick** if you want it **free and open source**, encrypted by
+- **Choose ShareCursor** if you want it **free and open source**, encrypted by
   default, with no license to manage.
 - **Choose Synergy** if you need first-class **Linux** support and paid
   commercial support, and do not mind the license fee.
 
 Synergy is the mature commercial option with broad platform support. Deskflow
-carries the open-source continuation of the Synergy 1 codebase. ShareClick is a
+carries the open-source continuation of the Synergy 1 codebase. ShareCursor is a
 separate, newer implementation focused on a free and encrypted Mac-to-Windows
 workflow.
 
-## Moving from Synergy to ShareClick
+## Moving from Synergy to ShareCursor
 
 There is no configuration import because the projects use different formats and
-protocols. Install ShareClick on both computers, pair them, arrange the displays
+protocols. Install ShareCursor on both computers, pair them, arrange the displays
 and confirm macOS permissions and the Windows firewall rule. Keep Synergy
 installed until the new setup has passed normal keyboard, clipboard and
 file-transfer tests.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [Synergy alternatives compared](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/vs-sharemouse.md
+Source page: https://sharecursor.com/vs-sharemouse.md
 
-# ShareClick vs ShareMouse
+# ShareCursor vs ShareMouse
 
 > A free, open-source ShareMouse alternative to share mouse, keyboard, clipboard
 > and files between Mac and Windows. Encrypted and designed for low input latency.
 
-Want a **free, open-source ShareMouse alternative**? ShareClick shares one mouse,
+Want a **free, open-source ShareMouse alternative**? ShareCursor shares one mouse,
 keyboard, clipboard and files across your Mac and Windows PC with no license key,
 encryption on every channel and source code available under MIT or Apache-2.0.
 
 Compared against the [official ShareMouse feature and licensing pages](https://www.sharemouse.com/)
 on **August 22, 2026**.
 
-| Feature | ShareClick | ShareMouse |
+| Feature | ShareCursor | ShareMouse |
 | --- | --- | --- |
 | Price | **Free and open source** | Restricted freeware; paid editions available |
 | Open source | Yes (MIT / Apache) | No |
@@ -653,7 +653,7 @@ on **August 22, 2026**.
 
 ## Freeware and paid editions
 
-ShareClick has no paid tier and no distinction between personal and professional
+ShareCursor has no paid tier and no distinction between personal and professional
 use under its open-source licenses. ShareMouse offers a restricted freeware mode
 for qualifying personal setups. Its official policy excludes professional use
 and larger or more advanced display arrangements; paid editions unlock
@@ -661,25 +661,25 @@ commercial use and additional features.
 
 Because licensing terms and product editions can change, verify the current
 ShareMouse shop and freeware policy for the exact number of computers and
-displays in your setup. ShareClick's trade-off is different: no license cost,
+displays in your setup. ShareCursor's trade-off is different: no license cost,
 but a younger pre-release project without commercial support.
 
 ## File transfer and daily workflow
 
 ShareMouse's file drag and drop is a mature part of its product experience: users
 can move a file between supported computers through the same desktop workflow.
-ShareClick transfers files over an encrypted reliable channel but does not claim
+ShareCursor transfers files over an encrypted reliable channel but does not claim
 the same level of drag-and-drop polish. If file movement is the dominant task,
 test both with the applications and file sizes you use every day.
 
 Both products also synchronize clipboard content and allow control from either
-Mac or Windows. ShareClick adds an open protocol implementation and keeps input
+Mac or Windows. ShareCursor adds an open protocol implementation and keeps input
 traffic separate from reliable clipboard and file traffic.
 
 ## Security and network model
 
 Both products work across a local network and support encrypted connections.
-ShareClick authenticates pairing with a shared secret, derives ephemeral keys
+ShareCursor authenticates pairing with a shared secret, derives ephemeral keys
 with X25519 and encrypts both channels using ChaCha20-Poly1305. ShareMouse
 documents password protection and AES encryption. In either case, pair only
 computers you trust because software KVM tools handle keyboard input and
@@ -687,58 +687,58 @@ clipboard contents.
 
 ## What the latency number means
 
-ShareClick's approximately 6 µs value is local loopback transport overhead, not
+ShareCursor's approximately 6 µs value is local loopback transport overhead, not
 a full end-to-end comparison with ShareMouse. Capture, Wi-Fi or Ethernet,
 operating-system scheduling, input injection and monitor refresh all affect
-perceived latency. ShareClick's architectural claim is narrower: mouse and
+perceived latency. ShareCursor's architectural claim is narrower: mouse and
 keyboard packets use a dedicated UDP channel so clipboard or file traffic cannot
 block input.
 
 ## Which should you pick?
 
-- **Choose ShareClick** if you want open-source licensing for personal or
+- **Choose ShareCursor** if you want open-source licensing for personal or
   professional use, encryption by default and a low-latency Mac-to-Windows
   design.
 - **Choose ShareMouse** if you want its polished drag and drop and do not mind a
   paid license for professional or advanced use.
 
 ShareMouse is the more established commercial product and has a polished file
-drag-and-drop workflow. ShareClick covers input, clipboard text and images, and
-encrypted files while staying free and open source. ShareClick is still
+drag-and-drop workflow. ShareCursor covers input, clipboard text and images, and
+encrypted files while staying free and open source. ShareCursor is still
 pre-release, so test it with your exact Mac, Windows version and monitor
 arrangement before replacing a production setup.
 
-## Moving from ShareMouse to ShareClick
+## Moving from ShareMouse to ShareCursor
 
-Install ShareClick on both computers, pair them and reproduce the physical
+Install ShareCursor on both computers, pair them and reproduce the physical
 display layout. Approve Accessibility and Input Monitoring on macOS and the
 firewall prompt on Windows. There is no configuration import. Keep ShareMouse
 available until mouse crossing, keyboard layouts, clipboard images and file
 transfer have all been tested.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [Keyboard-and-mouse sharing alternatives](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [Keyboard-and-mouse sharing alternatives](https://sharecursor.com/synergy-alternatives.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/vs-barrier.md
+Source page: https://sharecursor.com/vs-barrier.md
 
-# ShareClick vs Barrier
+# ShareCursor vs Barrier
 
-> Barrier is no longer maintained. ShareClick is an actively developed
+> Barrier is no longer maintained. ShareCursor is an actively developed
 > alternative for encrypted Mac-to-Windows keyboard, mouse, clipboard and file
 > sharing.
 
 Barrier was a widely used open-source software KVM, but its official release page
 says it is **no longer maintained** and no longer receives improvements or
-security fixes. ShareClick is a separate, actively developed alternative for
+security fixes. ShareCursor is a separate, actively developed alternative for
 encrypted Mac-to-Windows input, clipboard and file sharing.
 
 Status checked against the [official Barrier release page](https://github.com/debauchee/barrier/releases)
 on **August 22, 2026**.
 
-| Feature | ShareClick | Barrier |
+| Feature | ShareCursor | Barrier |
 | --- | --- | --- |
 | Price | Free & open source | Free & open source |
 | Project status | **Active, pre-release** | Unmaintained |
@@ -764,25 +764,25 @@ of the decision alongside platform support and features.
 ## Feature and architecture differences
 
 Barrier follows the classic Synergy client/server model and supports macOS,
-Windows and Linux. ShareClick currently focuses on macOS and Windows and is still
-pre-release. ShareClick separates low-latency UDP input from reliable clipboard
+Windows and Linux. ShareCursor currently focuses on macOS and Windows and is still
+pre-release. ShareCursor separates low-latency UDP input from reliable clipboard
 and file traffic, encrypts both channels and uses mDNS for discovery.
 
-Barrier remains broader for older Linux setups. ShareClick adds clipboard images
+Barrier remains broader for older Linux setups. ShareCursor adds clipboard images
 and a dedicated file-transfer path, but it does not yet replace Barrier for users
 who require Linux. Deskflow is another maintained open-source option worth
 evaluating for that use case.
 
 ## The short version
 
-**Barrier is unmaintained.** ShareClick provides the same basic
+**Barrier is unmaintained.** ShareCursor provides the same basic
 one-keyboard-and-mouse workflow for Mac and Windows, with active development,
 encryption on every channel, file transfer, clipboard images and mDNS discovery.
 
-## Moving from Barrier to ShareClick
+## Moving from Barrier to ShareCursor
 
-ShareClick cannot import a Barrier configuration because the applications use
-different protocols and layout formats. Install ShareClick on both computers,
+ShareCursor cannot import a Barrier configuration because the applications use
+different protocols and layout formats. Install ShareCursor on both computers,
 pair them and recreate the physical screen arrangement. Approve macOS
 Accessibility and Input Monitoring and allow the Windows firewall rule before
 testing keyboard, clipboard and file transfer.
@@ -791,29 +791,29 @@ Keep Barrier installed until the new setup works with your keyboard layout and
 monitor arrangement. If Linux is part of the desk, compare Deskflow and Lan Mouse
 before choosing a replacement.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [Synergy alternatives compared](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/vs-mouse-without-borders.md
+Source page: https://sharecursor.com/vs-mouse-without-borders.md
 
-# ShareClick vs Mouse Without Borders
+# ShareCursor vs Mouse Without Borders
 
-> Compare ShareClick with Microsoft Mouse Without Borders. ShareClick adds the
+> Compare ShareCursor with Microsoft Mouse Without Borders. ShareCursor adds the
 > missing Mac-to-Windows path, while Mouse Without Borders serves Windows-only
 > desks through PowerToys.
 
 Microsoft Mouse Without Borders is a free PowerToys utility for controlling up
-to four Windows computers. It is **Windows-only**. ShareClick covers the same
+to four Windows computers. It is **Windows-only**. ShareCursor covers the same
 desk workflow when one computer is a **Mac**, with encrypted clipboard and file
 sharing over the local network.
 
 Compared against the [official Microsoft PowerToys documentation](https://learn.microsoft.com/windows/powertoys/mouse-without-borders)
 on **August 22, 2026**.
 
-| Feature | ShareClick | Mouse Without Borders |
+| Feature | ShareCursor | Mouse Without Borders |
 | --- | --- | --- |
 | Price | Free & open source | Free (Microsoft PowerToys) |
 | Works on Mac | **Yes** | No (Windows only) |
@@ -832,7 +832,7 @@ Windows 11. It is integrated into PowerToys, supports up to four computers and
 includes clipboard and file transfer. There is no macOS client, so it cannot
 bridge a Mac and PC.
 
-ShareClick currently supports macOS and Windows and is designed around a
+ShareCursor currently supports macOS and Windows and is designed around a
 two-platform desk. It is an independent pre-release project rather than a
 Microsoft utility. That gives users an inspectable open protocol and
 cross-platform support, while Mouse Without Borders offers the maturity and
@@ -841,54 +841,54 @@ distribution of PowerToys.
 ## Clipboard and files
 
 Both tools move more than input. Microsoft documents clipboard sharing and file
-transfer between connected Windows computers. ShareClick synchronizes clipboard
+transfer between connected Windows computers. ShareCursor synchronizes clipboard
 text and images between Mac and Windows and sends files through a separate
 reliable encrypted channel.
 
 ## Setup differences
 
 Mouse Without Borders pairs Windows machines using a security key and computer
-name inside PowerToys. ShareClick advertises devices over mDNS, authenticates the
+name inside PowerToys. ShareCursor advertises devices over mDNS, authenticates the
 pair and exchanges the screen arrangement. Both require local firewall access
 and work best when the computers can reach each other directly on the same LAN.
 
 ## Which should you pick?
 
-- **Choose ShareClick** if either machine is a **Mac**. Mouse Without Borders has
+- **Choose ShareCursor** if either machine is a **Mac**. Mouse Without Borders has
   no macOS client.
 - **Choose Mouse Without Borders** if **all** machines run Windows and you want
   PowerToys integration and support for up to four PCs.
 
 Mouse Without Borders is the straightforward free choice for Windows-only desks.
-ShareClick brings the same one-keyboard-and-mouse idea to Mac and Windows, with a
+ShareCursor brings the same one-keyboard-and-mouse idea to Mac and Windows, with a
 dedicated UDP input path, encryption on every channel and mDNS discovery.
-ShareClick's ~6 µs measurement is loopback transport overhead, not a direct
+ShareCursor's ~6 µs measurement is loopback transport overhead, not a direct
 end-to-end benchmark against the Microsoft tool.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Mac and Windows clipboard guide](https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.md)
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [Keyboard-and-mouse sharing alternatives](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Mac and Windows clipboard guide](https://sharecursor.com/share-clipboard-between-mac-and-windows.md)
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [Keyboard-and-mouse sharing alternatives](https://sharecursor.com/synergy-alternatives.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/vs-universal-control.md
+Source page: https://sharecursor.com/vs-universal-control.md
 
-# Universal Control for Windows: ShareClick vs Apple Universal Control
+# Universal Control for Windows: ShareCursor vs Apple Universal Control
 
-> Apple Universal Control does not support Windows. ShareClick provides a free,
+> Apple Universal Control does not support Windows. ShareCursor provides a free,
 > open-source Mac-to-Windows alternative with keyboard, mouse, clipboard and file
 > sharing over an encrypted local connection.
 
 Apple's **Universal Control** lets one keyboard and mouse move across supported
-Macs and iPads, but it does not support Windows. ShareClick is a free,
+Macs and iPads, but it does not support Windows. ShareCursor is a free,
 open-source **Universal Control for Windows alternative** for a Mac and Windows
 PC, with clipboard and file sharing over an encrypted local connection.
 
 Apple platform support checked against the [official Universal Control documentation](https://support.apple.com/en-us/102459)
 on **August 22, 2026**.
 
-| Feature | ShareClick | Universal Control |
+| Feature | ShareCursor | Universal Control |
 | --- | --- | --- |
 | Price | Free & open source | Free (built into macOS) |
 | Works with Windows | **Yes** | No (Apple devices only) |
@@ -908,7 +908,7 @@ Apple does not provide a Windows client. Installing iCloud for Windows does not
 add Universal Control.
 
 A cross-platform software KVM solves a similar interaction problem at the
-network level. ShareClick runs on both computers, captures input on the active
+network level. ShareCursor runs on both computers, captures input on the active
 machine and sends it to the paired machine when the pointer crosses a configured
 display edge.
 
@@ -916,11 +916,11 @@ display edge.
 
 Universal Control is nearly invisible when the Apple prerequisites are already
 in place: the devices use the same Apple Account and Apple configures the
-connection. ShareClick does not require an Apple Account, Microsoft account or
-ShareClick cloud account. The computers pair on the LAN, exchange their monitor
+connection. ShareCursor does not require an Apple Account, Microsoft account or
+ShareCursor cloud account. The computers pair on the LAN, exchange their monitor
 arrangement and authenticate the encrypted connection.
 
-ShareClick requires installation and operating-system permissions on both
+ShareCursor requires installation and operating-system permissions on both
 machines. On macOS that includes Accessibility and Input Monitoring; Windows may
 request a firewall rule. This is more setup than a built-in Apple feature, but it
 crosses the platform boundary.
@@ -928,49 +928,49 @@ crosses the platform boundary.
 ## Clipboard and file movement
 
 Both approaches let users move work between screens, but compatibility differs.
-ShareClick synchronizes clipboard text and images between Mac and Windows and
+ShareCursor synchronizes clipboard text and images between Mac and Windows and
 transfers files over a reliable encrypted channel. Universal Control supports
 Apple workflows between compatible apps and devices. Neither product streams the
 display: each device continues using its own screen.
 
 ## Which should you pick?
 
-- **Choose ShareClick** if one machine is a **Windows PC**. Universal Control
+- **Choose ShareCursor** if one machine is a **Windows PC**. Universal Control
   does not support Windows.
 - **Choose Universal Control** if you only move between supported **Apple
   devices** and already meet Apple's account and connectivity requirements.
 
 Universal Control is the better fit inside a supported all-Apple setup because
-it is built into the operating system. ShareClick addresses the missing
+it is built into the operating system. ShareCursor addresses the missing
 Mac-to-Windows case with clipboard sync, file transfer, encryption on every
-channel and a dedicated UDP input path. ShareClick is pre-release software, so
+channel and a dedicated UDP input path. ShareCursor is pre-release software, so
 test permissions, keyboard layout and display arrangement on the exact machines
 you plan to use.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Mac and Windows setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [Share clipboard between Mac and Windows](https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.md)
-- [Compare software KVM options](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Mac and Windows setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [Share clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md)
+- [Compare software KVM options](https://sharecursor.com/synergy-alternatives.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/vs-input-leap.md
+Source page: https://sharecursor.com/vs-input-leap.md
 
-# ShareClick vs Input Leap
+# ShareCursor vs Input Leap
 
 > Input Leap was archived in July 2026. Compare its platforms, clipboard support
-> and maintenance status with the free, open-source ShareClick software KVM.
+> and maintenance status with the free, open-source ShareCursor software KVM.
 
 Input Leap was the community-maintained fork of Barrier, supporting keyboard,
 mouse and clipboard sharing across macOS, Windows, Linux and BSD. Its GitHub
-repository was **archived on July 26, 2026** and is now read-only. ShareClick is
+repository was **archived on July 26, 2026** and is now read-only. ShareCursor is
 an actively developed, free alternative focused on encrypted **Mac-to-Windows**
 sharing.
 
 Status checked against the [official Input Leap repository](https://github.com/input-leap/input-leap)
 on **August 22, 2026**.
 
-| Feature | ShareClick | Input Leap |
+| Feature | ShareCursor | Input Leap |
 | --- | --- | --- |
 | Price | Free & open source | Free & open source |
 | Project status | Active, pre-release | Archived July 2026 |
@@ -984,7 +984,7 @@ on **August 22, 2026**.
 
 ## Which should you pick?
 
-- **Choose ShareClick** for **Mac-to-Windows** if you want encryption on by
+- **Choose ShareCursor** for **Mac-to-Windows** if you want encryption on by
   default, file transfer, clipboard images and mDNS discovery, and pre-release
   software is acceptable.
 - **Keep Input Leap** if an existing installation works for you and its archived
@@ -999,23 +999,23 @@ operating-system changes or newly reported security issues from that project.
 This matters for software that captures keyboard input and reads clipboard data.
 
 Input Leap and Barrier proved how useful an open-source software KVM can be.
-ShareClick is a newer, security-focused implementation for Mac and Windows: a
+ShareCursor is a newer, security-focused implementation for Mac and Windows: a
 UDP input path (~6 µs transport overhead), encryption on every channel,
-clipboard images, file transfer and mDNS discovery. ShareClick is still
+clipboard images, file transfer and mDNS discovery. ShareCursor is still
 pre-release, so users who require Linux or a longer production history should
 also evaluate Deskflow.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [2026 Synergy alternatives comparison](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [2026 Synergy alternatives comparison](https://sharecursor.com/synergy-alternatives.md)
 
 ---
 
-Source page: https://phun333.github.io/ShareClick/pricing.md
+Source page: https://sharecursor.com/pricing.md
 
-# Pricing — ShareClick
+# Pricing — ShareCursor
 
-ShareClick is **free and open source**. There are no paid tiers, no
+ShareCursor is **free and open source**. There are no paid tiers, no
 subscriptions, and no license for the number of computers you use.
 
 ## Free
@@ -1028,4 +1028,4 @@ subscriptions, and no license for the number of computers you use.
   screen-edge switching, mDNS zero-config discovery
 - Requirements: both machines on the same local network (LAN); no cloud account
 
-Download: https://github.com/phun333/ShareClick/releases
+Download: https://github.com/phun333/ShareCursor/releases

@@ -3,25 +3,30 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ShareClick vs Barrier — maintained, encrypted alternative</title>
-<meta name="description" content="ShareClick vs Barrier: Barrier is unmaintained. ShareClick is an actively developed, encrypted alternative with file transfer and clipboard images." />
+<title>ShareCursor vs Barrier — maintained, encrypted alternative</title>
+<meta name="description" content="ShareCursor vs Barrier: Barrier is unmaintained. ShareCursor is an actively developed, encrypted alternative with file transfer and clipboard images." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#fafafa" />
-<link rel="canonical" href="https://phun333.github.io/ShareClick/vs-barrier.html" />
+<link rel="canonical" href="https://sharecursor.com/vs-barrier.html" />
 <link rel="alternate" type="text/markdown" href="vs-barrier.md" title="Markdown version (for LLMs)" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="article" />
-<meta property="og:site_name" content="ShareClick" />
-<meta property="og:title" content="ShareClick vs Barrier — maintained, encrypted alternative" />
-<meta property="og:description" content="Barrier is unmaintained. ShareClick is an actively developed, encrypted Barrier alternative with file transfer and clipboard images." />
-<meta property="og:url" content="https://phun333.github.io/ShareClick/vs-barrier.html" />
-<meta property="og:image" content="https://phun333.github.io/ShareClick/og.png" />
+<meta property="og:site_name" content="ShareCursor" />
+<meta property="og:title" content="ShareCursor vs Barrier — maintained, encrypted alternative" />
+<meta property="og:description" content="Barrier is unmaintained. ShareCursor is an actively developed, encrypted Barrier alternative with file transfer and clipboard images." />
+<meta property="og:url" content="https://sharecursor.com/vs-barrier.html" />
+<meta property="og:image" content="https://sharecursor.com/sharecursor-og.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="ShareCursor — one keyboard and mouse across Mac and Windows" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://phun333.github.io/ShareClick/og.png" />
+<meta name="twitter:image" content="https://sharecursor.com/sharecursor-og.png" />
+<meta name="twitter:image:alt" content="ShareCursor — one keyboard and mouse across Mac and Windows" />
 <script type="application/ld+json">
 { "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-  {"@type":"ListItem","position":1,"name":"ShareClick","item":"https://phun333.github.io/ShareClick/"},
-  {"@type":"ListItem","position":2,"name":"ShareClick vs Barrier","item":"https://phun333.github.io/ShareClick/vs-barrier.html"}
+  {"@type":"ListItem","position":1,"name":"ShareCursor","item":"https://sharecursor.com/"},
+  {"@type":"ListItem","position":2,"name":"ShareCursor vs Barrier","item":"https://sharecursor.com/vs-barrier.html"}
 ]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,10 +39,10 @@
 
 <div class="wrap">
   <header>
-    <a class="home" href="./"><span class="dot"></span> shareclick</a>
+    <a class="home" href="./"><span class="dot"></span> sharecursor</a>
     <nav class="hnav">
       <a class="icon" href="https://x.com/wiredaddict" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-      <a class="icon" href="https://github.com/phun333/ShareClick" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
+      <a class="icon" href="https://github.com/phun333/ShareCursor" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
     </nav>
   </header>
 </div>
@@ -45,11 +50,11 @@
 <main class="doc">
   <div class="wrap">
     <article>
-      <p class="crumb"><a href="./">shareclick</a> / vs Barrier</p>
-      <h1>ShareClick vs Barrier</h1>
+      <p class="crumb"><a href="./">sharecursor</a> / vs Barrier</p>
+      <h1>ShareCursor vs Barrier</h1>
       <p class="lead">Barrier was a widely used open-source software KVM, but its official release
       page says it is <strong>no longer maintained</strong> and no longer receives improvements or
-      security fixes. ShareClick is a separate, actively developed alternative for encrypted
+      security fixes. ShareCursor is a separate, actively developed alternative for encrypted
       Mac-to-Windows input, clipboard and file sharing.</p>
       <p class="updated">Status checked against the
       <a href="https://github.com/debauchee/barrier/releases">official Barrier release page</a> on
@@ -57,7 +62,7 @@
 
       <table class="cmp">
         <colgroup><col class="c1"><col><col></colgroup>
-        <thead><tr><th>Feature</th><th>ShareClick</th><th>Barrier</th></tr></thead>
+        <thead><tr><th>Feature</th><th>ShareCursor</th><th>Barrier</th></tr></thead>
         <tbody>
           <tr><td>Price</td><td class="yes">Free &amp; open source</td><td class="yes">Free &amp; open source</td></tr>
           <tr><td>Project status</td><td class="win">Active, pre-release</td><td>Unmaintained</td></tr>
@@ -82,23 +87,23 @@
 
       <h2>feature and architecture differences</h2>
       <p>Barrier follows the classic Synergy client/server model and supports macOS, Windows and
-      Linux. ShareClick currently focuses on macOS and Windows and is still pre-release. ShareClick
+      Linux. ShareCursor currently focuses on macOS and Windows and is still pre-release. ShareCursor
       separates low-latency UDP input from reliable clipboard and file traffic, encrypts both
       channels and uses mDNS for discovery.</p>
-      <p>Barrier remains broader for older Linux setups. ShareClick adds clipboard images and a
+      <p>Barrier remains broader for older Linux setups. ShareCursor adds clipboard images and a
       dedicated file-transfer path, but it does not yet replace Barrier for users who require Linux.
       Deskflow is another maintained open-source option worth evaluating for that use case.</p>
 
       <h2>the short version</h2>
       <div class="verdict">
-        <p><b>Barrier is unmaintained.</b> ShareClick provides the same basic one-keyboard-and-mouse
+        <p><b>Barrier is unmaintained.</b> ShareCursor provides the same basic one-keyboard-and-mouse
         workflow for Mac and Windows, with active development, encryption on every channel, file
         transfer, clipboard images and mDNS discovery.</p>
       </div>
 
-      <h2>moving from Barrier to ShareClick</h2>
-      <p>ShareClick cannot import a Barrier configuration because the applications use different
-      protocols and layout formats. Install ShareClick on both computers, pair them and recreate the
+      <h2>moving from Barrier to ShareCursor</h2>
+      <p>ShareCursor cannot import a Barrier configuration because the applications use different
+      protocols and layout formats. Install ShareCursor on both computers, pair them and recreate the
       physical screen arrangement. Approve macOS Accessibility and Input Monitoring and allow the
       Windows firewall rule before testing keyboard, clipboard and file transfer.</p>
       <p>Keep Barrier installed until the new setup works with your keyboard layout and monitor
@@ -107,16 +112,16 @@
       covers those options.</p>
 
       <div class="cta-inline">
-        <a class="btn" href="https://github.com/phun333/ShareClick/releases" data-umami-event="release-page-click" data-umami-event-placement="vs-barrier">Download ShareClick — free</a>
+        <a class="btn" href="https://github.com/phun333/ShareCursor/releases" data-umami-event="release-page-click" data-umami-event-placement="vs-barrier">Download ShareCursor — free</a>
         <a class="btn ghost" href="how-to-share-mouse-keyboard-mac-windows.html">Setup guide</a>
       </div>
     </article>
   </div>
 
   <footer>
-    <a href="./">shareclick</a> · <a href="vs-synergy.html">vs Synergy</a> ·
+    <a href="./">sharecursor</a> · <a href="vs-synergy.html">vs Synergy</a> ·
     <a href="vs-sharemouse.html">vs ShareMouse</a> ·
-    <a href="https://github.com/phun333/ShareClick">GitHub</a> · MIT / Apache-2.0
+    <a href="https://github.com/phun333/ShareCursor">GitHub</a> · MIT / Apache-2.0
   </footer>
 </main>
 

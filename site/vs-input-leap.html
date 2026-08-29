@@ -3,26 +3,31 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ShareClick vs Input Leap — maintained alternative for 2026</title>
-<meta name="description" content="Input Leap was archived in July 2026. Compare its platforms, clipboard support and maintenance status with the free, open-source ShareClick software KVM." />
+<title>ShareCursor vs Input Leap — maintained alternative for 2026</title>
+<meta name="description" content="Input Leap was archived in July 2026. Compare its platforms, clipboard support and maintenance status with the free, open-source ShareCursor software KVM." />
 <meta name="keywords" content="Input Leap alternative, Input Leap vs, Barrier fork, share mouse keyboard mac windows, software KVM, open source KVM" />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#fafafa" />
-<link rel="canonical" href="https://phun333.github.io/ShareClick/vs-input-leap.html" />
+<link rel="canonical" href="https://sharecursor.com/vs-input-leap.html" />
 <link rel="alternate" type="text/markdown" href="vs-input-leap.md" title="Markdown version (for LLMs)" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="article" />
-<meta property="og:site_name" content="ShareClick" />
-<meta property="og:title" content="ShareClick vs Input Leap — updated 2026 comparison" />
-<meta property="og:description" content="Input Leap was archived in July 2026. Compare it with ShareClick for Mac-to-Windows keyboard, mouse, clipboard and file sharing." />
-<meta property="og:url" content="https://phun333.github.io/ShareClick/vs-input-leap.html" />
-<meta property="og:image" content="https://phun333.github.io/ShareClick/og.png" />
+<meta property="og:site_name" content="ShareCursor" />
+<meta property="og:title" content="ShareCursor vs Input Leap — updated 2026 comparison" />
+<meta property="og:description" content="Input Leap was archived in July 2026. Compare it with ShareCursor for Mac-to-Windows keyboard, mouse, clipboard and file sharing." />
+<meta property="og:url" content="https://sharecursor.com/vs-input-leap.html" />
+<meta property="og:image" content="https://sharecursor.com/sharecursor-og.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="ShareCursor — one keyboard and mouse across Mac and Windows" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://phun333.github.io/ShareClick/og.png" />
+<meta name="twitter:image" content="https://sharecursor.com/sharecursor-og.png" />
+<meta name="twitter:image:alt" content="ShareCursor — one keyboard and mouse across Mac and Windows" />
 <script type="application/ld+json">
 { "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-  {"@type":"ListItem","position":1,"name":"ShareClick","item":"https://phun333.github.io/ShareClick/"},
-  {"@type":"ListItem","position":2,"name":"ShareClick vs Input Leap","item":"https://phun333.github.io/ShareClick/vs-input-leap.html"}
+  {"@type":"ListItem","position":1,"name":"ShareCursor","item":"https://sharecursor.com/"},
+  {"@type":"ListItem","position":2,"name":"ShareCursor vs Input Leap","item":"https://sharecursor.com/vs-input-leap.html"}
 ]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,10 +40,10 @@
 
 <div class="wrap">
   <header>
-    <a class="home" href="./"><span class="dot"></span> shareclick</a>
+    <a class="home" href="./"><span class="dot"></span> sharecursor</a>
     <nav class="hnav">
       <a class="icon" href="https://x.com/wiredaddict" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-      <a class="icon" href="https://github.com/phun333/ShareClick" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
+      <a class="icon" href="https://github.com/phun333/ShareCursor" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
     </nav>
   </header>
 </div>
@@ -46,11 +51,11 @@
 <main class="doc">
   <div class="wrap">
     <article>
-      <p class="crumb"><a href="./">shareclick</a> / vs Input Leap</p>
-      <h1>ShareClick vs Input Leap</h1>
+      <p class="crumb"><a href="./">sharecursor</a> / vs Input Leap</p>
+      <h1>ShareCursor vs Input Leap</h1>
       <p class="lead">Input Leap was the community-maintained fork of Barrier, supporting keyboard,
       mouse and clipboard sharing across macOS, Windows, Linux and BSD. Its GitHub repository was
-      <strong>archived on July 26, 2026</strong> and is now read-only. ShareClick is an actively
+      <strong>archived on July 26, 2026</strong> and is now read-only. ShareCursor is an actively
       developed, free alternative focused on encrypted <strong>Mac-to-Windows</strong> sharing.</p>
       <p class="updated">Status checked against the
       <a href="https://github.com/input-leap/input-leap">official Input Leap repository</a> on
@@ -58,7 +63,7 @@
 
       <table class="cmp">
         <colgroup><col class="c1"><col><col></colgroup>
-        <thead><tr><th>Feature</th><th>ShareClick</th><th>Input Leap</th></tr></thead>
+        <thead><tr><th>Feature</th><th>ShareCursor</th><th>Input Leap</th></tr></thead>
         <tbody>
           <tr><td>Price</td><td class="yes">Free &amp; open source</td><td class="yes">Free &amp; open source</td></tr>
           <tr><td>Project status</td><td class="yes">Active, pre-release</td><td>Archived July 2026</td></tr>
@@ -74,7 +79,7 @@
 
       <h2>which should you pick?</h2>
       <div class="verdict">
-        <p><b>Choose ShareClick</b> for <b>Mac↔Windows</b> if you want encryption on by default, file
+        <p><b>Choose ShareCursor</b> for <b>Mac↔Windows</b> if you want encryption on by default, file
         transfer, clipboard images and mDNS discovery with a dedicated low-latency input path.</p>
         <p><b>Keep Input Leap</b> if an existing installation works for you and its archived status
         is acceptable. For a new Linux deployment, evaluate an actively maintained option such as
@@ -87,27 +92,27 @@
       reported security issues from that project. This matters for software that captures keyboard
       input and reads clipboard data.</p>
 
-      <p>Input Leap and Barrier proved how useful an open-source software KVM can be. ShareClick is
+      <p>Input Leap and Barrier proved how useful an open-source software KVM can be. ShareCursor is
       a newer, security-focused implementation for Mac and Windows: a UDP input path (~6&nbsp;µs
       transport overhead), encryption on every channel, clipboard images, file transfer and mDNS
-      discovery. ShareClick is still pre-release, so users who require Linux or a longer production
+      discovery. ShareCursor is still pre-release, so users who require Linux or a longer production
       history should also evaluate Deskflow.</p>
 
       <p>For a broader view, see the <a href="synergy-alternatives.html">2026 Synergy alternatives
       comparison</a>.</p>
 
       <div class="cta-inline">
-        <a class="btn" href="https://github.com/phun333/ShareClick/releases" data-umami-event="release-page-click" data-umami-event-placement="vs-input-leap">Download ShareClick — free</a>
+        <a class="btn" href="https://github.com/phun333/ShareCursor/releases" data-umami-event="release-page-click" data-umami-event-placement="vs-input-leap">Download ShareCursor — free</a>
         <a class="btn ghost" href="how-to-share-mouse-keyboard-mac-windows.html">Setup guide</a>
       </div>
     </article>
   </div>
 
   <footer>
-    <a href="./">shareclick</a> · <a href="vs-synergy.html">vs Synergy</a> ·
+    <a href="./">sharecursor</a> · <a href="vs-synergy.html">vs Synergy</a> ·
     <a href="vs-sharemouse.html">vs ShareMouse</a> · <a href="vs-barrier.html">vs Barrier</a> ·
     <a href="vs-mouse-without-borders.html">vs Mouse Without Borders</a> ·
-    <a href="https://github.com/phun333/ShareClick">GitHub</a> · MIT / Apache-2.0
+    <a href="https://github.com/phun333/ShareCursor">GitHub</a> · MIT / Apache-2.0
   </footer>
 </main>
 

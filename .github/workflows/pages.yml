@@ -1,7 +1,7 @@
 name: Deploy site to GitHub Pages
 
 # Publishes the site/ folder straight from main — no separate branch.
-# Live at: https://phun333.github.io/ShareClick/
+# Live at: https://sharecursor.com/
 on:
   push:
     branches: [main]

@@ -1,6 +1,6 @@
-# ShareClick
+# ShareCursor
 
-> ShareClick is a free, open-source software KVM. One keyboard and mouse control
+> ShareCursor is a free, open-source software KVM. One keyboard and mouse control
 > both a Mac and a Windows PC over the local network, with clipboard (text and
 > images) and file sharing built in. Every channel is end-to-end encrypted
 > (X25519 + ChaCha20-Poly1305) and it runs LAN-only — no hardware, no cloud, no
@@ -19,21 +19,21 @@
 ## Pages
 Each page has a clean Markdown version (append/replace `.html` with `.md`), which
 is the preferred source for machine reading.
-- [Home](https://phun333.github.io/ShareClick/index.md): overview and downloads
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md): how to share a mouse and keyboard between Mac and Windows
-- [What is a software KVM?](https://phun333.github.io/ShareClick/what-is-a-software-kvm.md): definition, how it works, software vs hardware KVM
-- [Share clipboard between Mac and Windows](https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.md): encrypted text, image and file sharing guide
-- [Synergy alternatives compared](https://phun333.github.io/ShareClick/synergy-alternatives.md): seven current and legacy options reviewed in August 2026
-- [ShareClick vs Synergy](https://phun333.github.io/ShareClick/vs-synergy.md)
-- [ShareClick vs ShareMouse](https://phun333.github.io/ShareClick/vs-sharemouse.md)
-- [ShareClick vs Barrier](https://phun333.github.io/ShareClick/vs-barrier.md)
-- [ShareClick vs Mouse Without Borders](https://phun333.github.io/ShareClick/vs-mouse-without-borders.md): the Mac-capable alternative (Mouse Without Borders is Windows-only)
-- [ShareClick vs Universal Control](https://phun333.github.io/ShareClick/vs-universal-control.md): Universal Control for Windows (Apple's is Apple-only)
-- [ShareClick vs Input Leap](https://phun333.github.io/ShareClick/vs-input-leap.md): updated after Input Leap was archived in July 2026
-- [Pricing](https://phun333.github.io/ShareClick/pricing.md): free
-- [Install guide](https://github.com/phun333/ShareClick/blob/main/docs/INSTALL.md)
-- [Source code](https://github.com/phun333/ShareClick)
-- [Download](https://github.com/phun333/ShareClick/releases)
+- [Home](https://sharecursor.com/index.md): overview and downloads
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md): how to share a mouse and keyboard between Mac and Windows
+- [What is a software KVM?](https://sharecursor.com/what-is-a-software-kvm.md): definition, how it works, software vs hardware KVM
+- [Share clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md): encrypted text, image and file sharing guide
+- [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md): seven current and legacy options reviewed in August 2026
+- [ShareCursor vs Synergy](https://sharecursor.com/vs-synergy.md)
+- [ShareCursor vs ShareMouse](https://sharecursor.com/vs-sharemouse.md)
+- [ShareCursor vs Barrier](https://sharecursor.com/vs-barrier.md)
+- [ShareCursor vs Mouse Without Borders](https://sharecursor.com/vs-mouse-without-borders.md): the Mac-capable alternative (Mouse Without Borders is Windows-only)
+- [ShareCursor vs Universal Control](https://sharecursor.com/vs-universal-control.md): Universal Control for Windows (Apple's is Apple-only)
+- [ShareCursor vs Input Leap](https://sharecursor.com/vs-input-leap.md): updated after Input Leap was archived in July 2026
+- [Pricing](https://sharecursor.com/pricing.md): free
+- [Install guide](https://github.com/phun333/ShareCursor/blob/main/docs/INSTALL.md)
+- [Source code](https://github.com/phun333/ShareCursor)
+- [Download](https://github.com/phun333/ShareCursor/releases)
 
 ## Optional
-- [llms-full.txt](https://phun333.github.io/ShareClick/llms-full.txt): the full text of every page in one file, for single-fetch ingestion
+- [llms-full.txt](https://sharecursor.com/llms-full.txt): the full text of every page in one file, for single-fetch ingestion

@@ -24,7 +24,7 @@ your local network, while each computer keeps using its own display.
 - When you push the mouse past a shared screen edge, control jumps to the next
   computer; your keystrokes and mouse movements are sent to it over the network.
 - The clipboard syncs automatically, so you can copy on one machine and paste on
-  the other, and many tools (including ShareClick) can send files across too.
+  the other, and many tools (including ShareCursor) can send files across too.
 
 ## Software KVM vs hardware KVM
 
@@ -38,7 +38,7 @@ your local network, while each computer keeps using its own display.
 
 ## Is there a free software KVM for Mac and Windows?
 
-Yes. **ShareClick** is a free, open-source software KVM that shares one keyboard,
+Yes. **ShareCursor** is a free, open-source software KVM that shares one keyboard,
 mouse, clipboard and files between a **Mac and a Windows PC** over the local
 network. Every channel is end-to-end encrypted (X25519 + ChaCha20-Poly1305), it
 runs LAN-only (no cloud), and uses a low-latency UDP input path (~6 µs measured
@@ -47,6 +47,6 @@ loopback transport overhead). It's a free alternative to Synergy, ShareMouse, Ba
 In short: a software KVM turns two computers on your desk into one seamless
 workspace — one keyboard, one mouse, one clipboard — without any extra hardware.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [Synergy alternatives compared](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)

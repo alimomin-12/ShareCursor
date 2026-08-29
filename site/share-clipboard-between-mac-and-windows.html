@@ -3,43 +3,48 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Share clipboard between Mac and Windows | ShareClick</title>
+<title>Share clipboard between Mac and Windows | ShareCursor</title>
 <meta name="description" content="Share clipboard text and images between Mac and Windows over your local network. Free setup guide with encryption, troubleshooting and file transfer." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#fafafa" />
-<link rel="canonical" href="https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.html" />
+<link rel="canonical" href="https://sharecursor.com/share-clipboard-between-mac-and-windows.html" />
 <link rel="alternate" type="text/markdown" href="share-clipboard-between-mac-and-windows.md" title="Markdown version (for LLMs)" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="article" />
-<meta property="og:site_name" content="ShareClick" />
+<meta property="og:site_name" content="ShareCursor" />
 <meta property="og:title" content="Share clipboard between Mac and Windows" />
 <meta property="og:description" content="Copy text or images on a Mac and paste them on Windows, or the other way around, over an encrypted local connection." />
-<meta property="og:url" content="https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.html" />
-<meta property="og:image" content="https://phun333.github.io/ShareClick/og.png" />
+<meta property="og:url" content="https://sharecursor.com/share-clipboard-between-mac-and-windows.html" />
+<meta property="og:image" content="https://sharecursor.com/sharecursor-og.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="ShareCursor — one keyboard and mouse across Mac and Windows" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://phun333.github.io/ShareClick/og.png" />
+<meta name="twitter:image" content="https://sharecursor.com/sharecursor-og.png" />
+<meta name="twitter:image:alt" content="ShareCursor — one keyboard and mouse across Mac and Windows" />
 <script type="application/ld+json">
 {
   "@context":"https://schema.org",
   "@graph":[
     {"@type":"BreadcrumbList","itemListElement":[
-      {"@type":"ListItem","position":1,"name":"ShareClick","item":"https://phun333.github.io/ShareClick/"},
-      {"@type":"ListItem","position":2,"name":"Share clipboard between Mac and Windows","item":"https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.html"}
+      {"@type":"ListItem","position":1,"name":"ShareCursor","item":"https://sharecursor.com/"},
+      {"@type":"ListItem","position":2,"name":"Share clipboard between Mac and Windows","item":"https://sharecursor.com/share-clipboard-between-mac-and-windows.html"}
     ]},
     {"@type":"Article",
       "headline":"How to share clipboard between Mac and Windows",
       "description":"A practical guide to sharing clipboard text and images between macOS and Windows over a local network.",
-      "image":"https://phun333.github.io/ShareClick/og.png",
+      "image":"https://sharecursor.com/sharecursor-og.png",
       "datePublished":"2026-08-22",
       "dateModified":"2026-08-22",
       "author":{"@type":"Person","name":"wiredaddict","url":"https://x.com/wiredaddict"},
-      "publisher":{"@type":"Organization","name":"ShareClick","url":"https://phun333.github.io/ShareClick/"},
-      "mainEntityOfPage":"https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.html"
+      "publisher":{"@type":"Organization","name":"ShareCursor","url":"https://sharecursor.com/"},
+      "mainEntityOfPage":"https://sharecursor.com/share-clipboard-between-mac-and-windows.html"
     },
     {"@type":"FAQPage","mainEntity":[
-      {"@type":"Question","name":"Can I share a clipboard between Mac and Windows?","acceptedAnswer":{"@type":"Answer","text":"Yes. Install a cross-platform clipboard tool such as ShareClick on both computers. It can copy text and images between macOS and Windows over the local network."}},
-      {"@type":"Question","name":"Does ShareClick use the cloud for clipboard sync?","acceptedAnswer":{"@type":"Answer","text":"No. ShareClick sends clipboard data directly between the paired computers over the local network. The connection is authenticated and end-to-end encrypted."}},
-      {"@type":"Question","name":"Can I copy files between Mac and Windows too?","acceptedAnswer":{"@type":"Answer","text":"Yes. ShareClick includes file transfer over its encrypted reliable channel. Clipboard sync handles text and images, while file transfer handles files."}},
+      {"@type":"Question","name":"Can I share a clipboard between Mac and Windows?","acceptedAnswer":{"@type":"Answer","text":"Yes. Install a cross-platform clipboard tool such as ShareCursor on both computers. It can copy text and images between macOS and Windows over the local network."}},
+      {"@type":"Question","name":"Does ShareCursor use the cloud for clipboard sync?","acceptedAnswer":{"@type":"Answer","text":"No. ShareCursor sends clipboard data directly between the paired computers over the local network. The connection is authenticated and end-to-end encrypted."}},
+      {"@type":"Question","name":"Can I copy files between Mac and Windows too?","acceptedAnswer":{"@type":"Answer","text":"Yes. ShareCursor includes file transfer over its encrypted reliable channel. Clipboard sync handles text and images, while file transfer handles files."}},
       {"@type":"Question","name":"Does Apple Universal Clipboard work with Windows?","acceptedAnswer":{"@type":"Answer","text":"No. Apple Universal Clipboard works between supported Apple devices signed into the same Apple Account. A separate cross-platform tool is needed for Mac-to-Windows clipboard sharing."}}
     ]}
   ]
@@ -55,11 +60,11 @@
 
 <div class="wrap">
   <header>
-    <a class="home" href="./"><span class="dot"></span> shareclick</a>
+    <a class="home" href="./"><span class="dot"></span> sharecursor</a>
     <nav class="hnav">
-      <a class="doclink" href="https://shareclick.mintlify.app">Docs</a>
+      <a class="doclink" href="https://docs.sharecursor.com">Docs</a>
       <a class="icon" href="https://x.com/wiredaddict" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-      <a class="icon" href="https://github.com/phun333/ShareClick" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
+      <a class="icon" href="https://github.com/phun333/ShareCursor" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
     </nav>
   </header>
 </div>
@@ -67,31 +72,31 @@
 <main class="doc">
   <div class="wrap">
     <article>
-      <p class="crumb"><a href="./">shareclick</a> / share clipboard between Mac and Windows</p>
+      <p class="crumb"><a href="./">sharecursor</a> / share clipboard between Mac and Windows</p>
       <h1>How to share clipboard between Mac and Windows</h1>
       <p class="lead">To share a clipboard between a <strong>Mac and Windows PC</strong>, install
-      ShareClick on both computers and pair them on the same local network. Copy text or an image on
+      ShareCursor on both computers and pair them on the same local network. Copy text or an image on
       either machine and paste it on the other. The transfer stays on your LAN and is encrypted end
       to end.</p>
 
       <h2>the quickest method</h2>
       <p>macOS Universal Clipboard does not support Windows, and Windows clipboard sync is designed
-      around Windows devices. A cross-platform app fills that gap. ShareClick combines clipboard
+      around Windows devices. A cross-platform app fills that gap. ShareCursor combines clipboard
       sync with mouse and keyboard sharing, so the two computers behave like one desk rather than
       two separate systems.</p>
       <ol>
-        <li>Download ShareClick for macOS and Windows from the official releases page.</li>
+        <li>Download ShareCursor for macOS and Windows from the official releases page.</li>
         <li>Install and start it on both computers connected to the same Wi-Fi or Ethernet LAN.</li>
         <li>Pair the computers and confirm the same encrypted connection.</li>
         <li>Copy text or an image normally, switch to the other computer, and paste.</li>
       </ol>
       <p>No browser tab, cloud drive or message to yourself is required. Clipboard monitoring runs
-      in the background while ShareClick is connected.</p>
+      in the background while ShareCursor is connected.</p>
 
       <h2>what can be copied?</h2>
       <table class="cmp">
         <colgroup><col class="c1"><col></colgroup>
-        <thead><tr><th>Content</th><th>How ShareClick handles it</th></tr></thead>
+        <thead><tr><th>Content</th><th>How ShareCursor handles it</th></tr></thead>
         <tbody>
           <tr><td>Plain text</td><td class="yes">Automatic clipboard sync in both directions</td></tr>
           <tr><td>Images</td><td class="yes">Raw image clipboard data is synchronized</td></tr>
@@ -101,27 +106,27 @@
       </table>
       <p>Clipboard formats differ between operating systems, so rich application-specific formatting
       may not always survive a cross-platform paste. Plain text and images are the most portable
-      formats. Files use ShareClick's file-transfer feature instead of pretending to be clipboard
+      formats. Files use ShareCursor's file-transfer feature instead of pretending to be clipboard
       text.</p>
 
       <h2>how clipboard security works</h2>
       <p>Clipboard contents can include passwords, tokens and private notes, so transport security
-      matters. ShareClick keeps traffic on the local network. Pairing uses an authenticated shared
+      matters. ShareCursor keeps traffic on the local network. Pairing uses an authenticated shared
       secret, while X25519 key exchange and ChaCha20-Poly1305 protect both the clipboard and file
-      channels. There is no ShareClick account and clipboard data is not stored in a ShareClick
+      channels. There is no ShareCursor account and clipboard data is not stored in a ShareCursor
       cloud service.</p>
       <p>Only pair computers you control. Clear the clipboard after copying a sensitive value, and
-      disconnect ShareClick on networks or machines you do not trust.</p>
+      disconnect ShareCursor on networks or machines you do not trust.</p>
 
       <h2>troubleshooting clipboard sync</h2>
       <h3>Both computers must be connected</h3>
-      <p>Confirm that ShareClick reports a live connection on both machines. Clipboard changes made
+      <p>Confirm that ShareCursor reports a live connection on both machines. Clipboard changes made
       while disconnected cannot be delivered retroactively.</p>
       <h3>Check local network and firewall access</h3>
-      <p>Both machines need to reach each other on the same LAN. On Windows, allow ShareClick through
+      <p>Both machines need to reach each other on the same LAN. On Windows, allow ShareCursor through
       the firewall. Guest Wi-Fi networks often isolate devices and prevent local discovery.</p>
       <h3>Grant macOS permissions</h3>
-      <p>Open macOS System Settings and confirm that ShareClick has the permissions requested during
+      <p>Open macOS System Settings and confirm that ShareCursor has the permissions requested during
       setup. Restart the app after changing a permission.</p>
       <h3>Try plain text first</h3>
       <p>Copy a short line from a basic text editor. If that works but content from one specific app
@@ -137,28 +142,28 @@
 
       <h2>frequently asked questions</h2>
       <div class="verdict">
-        <p><b>Can I share a clipboard between Mac and Windows?</b><br>Yes. Install ShareClick on
+        <p><b>Can I share a clipboard between Mac and Windows?</b><br>Yes. Install ShareCursor on
         both computers, pair them on the same LAN, then copy and paste normally between systems.</p>
         <p><b>Does Apple Universal Clipboard work with Windows?</b><br>No. It is part of Apple's
-        ecosystem. ShareClick provides a separate Mac-to-Windows path.</p>
+        ecosystem. ShareCursor provides a separate Mac-to-Windows path.</p>
         <p><b>Does clipboard sync require the internet?</b><br>No. The paired computers communicate
         directly over the local network.</p>
-        <p><b>Can ShareClick transfer files?</b><br>Yes. Files use a reliable encrypted channel,
+        <p><b>Can ShareCursor transfer files?</b><br>Yes. Files use a reliable encrypted channel,
         separate from low-latency mouse and keyboard input.</p>
       </div>
 
       <div class="cta-inline">
-        <a class="btn" href="https://github.com/phun333/ShareClick/releases" data-umami-event="release-page-click" data-umami-event-placement="clipboard-guide">Download ShareClick — free</a>
+        <a class="btn" href="https://github.com/phun333/ShareCursor/releases" data-umami-event="release-page-click" data-umami-event-placement="clipboard-guide">Download ShareCursor — free</a>
         <a class="btn ghost" href="how-to-share-mouse-keyboard-mac-windows.html">Full setup guide</a>
       </div>
     </article>
   </div>
 
   <footer>
-    <a href="./">shareclick</a> · <a href="how-to-share-mouse-keyboard-mac-windows.html">setup guide</a> ·
+    <a href="./">sharecursor</a> · <a href="how-to-share-mouse-keyboard-mac-windows.html">setup guide</a> ·
     <a href="synergy-alternatives.html">Synergy alternatives</a> ·
     <a href="what-is-a-software-kvm.html">software KVM guide</a> ·
-    <a href="https://github.com/phun333/ShareClick">GitHub</a> · MIT / Apache-2.0
+    <a href="https://github.com/phun333/ShareCursor">GitHub</a> · MIT / Apache-2.0
   </footer>
 </main>
 

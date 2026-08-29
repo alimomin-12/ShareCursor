@@ -1,18 +1,18 @@
-# ShareClick vs Input Leap
+# ShareCursor vs Input Leap
 
 > Input Leap was archived in July 2026. Compare its platforms, clipboard support
-> and maintenance status with the free, open-source ShareClick software KVM.
+> and maintenance status with the free, open-source ShareCursor software KVM.
 
 Input Leap was the community-maintained fork of Barrier, supporting keyboard,
 mouse and clipboard sharing across macOS, Windows, Linux and BSD. Its GitHub
-repository was **archived on July 26, 2026** and is now read-only. ShareClick is
+repository was **archived on July 26, 2026** and is now read-only. ShareCursor is
 an actively developed, free alternative focused on encrypted **Mac-to-Windows**
 sharing.
 
 Status checked against the [official Input Leap repository](https://github.com/input-leap/input-leap)
 on **August 22, 2026**.
 
-| Feature | ShareClick | Input Leap |
+| Feature | ShareCursor | Input Leap |
 | --- | --- | --- |
 | Price | Free & open source | Free & open source |
 | Project status | Active, pre-release | Archived July 2026 |
@@ -26,7 +26,7 @@ on **August 22, 2026**.
 
 ## Which should you pick?
 
-- **Choose ShareClick** for **Mac-to-Windows** if you want encryption on by
+- **Choose ShareCursor** for **Mac-to-Windows** if you want encryption on by
   default, file transfer, clipboard images and mDNS discovery, and pre-release
   software is acceptable.
 - **Keep Input Leap** if an existing installation works for you and its archived
@@ -41,12 +41,12 @@ operating-system changes or newly reported security issues from that project.
 This matters for software that captures keyboard input and reads clipboard data.
 
 Input Leap and Barrier proved how useful an open-source software KVM can be.
-ShareClick is a newer, security-focused implementation for Mac and Windows: a
+ShareCursor is a newer, security-focused implementation for Mac and Windows: a
 UDP input path (~6 µs transport overhead), encryption on every channel,
-clipboard images, file transfer and mDNS discovery. ShareClick is still
+clipboard images, file transfer and mDNS discovery. ShareCursor is still
 pre-release, so users who require Linux or a longer production history should
 also evaluate Deskflow.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Setup guide](https://phun333.github.io/ShareClick/how-to-share-mouse-keyboard-mac-windows.md)
-- [2026 Synergy alternatives comparison](https://phun333.github.io/ShareClick/synergy-alternatives.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Setup guide](https://sharecursor.com/how-to-share-mouse-keyboard-mac-windows.md)
+- [2026 Synergy alternatives comparison](https://sharecursor.com/synergy-alternatives.md)

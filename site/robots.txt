@@ -1,4 +1,4 @@
-# ShareClick — everyone is welcome, including AI answer engines.
+# ShareCursor — everyone is welcome, including AI answer engines.
 User-agent: *
 Allow: /
 
@@ -24,4 +24,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://phun333.github.io/ShareClick/sitemap.xml
+Sitemap: https://sharecursor.com/sitemap.xml

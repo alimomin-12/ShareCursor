@@ -1,6 +1,6 @@
-# Pricing — ShareClick
+# Pricing — ShareCursor
 
-ShareClick is **free and open source**. There are no paid tiers, no
+ShareCursor is **free and open source**. There are no paid tiers, no
 subscriptions, and no license for the number of computers you use.
 
 ## Free
@@ -13,4 +13,4 @@ subscriptions, and no license for the number of computers you use.
   screen-edge switching, mDNS zero-config discovery
 - Requirements: both machines on the same local network (LAN); no cloud account
 
-Download: https://github.com/phun333/ShareClick/releases
+Download: https://github.com/phun333/ShareCursor/releases

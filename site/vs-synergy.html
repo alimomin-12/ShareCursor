@@ -3,25 +3,30 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ShareClick vs Synergy — free open-source alternative</title>
-<meta name="description" content="ShareClick vs Synergy: a free, open-source Synergy alternative to share mouse, keyboard, clipboard &amp; files between Mac and Windows. Encrypted, low-latency." />
+<title>ShareCursor vs Synergy — free open-source alternative</title>
+<meta name="description" content="ShareCursor vs Synergy: a free, open-source Synergy alternative to share mouse, keyboard, clipboard &amp; files between Mac and Windows. Encrypted, low-latency." />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="theme-color" content="#fafafa" />
-<link rel="canonical" href="https://phun333.github.io/ShareClick/vs-synergy.html" />
+<link rel="canonical" href="https://sharecursor.com/vs-synergy.html" />
 <link rel="alternate" type="text/markdown" href="vs-synergy.md" title="Markdown version (for LLMs)" />
 <link rel="icon" href="favicon.svg" type="image/svg+xml" />
 <meta property="og:type" content="article" />
-<meta property="og:site_name" content="ShareClick" />
-<meta property="og:title" content="ShareClick vs Synergy — free, open-source alternative" />
+<meta property="og:site_name" content="ShareCursor" />
+<meta property="og:title" content="ShareCursor vs Synergy — free, open-source alternative" />
 <meta property="og:description" content="A free, open-source Synergy alternative. Share mouse, keyboard, clipboard & files between Mac and Windows. Encrypted, low-latency." />
-<meta property="og:url" content="https://phun333.github.io/ShareClick/vs-synergy.html" />
-<meta property="og:image" content="https://phun333.github.io/ShareClick/og.png" />
+<meta property="og:url" content="https://sharecursor.com/vs-synergy.html" />
+<meta property="og:image" content="https://sharecursor.com/sharecursor-og.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="ShareCursor — one keyboard and mouse across Mac and Windows" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://phun333.github.io/ShareClick/og.png" />
+<meta name="twitter:image" content="https://sharecursor.com/sharecursor-og.png" />
+<meta name="twitter:image:alt" content="ShareCursor — one keyboard and mouse across Mac and Windows" />
 <script type="application/ld+json">
 { "@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
-  {"@type":"ListItem","position":1,"name":"ShareClick","item":"https://phun333.github.io/ShareClick/"},
-  {"@type":"ListItem","position":2,"name":"ShareClick vs Synergy","item":"https://phun333.github.io/ShareClick/vs-synergy.html"}
+  {"@type":"ListItem","position":1,"name":"ShareCursor","item":"https://sharecursor.com/"},
+  {"@type":"ListItem","position":2,"name":"ShareCursor vs Synergy","item":"https://sharecursor.com/vs-synergy.html"}
 ]}
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,10 +39,10 @@
 
 <div class="wrap">
   <header>
-    <a class="home" href="./"><span class="dot"></span> shareclick</a>
+    <a class="home" href="./"><span class="dot"></span> sharecursor</a>
     <nav class="hnav">
       <a class="icon" href="https://x.com/wiredaddict" aria-label="X (Twitter)"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.66l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-      <a class="icon" href="https://github.com/phun333/ShareClick" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
+      <a class="icon" href="https://github.com/phun333/ShareCursor" aria-label="GitHub"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.5v-1.8c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.8 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.5-2.7 5.5-5.3 5.8.4.4.8 1.1.8 2.2v3.3c0 .3.2.6.8.5 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg></a>
     </nav>
   </header>
 </div>
@@ -45,9 +50,9 @@
 <main class="doc">
   <div class="wrap">
     <article>
-      <p class="crumb"><a href="./">shareclick</a> / vs Synergy</p>
-      <h1>ShareClick vs Synergy</h1>
-      <p class="lead">Looking for a <strong>free, open-source Synergy alternative</strong>? ShareClick
+      <p class="crumb"><a href="./">sharecursor</a> / vs Synergy</p>
+      <h1>ShareCursor vs Synergy</h1>
+      <p class="lead">Looking for a <strong>free, open-source Synergy alternative</strong>? ShareCursor
       shares one keyboard, mouse, clipboard and files between your Mac and Windows PC with no
       license, encryption on every channel and a transport designed for low input latency.</p>
       <p class="updated">Compared against the
@@ -56,7 +61,7 @@
 
       <table class="cmp">
         <colgroup><col class="c1"><col><col></colgroup>
-        <thead><tr><th>Feature</th><th>ShareClick</th><th>Synergy</th></tr></thead>
+        <thead><tr><th>Feature</th><th>ShareCursor</th><th>Synergy</th></tr></thead>
         <tbody>
           <tr><td>Price</td><td class="win">Free</td><td>Paid license</td></tr>
           <tr><td>Open source</td><td class="yes">Yes (MIT/Apache)</td><td>Core (Deskflow) yes; app proprietary</td></tr>
@@ -72,28 +77,28 @@
       </table>
 
       <h2>pricing and licensing</h2>
-      <p>ShareClick is released under MIT or Apache-2.0 and does not require a license key. Synergy
+      <p>ShareCursor is released under MIT or Apache-2.0 and does not require a license key. Synergy
       is a commercial product with active license requirements; the number of computers and support
       options depend on the purchased edition. Symless changed parts of its licensing policy in
       2026, so buyers should use the current official license and pricing pages rather than an old
       third-party comparison.</p>
       <p>The practical decision is not simply free versus paid. A Synergy license funds a mature
-      commercial product and support organization. ShareClick provides source access and no usage
+      commercial product and support organization. ShareCursor provides source access and no usage
       fee, but support is community-based and the project is still pre-release.</p>
 
       <h2>platform support and setup</h2>
-      <p>Synergy supports Windows, macOS and Linux and has a long production history. ShareClick
+      <p>Synergy supports Windows, macOS and Linux and has a long production history. ShareCursor
       currently focuses on macOS and Windows. Both products install an application on every
-      computer and switch control when the pointer reaches a configured screen edge. ShareClick uses
+      computer and switch control when the pointer reaches a configured screen edge. ShareCursor uses
       mDNS discovery and exchanges the monitor arrangement between paired devices; Synergy 3 also
       advertises automatic configuration and discovery.</p>
       <p>Choose Synergy when Linux, older deployment experience or paid support is mandatory. Choose
-      ShareClick when the desk is specifically Mac plus Windows and open-source licensing is a core
+      ShareCursor when the desk is specifically Mac plus Windows and open-source licensing is a core
       requirement.</p>
 
       <h2>clipboard, files and security</h2>
       <p>Both products cover the main software KVM workflow: keyboard and mouse control, clipboard
-      sharing and file movement. ShareClick synchronizes text and images and sends files over a
+      sharing and file movement. ShareCursor synchronizes text and images and sends files over a
       separate reliable channel. Its pairing uses X25519 key exchange with ChaCha20-Poly1305 on both
       input and bulk traffic. Synergy uses TLS for encrypted network communication.</p>
       <p>Neither product shares the display itself. Each computer keeps using its own monitor. If
@@ -101,43 +106,43 @@
       KVM instead.</p>
 
       <h2>what the latency number means</h2>
-      <p>ShareClick's approximately 6&nbsp;µs figure is measured transport overhead on a local
+      <p>ShareCursor's approximately 6&nbsp;µs figure is measured transport overhead on a local
       loopback benchmark. It is not a full Mac-to-Windows latency measurement and is not a direct
       benchmark against Synergy. Real input latency also includes capture, network, scheduling,
-      display refresh and input injection. The architectural difference is factual: ShareClick uses
+      display refresh and input injection. The architectural difference is factual: ShareCursor uses
       a dedicated UDP input path while reliable clipboard and file traffic stays separate.</p>
 
       <h2>which should you pick?</h2>
       <div class="verdict">
-        <p><b>Choose ShareClick</b> if you want it <b>free and open source</b>, encrypted by default,
+        <p><b>Choose ShareCursor</b> if you want it <b>free and open source</b>, encrypted by default,
         with a dedicated low-latency input path and no license to manage.</p>
         <p><b>Choose Synergy</b> if you need first-class <b>Linux</b> support and paid commercial
         support, and don't mind the license fee.</p>
       </div>
 
       <p>Synergy is the mature commercial option with broad platform support. Deskflow carries the
-      open-source continuation of the Synergy 1 codebase. ShareClick is a separate, newer
+      open-source continuation of the Synergy 1 codebase. ShareCursor is a separate, newer
       implementation focused on a free and encrypted Mac-to-Windows workflow.</p>
 
-      <h2>moving from Synergy to ShareClick</h2>
+      <h2>moving from Synergy to ShareCursor</h2>
       <p>There is no configuration import because the projects use different formats and protocols.
-      Install ShareClick on both computers, pair them, arrange the displays and confirm macOS
+      Install ShareCursor on both computers, pair them, arrange the displays and confirm macOS
       permissions and the Windows firewall rule. Keep Synergy installed until the new setup has
       passed normal keyboard, clipboard and file-transfer tests.</p>
       <p>See the <a href="how-to-share-mouse-keyboard-mac-windows.html">three-minute setup guide</a>
       or compare the broader list of <a href="synergy-alternatives.html">Synergy alternatives</a>.</p>
 
       <div class="cta-inline">
-        <a class="btn" href="https://github.com/phun333/ShareClick/releases" data-umami-event="release-page-click" data-umami-event-placement="vs-synergy">Download ShareClick — free</a>
+        <a class="btn" href="https://github.com/phun333/ShareCursor/releases" data-umami-event="release-page-click" data-umami-event-placement="vs-synergy">Download ShareCursor — free</a>
         <a class="btn ghost" href="how-to-share-mouse-keyboard-mac-windows.html">Setup guide</a>
       </div>
     </article>
   </div>
 
   <footer>
-    <a href="./">shareclick</a> · <a href="vs-sharemouse.html">vs ShareMouse</a> ·
+    <a href="./">sharecursor</a> · <a href="vs-sharemouse.html">vs ShareMouse</a> ·
     <a href="vs-barrier.html">vs Barrier</a> ·
-    <a href="https://github.com/phun333/ShareClick">GitHub</a> · MIT / Apache-2.0
+    <a href="https://github.com/phun333/ShareCursor">GitHub</a> · MIT / Apache-2.0
   </footer>
 </main>
 

@@ -11,7 +11,7 @@ Reviewed against official product pages and repositories on **August 22, 2026**.
 
 | Tool | Platforms | Clipboard | Files | Status | Best fit |
 |---|---|---|---|---|---|
-| [ShareClick](https://phun333.github.io/ShareClick/) | macOS, Windows | Text + images | Yes | Active, pre-release | Free encrypted Mac + Windows setup |
+| [ShareCursor](https://sharecursor.com/) | macOS, Windows | Text + images | Yes | Active, pre-release | Free encrypted Mac + Windows setup |
 | [Deskflow](https://github.com/deskflow/deskflow) | macOS, Windows, Linux, BSD | Yes | Limited | Active | Mature open-source cross-platform use |
 | [ShareMouse](https://www.sharemouse.com/) | macOS, Windows | Yes | Drag and drop | Commercial | Polished paid Mac + Windows workflow |
 | [Mouse Without Borders](https://learn.microsoft.com/windows/powertoys/mouse-without-borders) | Windows | Yes | Yes | Active in PowerToys | Windows-only desks |
@@ -27,20 +27,20 @@ only need keyboard and mouse input or also expect clipboard images and file
 transfer. Finally, check maintenance, encryption defaults and whether you need
 paid support.
 
-- **Mac + Windows, free and open source:** ShareClick or Deskflow.
+- **Mac + Windows, free and open source:** ShareCursor or Deskflow.
 - **Mac + Windows, polished commercial product:** ShareMouse or Synergy.
 - **Windows only:** Mouse Without Borders in Microsoft PowerToys.
 - **Linux is essential:** Deskflow or Lan Mouse.
 - **Existing Barrier or Input Leap user:** Keep archive status and security maintenance in mind before starting a new deployment.
 
-## 1. ShareClick
+## 1. ShareCursor
 
-**ShareClick** is a free, open-source software KVM focused on sharing a mouse,
+**ShareCursor** is a free, open-source software KVM focused on sharing a mouse,
 keyboard, clipboard and files between macOS and Windows. Input uses a low-latency
 UDP path; clipboard and files use a reliable channel. Both channels are
 end-to-end encrypted, and mDNS discovery avoids manual IP entry.
 
-The trade-off is maturity and platform breadth. ShareClick is currently
+The trade-off is maturity and platform breadth. ShareCursor is currently
 pre-release and does not yet offer production Linux support or commercial
 support. It fits developers and power users who want an inspectable, LAN-only
 Mac-to-Windows tool and are comfortable testing an actively developed
@@ -55,7 +55,7 @@ platform coverage and established codebase make it the safer open-source choice
 when Linux support is required.
 
 Choose Deskflow when broad operating-system support matters more than
-ShareClick's focused Mac-to-Windows file-transfer and low-latency design. As with
+ShareCursor's focused Mac-to-Windows file-transfer and low-latency design. As with
 any cross-platform input tool, verify packaging and Wayland support for the Linux
 distribution you actually use.
 
@@ -92,7 +92,7 @@ tool.
 
 Lan Mouse intentionally does not provide the broader clipboard and file workflow
 offered by full software KVM suites. Choose it when input sharing is the
-requirement. Choose ShareClick, Deskflow, ShareMouse or Mouse Without Borders
+requirement. Choose ShareCursor, Deskflow, ShareMouse or Mouse Without Borders
 when clipboard transfer is part of the job.
 
 ## 6. Input Leap
@@ -120,7 +120,7 @@ input and clipboard data should not be treated like an unchanging utility.
 
 ## Bottom line
 
-- **Choose ShareClick** for a free, encrypted Mac + Windows setup with clipboard images and file transfer, if pre-release software is acceptable.
+- **Choose ShareCursor** for a free, encrypted Mac + Windows setup with clipboard images and file transfer, if pre-release software is acceptable.
 - **Choose Deskflow** for a mature open-source tool with Linux support.
 - **Choose ShareMouse or Synergy** when a commercial product and support are priorities.
 - **Choose Mouse Without Borders** when every computer runs Windows.
@@ -129,13 +129,13 @@ input and clipboard data should not be treated like an unchanging utility.
 
 ### What is a free Synergy alternative for Mac and Windows?
 
-ShareClick is a free, open-source option focused on Mac and Windows. Deskflow is
+ShareCursor is a free, open-source option focused on Mac and Windows. Deskflow is
 another mature open-source choice and also supports Linux.
 
 ### Which Synergy alternative supports Linux?
 
 Deskflow and Lan Mouse support Linux. Input Leap also has Linux builds, but its
-repository was archived in July 2026. ShareClick currently focuses on macOS and
+repository was archived in July 2026. ShareCursor currently focuses on macOS and
 Windows.
 
 ### Is Barrier still maintained?
@@ -146,7 +146,7 @@ no longer receives improvements or security fixes.
 ### Does Mouse Without Borders work on macOS?
 
 No. Microsoft Mouse Without Borders is for Windows computers. Mac-to-Windows
-setups need a cross-platform option such as ShareClick, Deskflow, ShareMouse or
+setups need a cross-platform option such as ShareCursor, Deskflow, ShareMouse or
 Synergy.
 
 ## Sources and update policy
@@ -158,7 +158,7 @@ claims should be checked again before a purchase or large deployment.
 
 ## Related pages
 
-- [ShareClick vs Synergy](https://phun333.github.io/ShareClick/vs-synergy.md)
-- [ShareClick vs ShareMouse](https://phun333.github.io/ShareClick/vs-sharemouse.md)
-- [ShareClick vs Barrier](https://phun333.github.io/ShareClick/vs-barrier.md)
-- [Share clipboard between Mac and Windows](https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.md)
+- [ShareCursor vs Synergy](https://sharecursor.com/vs-synergy.md)
+- [ShareCursor vs ShareMouse](https://sharecursor.com/vs-sharemouse.md)
+- [ShareCursor vs Barrier](https://sharecursor.com/vs-barrier.md)
+- [Share clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md)

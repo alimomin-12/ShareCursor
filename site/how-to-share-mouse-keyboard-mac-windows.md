@@ -1,18 +1,18 @@
 # How to share a mouse & keyboard between Mac and Windows
 
 > Step-by-step guide to share one mouse, keyboard, clipboard and files between a
-> Mac and a Windows PC for free with ShareClick, an open-source software KVM.
+> Mac and a Windows PC for free with ShareCursor, an open-source software KVM.
 
 You can control both your Mac and your Windows PC with a single keyboard and
-mouse — for free, no KVM hardware, no cloud. Here's how with **ShareClick**, an
+mouse — for free, no KVM hardware, no cloud. Here's how with **ShareCursor**, an
 open-source software KVM. It takes about three minutes.
 
 ## 1. Install on both machines
 
-Download **ShareClick** from the [releases page](https://github.com/phun333/ShareClick/releases):
+Download **ShareCursor** from the [releases page](https://github.com/phun333/ShareCursor/releases):
 the **.dmg** on your Mac and the **.exe** on your Windows PC. Both launch to the
 menu bar (macOS) / system tray (Windows). First launch blocked? See the
-[install help](https://github.com/phun333/ShareClick/blob/main/docs/INSTALL.md).
+[install help](https://github.com/phun333/ShareCursor/blob/main/docs/INSTALL.md).
 
 ## 2. Set one shared passphrase & layout
 
@@ -22,8 +22,8 @@ machine sits on which screen edge — e.g. the PC is to the right of the Mac.
 
 ## 3. Grant permissions
 
-- **macOS:** System Settings → Privacy & Security → enable **Accessibility** and **Input Monitoring** for ShareClick.
-- **Windows:** allow ShareClick through the firewall when prompted.
+- **macOS:** System Settings → Privacy & Security → enable **Accessibility** and **Input Monitoring** for ShareCursor.
+- **Windows:** allow ShareCursor through the firewall when prompted.
 
 Both machines must be on the same Wi-Fi / LAN.
 
@@ -33,7 +33,7 @@ Slide the cursor into the shared screen edge — your keyboard and mouse now dri
 the other computer. Push back to return. Copy on one machine and paste on the
 other; the **clipboard syncs automatically**, and you can send files too.
 
-## What ShareClick shares
+## What ShareCursor shares
 
 | Capability | Behavior |
 |---|---|
@@ -44,7 +44,7 @@ other; the **clipboard syncs automatically**, and you can send files too.
 | Video/display | Not shared; each computer continues using its own monitor |
 
 If clipboard sharing is your main requirement, see the dedicated guide to
-[sharing a clipboard between Mac and Windows](https://phun333.github.io/ShareClick/share-clipboard-between-mac-and-windows.md).
+[sharing a clipboard between Mac and Windows](https://sharecursor.com/share-clipboard-between-mac-and-windows.md).
 
 ## Common setup problems
 
@@ -52,13 +52,13 @@ If clipboard sharing is your main requirement, see the dedicated guide to
 
 Confirm that both computers are on the same local network. Guest Wi-Fi often
 blocks devices from reaching each other. On Windows, check that the firewall
-rule allows ShareClick. Wired Ethernet also works and can make network
+rule allows ShareCursor. Wired Ethernet also works and can make network
 troubleshooting simpler.
 
 ### The Mac does not accept remote input
 
 Reopen System Settings, check Accessibility and Input Monitoring, then restart
-ShareClick. macOS permissions are attached to the installed application, so
+ShareCursor. macOS permissions are attached to the installed application, so
 moving or replacing the app can require approval again.
 
 ### The cursor crosses on the wrong side
@@ -75,7 +75,7 @@ Clipboard changes made while disconnected are not queued for later delivery.
 
 ## Software KVM or hardware KVM?
 
-ShareClick is a [software KVM](https://phun333.github.io/ShareClick/what-is-a-software-kvm.md):
+ShareCursor is a [software KVM](https://sharecursor.com/what-is-a-software-kvm.md):
 it shares input over the LAN while every computer keeps its own display. A
 hardware KVM physically switches a keyboard, mouse and monitor between
 computers. Use hardware when one monitor must display several machines or when
@@ -85,6 +85,6 @@ want seamless pointer, clipboard and file movement.
 That's it. One keyboard, one mouse, one clipboard across your Mac and Windows PC —
 **encrypted, low-latency, and free**.
 
-- [Download ShareClick (free)](https://github.com/phun333/ShareClick/releases)
-- [Synergy alternatives compared](https://phun333.github.io/ShareClick/synergy-alternatives.md)
-- [Back to home](https://phun333.github.io/ShareClick/index.md)
+- [Download ShareCursor (free)](https://github.com/phun333/ShareCursor/releases)
+- [Synergy alternatives compared](https://sharecursor.com/synergy-alternatives.md)
+- [Back to home](https://sharecursor.com/index.md)
