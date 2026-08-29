@@ -13,8 +13,10 @@ end users always get working one-click installers and the history stays clean.
 - **MAJOR** — breaking wire/config changes → also bump `PROTOCOL_VERSION` in
   `crates/protocol/src/lib.rs` and document the migration in the changelog.
 
-The crate version lives once in the workspace: `Cargo.toml → [workspace.package]
-version`. All crates inherit it.
+The crate version lives in `Cargo.toml` under `[workspace.package]`; all crates
+inherit it. The Windows installer default, website schema, lockfile, and
+changelog mirror that version. Run `node scripts/check-release-version.mjs
+X.Y.Z` before tagging to verify every release surface.
 
 ## Release checklist
 
@@ -22,11 +24,15 @@ version`. All crates inherit it.
    ```bash
    cargo test                       # native
    cargo test --no-default-features # core
-   cargo build --release --features tray
+   cargo build --release --features tray,gui
    cargo run --release -- bench --encrypted   # no latency regression
    ```
-2. **Bump the version** in `Cargo.toml` (`[workspace.package] version`).
-   Run `cargo build` once so `Cargo.lock` updates.
+2. **Bump the version** in `Cargo.toml`, the Windows installer default, and the
+   website `SoftwareApplication` schema. Run `cargo build` once so `Cargo.lock`
+   updates, then run:
+   ```bash
+   node scripts/check-release-version.mjs X.Y.Z
+   ```
 3. **Update [CHANGELOG.md](../CHANGELOG.md):** move `## [Unreleased]` items under
    a new `## [X.Y.Z] - YYYY-MM-DD` heading; start a fresh empty `Unreleased`.
 4. **Commit** on `main`:
@@ -41,28 +47,35 @@ version`. All crates inherit it.
 6. **Wait for CI.** `.github/workflows/release.yml` builds and attaches:
    - `ShareCursor-X.Y.Z.dmg` (macOS universal, arm64 + Intel)
    - `ShareCursor-Setup-X.Y.Z.exe` (Windows installer)
-   to a GitHub Release with auto-generated notes.
-7. **Smoke-test the artifacts** on both OSes (install, launch, connect once).
-8. **Announce** — the Release page is the download link for users.
+   - `ShareCursor-SHA256SUMS.txt`
+   - `sharecursor.json` (generated Scoop manifest)
+   - `sharecursor.rb` (generated Homebrew cask)
+7. **Smoke-test the artifacts** on both OSes (install, launch, connect once) and
+   verify the published checksums.
+8. **Update package repositories** after smoke testing: copy `sharecursor.json`
+   to the Scoop bucket and `sharecursor.rb` to `Casks/sharecursor.rb` in the
+   Homebrew tap. These external repositories are not changed automatically.
+9. **Announce** — the Release page is the download link for users.
 
 ## What CI does (`.github/workflows/release.yml`)
 
 - Trigger: pushing a tag matching `v*` (or manual `workflow_dispatch`).
 - `macos` job (macos-14): adds both Apple targets, runs
   `packaging/macos/build-app.sh $VERSION` → universal `.app` + `.dmg`.
-- `windows` job (windows-latest): `cargo build --release --features tray`, then
+- `windows` job (windows-latest): `cargo build --release --features tray,gui`, then
   `choco install innosetup` and `ISCC /DMyAppVersion=$VERSION sharecursor.iss` →
   `.exe` installer.
-- `release` job: downloads both artifacts and publishes the GitHub Release.
+- `release` job: generates checksums plus Scoop/Homebrew manifests from the
+  built artifacts, then publishes all files in the GitHub Release.
 
 ## Building installers locally (optional)
 
 ```bash
 # macOS (produces dist/ShareCursor.app + dist/ShareCursor-<ver>.dmg)
-bash packaging/macos/build-app.sh 0.1.0
+bash packaging/macos/build-app.sh 0.6.0
 
-# Windows (in a Windows shell, after cargo build --release --features tray)
-iscc /DMyAppVersion=0.1.0 packaging\windows\sharecursor.iss
+# Windows (in a Windows shell, after cargo build --release --features tray,gui)
+iscc /DMyAppVersion=0.6.0 packaging\windows\sharecursor.iss
 ```
 
 ## Code signing & notarization (current status)
@@ -77,8 +90,8 @@ Builds are **unsigned** today (no paid developer certificates), so:
 - **Windows:** SmartScreen shows an "unknown publisher" warning; users click
   **More info → Run anyway**. An EV/OV code-signing certificate would remove it.
 
-When certificates are available, add the signing secrets to the repo and the
-signing steps to the CI jobs — see the TODO markers in `release.yml`.
+When certificates are available, add the signing secrets to the repository and
+explicit signing and notarization steps to the CI jobs.
 
 ## Rollback
 

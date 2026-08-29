@@ -17,7 +17,7 @@ developer identity. Here's how to get past it. It only happens **once**.
   If macOS still blocks it: `xattr -cr "/Applications/ShareCursor.app"`.
 - **Windows (Scoop):**
   ```powershell
-  scoop install https://raw.githubusercontent.com/phun333/ShareCursor/main/packaging/scoop/sharecursor.json
+  scoop install https://github.com/phun333/ShareCursor/releases/latest/download/sharecursor.json
   ```
 
 Prefer the manual installers below if you don't use a package manager.

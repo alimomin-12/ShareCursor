@@ -7,10 +7,21 @@ All notable changes to ShareCursor are documented here. The format is based on
 
 ## [Unreleased]
 
+## [0.6.0] - 2026-08-29
+
+First stable release under the ShareCursor name.
+
 ### Added
 - **Privacy-friendly website analytics** — Umami pageview tracking across the
   GitHub Pages site, with separate release-page click events for macOS, Windows,
   guides, and comparison pages.
+- **Public privacy and support pages** — documents local app data handling,
+  cookieless website analytics, support routes, and private vulnerability
+  reporting.
+- **Machine-readable website content** — Markdown mirrors, `llms.txt`, and a
+  deterministic `llms-full.txt` generated and checked by CI.
+- **Square brand assets** — web manifest icons at 192 and 512 pixels plus a
+  1024-pixel app-listing source image.
 - **Search-focused website guides** — an evidence-based 2026 Synergy alternatives
   comparison and a Mac-to-Windows clipboard-sharing guide, plus stronger homepage
   targeting, internal links, metadata, and current sitemap dates.
@@ -50,6 +61,9 @@ All notable changes to ShareCursor are documented here. The format is based on
   documentation now explain that compatibility may vary during active
   development and link to bug reports, feedback, and pull requests. GitHub issue
   forms now ask only for the details needed to start triage.
+- **Release packaging** — standardized the application and installer version at
+  0.6.0, adopted the permanent `com.sharecursor.app` macOS bundle identifier,
+  and added generated SHA-256, Scoop, and Homebrew release metadata.
 
 ### Fixed
 - mDNS advertisements now include the stable device ID used to identify peers.
@@ -90,5 +104,6 @@ First release. A complete, low-latency, open-source software KVM.
 - Builds are unsigned (Gatekeeper/SmartScreen prompt on first launch).
 - One client at a time; no sliding-window UDP anti-replay yet.
 
-[Unreleased]: https://github.com/phun333/ShareCursor/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/phun333/ShareCursor/compare/v0.6.0...HEAD
+[0.6.0]: https://github.com/phun333/ShareCursor/compare/v0.1.0...v0.6.0
 [0.1.0]: https://github.com/phun333/ShareCursor/releases/tag/v0.1.0

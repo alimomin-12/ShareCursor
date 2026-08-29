@@ -1,12 +1,12 @@
 {
-  "version": "0.5.2-test",
-  "description": "Software KVM — share keyboard, mouse, clipboard & files between Mac and Windows over the LAN.",
+  "version": "__VERSION__",
+  "description": "Software KVM: share a keyboard, mouse, clipboard and files between Mac and Windows over the LAN.",
   "homepage": "https://sharecursor.com/",
-  "license": "MIT",
+  "license": "MIT OR Apache-2.0",
   "architecture": {
     "64bit": {
-      "url": "https://github.com/phun333/ShareCursor/releases/download/v0.5.2-test/ShareCursor-Setup-0.5.2-test.exe",
-      "hash": "23346439b0ea43c8dedf3045e50259b81bd1f2004eed010050bd80a9cbe938f1"
+      "url": "https://github.com/phun333/ShareCursor/releases/download/v__VERSION__/ShareCursor-Setup-__VERSION__.exe",
+      "hash": "__WINDOWS_SHA256__"
     }
   },
   "innosetup": true,

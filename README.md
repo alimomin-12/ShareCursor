@@ -45,7 +45,7 @@ brew install --cask phun333/tap/sharecursor
 
 **Windows (Scoop)**
 ```powershell
-scoop install https://raw.githubusercontent.com/phun333/ShareCursor/main/packaging/scoop/sharecursor.json
+scoop install https://github.com/phun333/ShareCursor/releases/latest/download/sharecursor.json
 ```
 
 Or grab the installer from the [**Releases**](https://github.com/phun333/ShareCursor/releases) page.

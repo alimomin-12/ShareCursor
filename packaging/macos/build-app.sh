@@ -16,6 +16,11 @@ set -euo pipefail
 
 cd "$(dirname "$0")/../.."
 VERSION="${1:-$(grep -m1 '^version' Cargo.toml | sed 's/.*"\(.*\)".*/\1/')}"
+BUNDLE_VERSION="${VERSION%%-*}"
+if [[ ! "$BUNDLE_VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+  echo "ERROR: version must start with numeric MAJOR.MINOR.PATCH: $VERSION" >&2
+  exit 1
+fi
 APP="dist/ShareCursor.app"
 BIN_NAME="sharecursor"
 
@@ -62,8 +67,8 @@ cat > "$APP/Contents/Info.plist" <<PLIST
 <dict>
   <key>CFBundleName</key><string>ShareCursor</string>
   <key>CFBundleDisplayName</key><string>ShareCursor</string>
-  <key>CFBundleIdentifier</key><string>com.sharecursor.ShareCursor</string>
-  <key>CFBundleVersion</key><string>$VERSION</string>
+  <key>CFBundleIdentifier</key><string>com.sharecursor.app</string>
+  <key>CFBundleVersion</key><string>$BUNDLE_VERSION</string>
   <key>CFBundleShortVersionString</key><string>$VERSION</string>
   <key>CFBundleExecutable</key><string>$BIN_NAME</string>
   <key>CFBundlePackageType</key><string>APPL</string>

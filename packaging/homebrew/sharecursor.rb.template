@@ -1,0 +1,23 @@
+cask "sharecursor" do
+  version "__VERSION__"
+  sha256 "__MACOS_SHA256__"
+
+  url "https://github.com/phun333/ShareCursor/releases/download/v#{version}/ShareCursor-#{version}.dmg"
+  name "ShareCursor"
+  desc "Share a keyboard, mouse, clipboard, and files between Mac and Windows"
+  homepage "https://sharecursor.com/"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  depends_on macos: ">= :big_sur"
+
+  app "ShareCursor.app"
+
+  caveats <<~EOS
+    ShareCursor is currently distributed with an ad-hoc signature. macOS may
+    require you to right-click the app and choose Open on first launch.
+  EOS
+end
