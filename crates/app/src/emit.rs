@@ -37,6 +37,7 @@ impl Injector {
         Ok(())
     }
 
+    #[cfg(windows)]
     pub fn location(&self) -> anyhow::Result<(i32, i32)> {
         self.enigo
             .location()

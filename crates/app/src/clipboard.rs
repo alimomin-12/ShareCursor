@@ -40,7 +40,13 @@ fn files_fingerprint(paths: &[PathBuf]) -> Fingerprint {
             meta.modified().ok().hash(&mut h);
         }
     }
-    Fingerprint::Files(paths.to_vec(), h.finish())
+    // Windows expands short paths; macOS resolves /var to /private/var when
+    // writing file URLs. Compare canonical paths to suppress those native echoes.
+    let normalized = paths
+        .iter()
+        .map(|p| p.canonicalize().unwrap_or_else(|_| p.clone()))
+        .collect();
+    Fingerprint::Files(normalized, h.finish())
 }
 
 pub(crate) fn watch(out: SyncSender<BulkMsg>, last: LastSeen, stop: Arc<AtomicBool>) {
@@ -323,7 +329,13 @@ mod tests {
         }
         let mut clipboard = Clipboard::new().unwrap();
         clipboard.set().file_list(&paths).unwrap();
-        assert_eq!(clipboard.get().file_list().unwrap(), paths);
+        let got = clipboard.get().file_list().unwrap();
+        assert_eq!(got.len(), paths.len());
+        assert!(files_fingerprint(&got) == files_fingerprint(&paths));
+        for (expected, actual) in paths.iter().zip(got) {
+            assert_eq!(expected.file_name(), actual.file_name());
+            assert_eq!(std::fs::read(actual).unwrap(), b"clipboard test");
+        }
         clipboard.clear().unwrap();
         std::fs::remove_dir_all(tmp).unwrap();
     }

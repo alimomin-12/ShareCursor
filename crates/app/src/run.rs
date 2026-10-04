@@ -557,11 +557,6 @@ fn run_peer_input(
                         if let Err(e) = injector.apply(ev) {
                             tracing::warn!(error = %e, "inject failed");
                         }
-                        if matches!(ev, InputEvent::MouseMove { .. }) {
-                            if let Ok((x, y)) = injector.location() {
-                                control.visitor_position(x, y, sh.screen);
-                            }
-                        }
                     }
                 }
                 // The peer's pointer arrives on my screen.
@@ -610,6 +605,15 @@ fn run_peer_input(
                         p,
                     );
                 }
+            }
+        }
+
+        // SendInput queues movement: it may not reach the OS until after apply
+        // returns. Poll while a visitor is present, including otherwise idle ticks.
+        #[cfg(windows)]
+        if control.peer_away.load(Ordering::Relaxed) {
+            if let Ok((x, y)) = injector.location() {
+                control.visitor_position(x, y, sh.screen);
             }
         }
 

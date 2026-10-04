@@ -45,6 +45,7 @@ pub struct Control {
 impl Control {
     /// Track the visiting pointer from both physical capture and injected
     /// movement. Windows intentionally excludes injected events from its hooks.
+    #[cfg(any(windows, test))]
     pub fn visitor_position(&self, x: i32, y: i32, screen: (u32, u32)) {
         use std::sync::atomic::Ordering;
         if !self.peer_away.load(Ordering::Relaxed) {
