@@ -55,20 +55,24 @@ pub(crate) fn watch(out: SyncSender<BulkMsg>, last: LastSeen, stop: Arc<AtomicBo
     let mut sequence = 0;
     while !stop.load(Ordering::Relaxed) {
         #[cfg(windows)]
+        let current =
+            unsafe { windows_sys::Win32::System::DataExchange::GetClipboardSequenceNumber() };
+        #[cfg(windows)]
         {
-            let current =
-                unsafe { windows_sys::Win32::System::DataExchange::GetClipboardSequenceNumber() };
             if current != 0 && current == sequence {
                 std::thread::sleep(Duration::from_millis(100));
                 continue;
             }
-            sequence = current;
         }
         // Hold the echo guard across the native read/write, so apply cannot set
         // a clipboard between the watcher's read and fingerprint update.
         let mut guard = last.lock().unwrap();
         if let Ok(paths) = clipboard.get().file_list() {
             if !paths.is_empty() {
+                #[cfg(windows)]
+                {
+                    sequence = current;
+                }
                 let fp = files_fingerprint(&paths);
                 let changed = guard.as_ref() != Some(&fp);
                 if changed {
@@ -102,6 +106,10 @@ pub(crate) fn watch(out: SyncSender<BulkMsg>, last: LastSeen, stop: Arc<AtomicBo
         } else {
             None
         };
+        #[cfg(windows)]
+        if data.is_some() {
+            sequence = current;
+        }
         let changed = data.filter(|(fp, _)| guard.as_ref() != Some(fp));
         if let Some((fp, _)) = &changed {
             *guard = Some(fp.clone());
@@ -263,5 +271,60 @@ mod tests {
         batch.cancel(3);
         assert!(batch.finish(3).is_err());
         assert!(batch.begin(4, vec![10, 10]).is_err());
+    }
+
+    #[test]
+    fn copied_selection_streams_complete_files_before_clipboard_publication() {
+        let tmp = std::env::temp_dir().join(format!("sc_clip_{}", rand_id()));
+        std::fs::create_dir_all(&tmp).unwrap();
+        let paths = vec![tmp.join("file with spaces.txt"), tmp.join("empty.bin")];
+        std::fs::write(&paths[0], vec![42; 150_000]).unwrap();
+        std::fs::write(&paths[1], []).unwrap();
+        let (tx, rx) = std::sync::mpsc::sync_channel(2);
+        let send_paths = paths.clone();
+        let sender = std::thread::spawn(move || send_files(&tx, &send_paths).unwrap());
+        let mut receiver = crate::filexfer::FileReceiver::new(tmp.join("received"));
+        let mut batch = FileClipboard::default();
+        let mut published = None;
+        while let Ok(msg) = rx.recv() {
+            match msg {
+                BulkMsg::ClipboardFilesBegin { id, files } => batch.begin(id, files).unwrap(),
+                BulkMsg::ClipboardFilesEnd { id } => {
+                    published = Some(batch.finish(id).unwrap());
+                }
+                _ => {
+                    assert!(published.is_none());
+                    if let Some((id, path)) = receiver.handle(&msg).unwrap() {
+                        batch.completed(id, &path);
+                    }
+                }
+            }
+        }
+        sender.join().unwrap();
+        let published = published.unwrap();
+        assert_eq!(published.len(), 2);
+        for (source, destination) in paths.iter().zip(published) {
+            assert_eq!(
+                std::fs::read(source).unwrap(),
+                std::fs::read(destination).unwrap()
+            );
+        }
+        std::fs::remove_dir_all(tmp).unwrap();
+    }
+
+    #[cfg(any(windows, target_os = "macos"))]
+    #[test]
+    fn native_file_clipboard_roundtrips_local_paths() {
+        let tmp = std::env::temp_dir().join(format!("sc_native_clip_{}", rand_id()));
+        std::fs::create_dir_all(&tmp).unwrap();
+        let paths = vec![tmp.join("file with spaces.txt"), tmp.join("second.bin")];
+        for path in &paths {
+            std::fs::write(path, b"clipboard test").unwrap();
+        }
+        let mut clipboard = Clipboard::new().unwrap();
+        clipboard.set().file_list(&paths).unwrap();
+        assert_eq!(clipboard.get().file_list().unwrap(), paths);
+        clipboard.clear().unwrap();
+        std::fs::remove_dir_all(tmp).unwrap();
     }
 }

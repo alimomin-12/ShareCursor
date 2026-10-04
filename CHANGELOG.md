@@ -24,6 +24,7 @@ All notable changes to ShareCursor are documented here. The format is based on
 - Copy regular files through the native Explorer/Finder clipboard over the encrypted bulk connection. Paste becomes available after all selected files finish downloading to Downloads/ShareCursor. Zip folders before copying.
 - Fix encrypted send-file connections, concurrent file acceptance, incomplete download cleanup, and duplicate filename handling.
 - Retain first-launch configuration and macOS tray fixes. Protocol 6 requires installing this update on both computers.
+
 ## [0.6.0] - 2026-08-29
 
 First stable release under the ShareCursor name.

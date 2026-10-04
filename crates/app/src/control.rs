@@ -83,6 +83,12 @@ impl Control {
     }
 }
 
+impl Default for Control {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -101,11 +107,5 @@ mod tests {
         c.visitor_position(0, 400, (1920, 1080));
         assert!(!c.peer_away.load(Ordering::Relaxed));
         assert_eq!(*c.send_peer_home.lock().unwrap(), Some(400));
-    }
-}
-
-impl Default for Control {
-    fn default() -> Self {
-        Self::new()
     }
 }

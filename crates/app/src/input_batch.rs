@@ -12,7 +12,7 @@ pub struct WindowsTimer;
 #[cfg(windows)]
 pub fn windows_timer() -> WindowsTimer {
     unsafe {
-        windows_sys::Win32::Media::Multimedia::timeBeginPeriod(1);
+        windows_sys::Win32::Media::timeBeginPeriod(1);
     }
     WindowsTimer
 }
@@ -20,7 +20,7 @@ pub fn windows_timer() -> WindowsTimer {
 impl Drop for WindowsTimer {
     fn drop(&mut self) {
         unsafe {
-            windows_sys::Win32::Media::Multimedia::timeEndPeriod(1);
+            windows_sys::Win32::Media::timeEndPeriod(1);
         }
     }
 }

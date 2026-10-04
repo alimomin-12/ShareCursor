@@ -217,6 +217,39 @@ fn key_from_vk(vk: u32, scan: u32, extended: bool) -> Key {
 mod tests {
     use super::*;
     #[test]
+    fn injected_mouse_and_keyboard_bypass_capture_but_physical_input_is_consumed() {
+        let called = std::rc::Rc::new(std::cell::Cell::new(0));
+        let counted = called.clone();
+        CALLBACK.with(|slot| {
+            *slot.borrow_mut() = Some(Box::new(move |_| {
+                counted.set(counted.get() + 1);
+                None
+            }))
+        });
+        unsafe {
+            let mut mouse: MSLLHOOKSTRUCT = std::mem::zeroed();
+            mouse.flags = LLMHF_INJECTED;
+            dispatch(0, WM_MOUSEMOVE as usize, &mouse as *const _ as isize, true);
+            let mut key: KBDLLHOOKSTRUCT = std::mem::zeroed();
+            key.flags = LLKHF_INJECTED;
+            key.vkCode = 0x43;
+            dispatch(0, WM_KEYDOWN as usize, &key as *const _ as isize, false);
+            assert_eq!(called.get(), 0);
+            mouse.flags = 0;
+            assert_eq!(
+                dispatch(0, WM_MOUSEMOVE as usize, &mouse as *const _ as isize, true),
+                1
+            );
+            key.flags = 0;
+            assert_eq!(
+                dispatch(0, WM_KEYDOWN as usize, &key as *const _ as isize, false),
+                1
+            );
+            assert_eq!(called.get(), 2);
+        }
+        CALLBACK.with(|slot| *slot.borrow_mut() = None);
+    }
+    #[test]
     fn repeated_moves_from_a_parked_cursor_do_not_cancel_out() {
         assert_eq!(motion_delta((965, 540), (960, 540)), (5, 0));
         assert_eq!(motion_delta((965, 540), (960, 540)), (5, 0));
