@@ -1,0 +1,2 @@
+ea18f3c630fc8bd1d7abc26eaba210709b8adef77e81a8602bd52c4afbd34acf  ShareCursor-Setup-0.6.0.exe
+403cef754bbf37f06b04a5f19c0c2059e47a8d87d7be47fab750308ab339fa25  ShareCursor-0.6.0.dmg
