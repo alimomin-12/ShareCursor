@@ -9,6 +9,7 @@ mod config;
 mod control;
 mod edge;
 mod filexfer;
+mod input_batch;
 mod transport;
 
 #[cfg(feature = "native")]
@@ -115,6 +116,14 @@ fn hide_console_window() {
 }
 
 fn main() -> anyhow::Result<()> {
+    #[cfg(windows)]
+    unsafe {
+        use windows_sys::Win32::UI::HiDpi::{
+            SetProcessDpiAwarenessContext, DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2,
+        };
+        // Capture hook coordinates and display metrics must use physical pixels.
+        SetProcessDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+    }
     tracing_subscriber::fmt()
         .with_env_filter(
             tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| "info".into()),

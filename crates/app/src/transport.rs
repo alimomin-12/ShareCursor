@@ -125,4 +125,8 @@ impl InputChannel {
     pub fn set_read_timeout(&self, dur: Option<std::time::Duration>) -> std::io::Result<()> {
         self.socket.set_read_timeout(dur)
     }
+
+    pub fn set_nonblocking(&self, nonblocking: bool) -> std::io::Result<()> {
+        self.socket.set_nonblocking(nonblocking)
+    }
 }

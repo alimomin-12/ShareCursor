@@ -1,12 +1,12 @@
 ; Inno Setup script for ShareCursor — produces a one-click Windows installer.
 ;
 ; Build (on Windows, after `cargo build --release --features tray,gui`):
-;   iscc /DMyAppVersion=0.6.0 packaging\windows\sharecursor.iss
+;   iscc /DMyAppVersion=0.6.1 packaging\windows\sharecursor.iss
 ;
 ; Output: packaging\windows\Output\ShareCursor-Setup-<version>.exe
 
 #ifndef MyAppVersion
-  #define MyAppVersion "0.6.0"
+  #define MyAppVersion "0.6.1"
 #endif
 #define MyAppName "ShareCursor"
 #define MyAppPublisher "ShareCursor"

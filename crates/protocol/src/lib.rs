@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 pub mod crypto;
 
 /// Protocol version. Bump on breaking wire changes.
-pub const PROTOCOL_VERSION: u16 = 5;
+pub const PROTOCOL_VERSION: u16 = 6;
 
 /// Screen edge a cursor can cross to hand control to a neighbour.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
@@ -204,17 +204,46 @@ pub enum BulkMsg {
         refresh: bool,
     },
     /// Handshake acknowledgement.
-    Welcome { version: u16, name: String },
+    Welcome {
+        version: u16,
+        name: String,
+    },
     /// Clipboard contents changed on the sender.
     Clipboard(ClipboardData),
     /// Begin a file transfer.
-    FileBegin { id: u64, name: String, size: u64 },
+    FileBegin {
+        id: u64,
+        name: String,
+        size: u64,
+    },
     /// A chunk of a file identified by `id`.
-    FileChunk { id: u64, offset: u64, data: Vec<u8> },
+    FileChunk {
+        id: u64,
+        offset: u64,
+        data: Vec<u8>,
+    },
     /// File transfer finished.
-    FileEnd { id: u64 },
+    FileEnd {
+        id: u64,
+    },
     /// Keep-alive so peers can detect drops.
     Heartbeat,
+    /// Files selected in Explorer/Finder. Publish the local clipboard only
+    /// after every listed transfer and the matching end marker arrive.
+    ClipboardFilesBegin {
+        id: u64,
+        files: Vec<u64>,
+    },
+    ClipboardFilesEnd {
+        id: u64,
+    },
+    ClipboardFilesCancel {
+        id: u64,
+    },
+    /// A standalone send-file transfer was committed to disk.
+    FileReceived {
+        id: u64,
+    },
 }
 
 /// Clipboard payloads we understand.

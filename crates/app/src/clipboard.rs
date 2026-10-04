@@ -1,34 +1,28 @@
-//! Bidirectional clipboard synchronization over the bulk channel (text +
-//! images).
-//!
-//! Two loops run per peer connection:
-//!  * **watch**: polls the local clipboard; on a genuine local change, sends it.
-//!  * **apply**: receives remote clipboard messages and sets them locally.
-//!
-//! Echo suppression: whenever we *set* the clipboard from a remote message (or
-//! send a local change), we remember a fingerprint of it so the watcher does
-//! not bounce it straight back into an infinite loop.
-
-use std::borrow::Cow;
-use std::collections::hash_map::DefaultHasher;
-use std::hash::{Hash, Hasher};
-use std::sync::mpsc::{Receiver, Sender};
-use std::sync::{Arc, Mutex};
-use std::time::Duration;
-
+//! Native text, image and file clipboard synchronization, with echo suppression.
+use crate::filexfer::{rand_id, stream_file, MAX_FILES};
 use arboard::{Clipboard, ImageData};
 use sharecursor_protocol::{BulkMsg, ClipboardData};
+use std::borrow::Cow;
+use std::collections::{hash_map::DefaultHasher, HashMap, HashSet};
+use std::hash::{Hash, Hasher};
+use std::path::{Path, PathBuf};
+use std::sync::atomic::{AtomicBool, Ordering};
+use std::sync::mpsc::{Receiver, SyncSender};
+use std::sync::{Arc, Mutex, OnceLock};
+use std::time::Duration;
 
-/// A cheap fingerprint of the current clipboard, used to detect real changes
-/// and to suppress echoes.
 #[derive(Clone, PartialEq)]
 pub(crate) enum Fingerprint {
     Text(String),
     Image(u64),
+    Files(Vec<PathBuf>, u64),
 }
-
-/// Shared "last known clipboard" used to suppress echoes.
 pub(crate) type LastSeen = Arc<Mutex<Option<Fingerprint>>>;
+
+pub(crate) enum ApplyClipboard {
+    Data(ClipboardData),
+    Files(Vec<PathBuf>),
+}
 
 fn hash_image(width: u32, height: u32, rgba: &[u8]) -> u64 {
     let mut h = DefaultHasher::new();
@@ -38,86 +32,236 @@ fn hash_image(width: u32, height: u32, rgba: &[u8]) -> u64 {
     h.finish()
 }
 
-/// Poll the local clipboard and forward genuine changes onto `out`.
-pub(crate) fn watch(out: Sender<BulkMsg>, last: LastSeen) {
+fn files_fingerprint(paths: &[PathBuf]) -> Fingerprint {
+    let mut h = DefaultHasher::new();
+    for path in paths {
+        if let Ok(meta) = path.metadata() {
+            meta.len().hash(&mut h);
+            meta.modified().ok().hash(&mut h);
+        }
+    }
+    Fingerprint::Files(paths.to_vec(), h.finish())
+}
+
+pub(crate) fn watch(out: SyncSender<BulkMsg>, last: LastSeen, stop: Arc<AtomicBool>) {
     let mut clipboard = match Clipboard::new() {
         Ok(c) => c,
         Err(e) => {
-            tracing::warn!(error = %e, "clipboard unavailable; sync disabled");
+            tracing::warn!(error = %e, "clipboard unavailable");
             return;
         }
     };
-    loop {
-        // Text takes priority; fall back to an image if there's no text.
-        if let Ok(text) = clipboard.get_text() {
-            if !text.is_empty() {
-                let fp = Fingerprint::Text(text.clone());
-                let mut guard = last.lock().unwrap();
-                if guard.as_ref() != Some(&fp) {
+    #[cfg(windows)]
+    let mut sequence = 0;
+    while !stop.load(Ordering::Relaxed) {
+        #[cfg(windows)]
+        {
+            let current =
+                unsafe { windows_sys::Win32::System::DataExchange::GetClipboardSequenceNumber() };
+            if current != 0 && current == sequence {
+                std::thread::sleep(Duration::from_millis(100));
+                continue;
+            }
+            sequence = current;
+        }
+        // Hold the echo guard across the native read/write, so apply cannot set
+        // a clipboard between the watcher's read and fingerprint update.
+        let mut guard = last.lock().unwrap();
+        if let Ok(paths) = clipboard.get().file_list() {
+            if !paths.is_empty() {
+                let fp = files_fingerprint(&paths);
+                let changed = guard.as_ref() != Some(&fp);
+                if changed {
                     *guard = Some(fp);
-                    drop(guard);
-                    let _ = out.send(BulkMsg::Clipboard(ClipboardData::Text(text)));
                 }
-                std::thread::sleep(Duration::from_millis(250));
+                drop(guard);
+                if changed {
+                    if paths.len() > MAX_FILES || paths.iter().any(|p| !p.is_file()) {
+                        tracing::warn!("clipboard file copy supports up to 256 regular files; zip folders before copying");
+                    } else if send_files(&out, &paths).is_err() {
+                        return;
+                    }
+                }
+                std::thread::sleep(Duration::from_millis(100));
                 continue;
             }
         }
-        if let Ok(img) = clipboard.get_image() {
-            let (w, h) = (img.width as u32, img.height as u32);
+        let data = if let Ok(text) = clipboard.get_text() {
+            Some((Fingerprint::Text(text.clone()), ClipboardData::Text(text)))
+        } else if let Ok(img) = clipboard.get_image() {
+            let (width, height) = (img.width as u32, img.height as u32);
             let rgba = img.bytes.into_owned();
-            let fp = Fingerprint::Image(hash_image(w, h, &rgba));
-            let mut guard = last.lock().unwrap();
-            if guard.as_ref() != Some(&fp) {
-                *guard = Some(fp);
-                drop(guard);
-                let _ = out.send(BulkMsg::Clipboard(ClipboardData::Image {
-                    width: w,
-                    height: h,
+            Some((
+                Fingerprint::Image(hash_image(width, height, &rgba)),
+                ClipboardData::Image {
+                    width,
+                    height,
                     rgba,
-                }));
+                },
+            ))
+        } else {
+            None
+        };
+        let changed = data.filter(|(fp, _)| guard.as_ref() != Some(fp));
+        if let Some((fp, _)) = &changed {
+            *guard = Some(fp.clone());
+        }
+        drop(guard);
+        if let Some((_, data)) = changed {
+            if out.send(BulkMsg::Clipboard(data)).is_err() {
+                return;
             }
         }
-        std::thread::sleep(Duration::from_millis(250));
+        std::thread::sleep(Duration::from_millis(100));
     }
 }
 
-/// Apply remote clipboard messages arriving on `inbox` to the local clipboard.
-pub(crate) fn apply(inbox: Receiver<ClipboardData>, last: LastSeen) {
+fn send_files(out: &SyncSender<BulkMsg>, paths: &[PathBuf]) -> anyhow::Result<()> {
+    let id = rand_id();
+    let files: Vec<u64> = paths.iter().map(|_| rand_id()).collect();
+    out.send(BulkMsg::ClipboardFilesBegin {
+        id,
+        files: files.clone(),
+    })?;
+    for (path, file_id) in paths.iter().zip(files) {
+        if let Err(e) = stream_file(path, file_id, |msg| {
+            out.send(msg)?;
+            Ok(())
+        }) {
+            tracing::warn!(path = %path.display(), error = %e, "clipboard file transfer failed");
+            out.send(BulkMsg::ClipboardFilesCancel { id })?;
+            return Ok(());
+        }
+    }
+    out.send(BulkMsg::ClipboardFilesEnd { id })?;
+    Ok(())
+}
+
+pub(crate) fn apply(inbox: Receiver<ApplyClipboard>, last: LastSeen) {
     let mut clipboard = match Clipboard::new() {
         Ok(c) => c,
         Err(e) => {
-            tracing::warn!(error = %e, "clipboard unavailable; sync disabled");
+            tracing::warn!(error = %e, "clipboard unavailable");
             return;
         }
     };
     while let Ok(data) = inbox.recv() {
-        match data {
-            ClipboardData::Text(text) => {
-                *last.lock().unwrap() = Some(Fingerprint::Text(text.clone()));
-                if let Err(e) = clipboard.set_text(text) {
-                    tracing::warn!(error = %e, "failed to set clipboard text");
-                }
-            }
-            ClipboardData::Image {
+        let fp = match &data {
+            ApplyClipboard::Data(ClipboardData::Text(text)) => Fingerprint::Text(text.clone()),
+            ApplyClipboard::Data(ClipboardData::Image {
                 width,
                 height,
                 rgba,
-            } => {
-                *last.lock().unwrap() = Some(Fingerprint::Image(hash_image(width, height, &rgba)));
-                let img = ImageData {
-                    width: width as usize,
-                    height: height as usize,
-                    bytes: Cow::Owned(rgba),
-                };
-                if let Err(e) = clipboard.set_image(img) {
-                    tracing::warn!(error = %e, "failed to set clipboard image");
+            }) => Fingerprint::Image(hash_image(*width, *height, rgba)),
+            ApplyClipboard::Files(paths) => files_fingerprint(paths),
+        };
+        for attempt in 0..3 {
+            let mut guard = last.lock().unwrap();
+            let result = match &data {
+                ApplyClipboard::Data(ClipboardData::Text(text)) => clipboard.set_text(text.clone()),
+                ApplyClipboard::Data(ClipboardData::Image {
+                    width,
+                    height,
+                    rgba,
+                }) => clipboard.set_image(ImageData {
+                    width: *width as usize,
+                    height: *height as usize,
+                    bytes: Cow::Borrowed(rgba),
+                }),
+                ApplyClipboard::Files(paths) => clipboard.set().file_list(paths),
+            };
+            match result {
+                Ok(()) => {
+                    *guard = Some(fp.clone());
+                    break;
                 }
+                Err(e) if attempt == 2 => tracing::warn!(error = %e, "failed to set clipboard"),
+                Err(_) => {}
             }
+            drop(guard);
+            std::thread::sleep(Duration::from_millis(50));
         }
     }
 }
 
-/// Convenience to build a fresh shared echo-suppression cell.
 pub(crate) fn shared_last() -> LastSeen {
-    Arc::new(Mutex::new(None))
+    static LAST: OnceLock<LastSeen> = OnceLock::new();
+    LAST.get_or_init(|| Arc::new(Mutex::new(None))).clone()
+}
+
+#[derive(Default)]
+pub(crate) struct FileClipboard {
+    batch: Option<(u64, Vec<u64>)>,
+    completed: HashMap<u64, PathBuf>,
+}
+impl FileClipboard {
+    pub fn begin(&mut self, id: u64, files: Vec<u64>) -> anyhow::Result<()> {
+        anyhow::ensure!(
+            !files.is_empty() && files.len() <= MAX_FILES,
+            "invalid clipboard file count"
+        );
+        anyhow::ensure!(
+            files.iter().collect::<HashSet<_>>().len() == files.len(),
+            "duplicate clipboard file id"
+        );
+        self.batch = Some((id, files));
+        self.completed.clear();
+        Ok(())
+    }
+    pub fn completed(&mut self, id: u64, path: &Path) {
+        if self
+            .batch
+            .as_ref()
+            .is_some_and(|(_, files)| files.contains(&id))
+        {
+            self.completed.insert(id, path.to_path_buf());
+        }
+    }
+    pub fn finish(&mut self, id: u64) -> anyhow::Result<Vec<PathBuf>> {
+        let (batch_id, files) = self
+            .batch
+            .take()
+            .ok_or_else(|| anyhow::anyhow!("no clipboard file batch"))?;
+        anyhow::ensure!(
+            batch_id == id && files.iter().all(|f| self.completed.contains_key(f)),
+            "incomplete clipboard file batch"
+        );
+        Ok(files
+            .iter()
+            .map(|f| self.completed.remove(f).unwrap())
+            .collect())
+    }
+    pub fn cancel(&mut self, id: u64) {
+        if self
+            .batch
+            .as_ref()
+            .is_some_and(|(batch_id, _)| *batch_id == id)
+        {
+            self.batch = None;
+            self.completed.clear();
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn file_clipboard_requires_all_files_and_preserves_selection_order() {
+        let mut batch = FileClipboard::default();
+        batch.begin(1, vec![10, 20]).unwrap();
+        batch.completed(10, Path::new("a.txt"));
+        assert!(batch.finish(1).is_err());
+        batch.begin(2, vec![10, 20]).unwrap();
+        batch.completed(20, Path::new("b.txt"));
+        batch.completed(10, Path::new("a.txt"));
+        assert_eq!(
+            batch.finish(2).unwrap(),
+            vec![PathBuf::from("a.txt"), PathBuf::from("b.txt")]
+        );
+        batch.begin(3, vec![10]).unwrap();
+        batch.cancel(3);
+        assert!(batch.finish(3).is_err());
+        assert!(batch.begin(4, vec![10, 10]).is_err());
+    }
 }

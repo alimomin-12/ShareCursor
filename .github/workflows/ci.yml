@@ -65,3 +65,6 @@ jobs:
 
       - name: cargo test
         run: cargo test --workspace
+
+      - name: Encrypted input transport benchmark
+        run: cargo run --release --no-default-features -- bench --count 5000 --encrypted

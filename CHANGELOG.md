@@ -17,6 +17,13 @@ All notable changes to ShareCursor are documented here. The format is based on
 - Repeated Start clicks no longer create duplicate pairing workers, and
   background startup failures are shown in the tray menu.
 
+## [0.6.1] - 2026-10-04
+
+- Fix Windows physical mouse control by reusing one capture loop, filtering injected events, and measuring motion from the parked cursor.
+- Coalesce consecutive pointer motions, bound UDP batches and avoid blocking receive/sleep delays during active input.
+- Copy regular files through the native Explorer/Finder clipboard over the encrypted bulk connection. Paste becomes available after all selected files finish downloading to Downloads/ShareCursor. Zip folders before copying.
+- Fix encrypted send-file connections, concurrent file acceptance, incomplete download cleanup, and duplicate filename handling.
+- Retain first-launch configuration and macOS tray fixes. Protocol 6 requires installing this update on both computers.
 ## [0.6.0] - 2026-08-29
 
 First stable release under the ShareCursor name.

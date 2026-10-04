@@ -43,6 +43,33 @@ pub struct Control {
 }
 
 impl Control {
+    /// Track the visiting pointer from both physical capture and injected
+    /// movement. Windows intentionally excludes injected events from its hooks.
+    pub fn visitor_position(&self, x: i32, y: i32, screen: (u32, u32)) {
+        use std::sync::atomic::Ordering;
+        if !self.peer_away.load(Ordering::Relaxed) {
+            return;
+        }
+        let Some((edge, span)) = *self.host_span.lock().unwrap() else {
+            return;
+        };
+        let (perp, distance) = match edge {
+            Edge::Left => (y, x),
+            Edge::Right => (y, screen.0 as i32 - 1 - x),
+            Edge::Top => (x, y),
+            Edge::Bottom => (x, screen.1 as i32 - 1 - y),
+        };
+        if distance > 60 {
+            self.host_armed.store(true, Ordering::Relaxed);
+        }
+        if distance <= 0
+            && self.host_armed.load(Ordering::Relaxed)
+            && crate::edge::in_span(perp, span)
+        {
+            self.peer_away.store(false, Ordering::Relaxed);
+            *self.send_peer_home.lock().unwrap() = Some(perp);
+        }
+    }
     pub fn new() -> Self {
         Self {
             my_away: AtomicBool::new(false),
@@ -53,6 +80,27 @@ impl Control {
             host_span: Mutex::new(None),
             host_armed: AtomicBool::new(false),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::sync::atomic::Ordering;
+
+    #[test]
+    fn injected_pointer_can_return_without_being_recaptured() {
+        let c = Control::new();
+        c.peer_away.store(true, Ordering::Relaxed);
+        *c.host_span.lock().unwrap() = Some((Edge::Left, (100, 800)));
+        c.visitor_position(2, 400, (1920, 1080));
+        assert!(c.peer_away.load(Ordering::Relaxed));
+        c.visitor_position(100, 400, (1920, 1080));
+        c.visitor_position(0, 50, (1920, 1080));
+        assert!(c.peer_away.load(Ordering::Relaxed));
+        c.visitor_position(0, 400, (1920, 1080));
+        assert!(!c.peer_away.load(Ordering::Relaxed));
+        assert_eq!(*c.send_peer_home.lock().unwrap(), Some(400));
     }
 }
 

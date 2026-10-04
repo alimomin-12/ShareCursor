@@ -10,13 +10,13 @@
 //!     ChaCha20-Poly1305.
 
 use std::net::{SocketAddr, TcpListener, TcpStream, ToSocketAddrs};
-use std::sync::atomic::Ordering;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::mpsc::{self, Receiver};
-use std::sync::{Arc, Mutex};
-use std::time::Duration;
+use std::sync::{Arc, Mutex, OnceLock};
+use std::time::{Duration, Instant};
 
-use sharecursor_protocol::crypto::{Role, Session};
-use sharecursor_protocol::{BulkMsg, ClipboardData, Edge, InputEvent, InputMsg};
+use sharecursor_protocol::crypto::Role;
+use sharecursor_protocol::{BulkMsg, Edge, InputEvent, InputMsg};
 
 /// A batch that releases every modifier key on the client. Sent on every
 /// control hand-off so a modifier held during the switch can't stay stuck down
@@ -121,7 +121,65 @@ struct Shared {
     screen: (u32, u32),
     /// Outgoing bulk-channel sender (set once the bulk thread is up) — lets the
     /// pump push a refreshed Hello when the user re-arranges mid-session.
-    hello_tx: Arc<Mutex<Option<mpsc::Sender<BulkMsg>>>>,
+    hello_tx: Arc<Mutex<Option<mpsc::SyncSender<BulkMsg>>>>,
+}
+
+struct Runtime {
+    shared: Shared,
+    input: Mutex<Receiver<InputEvent>>,
+}
+
+/// Auto-pair starts a listener and may also dial. Both must reuse the same
+/// global hooks, control state and queue, including after reconnects.
+fn runtime(cfg: &Config) -> Arc<Runtime> {
+    static RUNTIME: OnceLock<Arc<Runtime>> = OnceLock::new();
+    RUNTIME
+        .get_or_init(|| {
+            let sh = build_shared(cfg);
+            let (tx, rx) = mpsc::channel();
+            let capture_sh = sh.clone();
+            std::thread::spawn(move || {
+                if let Err(e) = capture::run(
+                    tx,
+                    capture_sh.control,
+                    capture_sh.arrangement,
+                    capture_sh.screen,
+                    capture_sh.peer_screen,
+                ) {
+                    tracing::error!(error = %e, "capture thread stopped");
+                }
+            });
+            Arc::new(Runtime {
+                shared: sh,
+                input: Mutex::new(rx),
+            })
+        })
+        .clone()
+}
+
+struct StopOnDrop(Arc<AtomicBool>);
+impl Drop for StopOnDrop {
+    fn drop(&mut self) {
+        self.0.store(true, Ordering::Relaxed);
+    }
+}
+
+fn validate_hello(msg: &BulkMsg) -> anyhow::Result<()> {
+    let BulkMsg::Hello {
+        version, screen, ..
+    } = msg
+    else {
+        anyhow::bail!("expected peer Hello");
+    };
+    anyhow::ensure!(
+        *version == sharecursor_protocol::PROTOCOL_VERSION,
+        "incompatible peer protocol {version}; update ShareCursor on both computers"
+    );
+    anyhow::ensure!(
+        screen.0 > 0 && screen.1 > 0 && screen.0 <= i32::MAX as u32 && screen.1 <= i32::MAX as u32,
+        "invalid peer screen size"
+    );
+    Ok(())
 }
 
 /// Build the shared state from the local config (arrangement may be absent —
@@ -193,7 +251,7 @@ fn reload_arrangement(cfg_name: &str, sh: &Shared) {
     *sh.border.lock().unwrap() = *fresh.border.lock().unwrap();
     *sh.arrangement.lock().unwrap() = *fresh.arrangement.lock().unwrap();
     if let Some(tx) = sh.hello_tx.lock().unwrap().as_ref() {
-        let _ = tx.send(my_hello(cfg_name, sh, true));
+        let _ = tx.try_send(my_hello(cfg_name, sh, true));
     }
     tracing::info!("arrangement reloaded from settings and sent to the peer");
 }
@@ -297,6 +355,7 @@ fn record_peer_layout(peer: &str, my_edge: Edge, my_offset: i32) {
         return;
     };
     let me = cfg.name.clone();
+    let before = toml::to_string(&cfg).ok();
     let set = |m: &mut crate::config::Machine, e: Edge, n: &str| {
         m.left = None;
         m.right = None;
@@ -318,7 +377,9 @@ fn record_peer_layout(peer: &str, my_edge: Edge, my_offset: i32) {
         }
     }
     cfg.offset = my_offset;
-    let _ = cfg.save(&path);
+    if toml::to_string(&cfg).ok() != before {
+        let _ = cfg.save(&path);
+    }
 }
 
 /// Wire clipboard + file sync onto one (already-encrypted) bulk connection.
@@ -330,10 +391,14 @@ fn serve_bulk(
     hello: Option<BulkMsg>,
     sh: Shared,
     adopt: bool,
+    first: Option<BulkMsg>,
+    stop: Arc<AtomicBool>,
 ) -> anyhow::Result<()> {
+    let _stop = StopOnDrop(stop.clone());
     let last = clipboard::shared_last();
-    let (out_tx, out_rx) = mpsc::channel::<BulkMsg>();
-    let (in_tx, in_rx) = mpsc::channel::<ClipboardData>();
+    // Backpressure bounds queued file bytes while UDP input remains independent.
+    let (out_tx, out_rx) = mpsc::sync_channel::<BulkMsg>(8);
+    let (in_tx, in_rx) = mpsc::channel::<clipboard::ApplyClipboard>();
 
     // Send our own screen size first (client → server), before any other frame,
     // so the encrypted send-counter stays in sync with the peer's recv-counter.
@@ -350,25 +415,40 @@ fn serve_bulk(
                 break;
             }
         }
+        wconn.shutdown();
     });
     let last_apply = last.clone();
     std::thread::spawn(move || clipboard::apply(in_rx, last_apply));
-    std::thread::spawn(move || clipboard::watch(out_tx, last));
+    std::thread::spawn(move || clipboard::watch(out_tx, last, stop));
 
-    let mut receiver = FileReceiver::new("received");
+    let mut receiver = FileReceiver::new(crate::filexfer::receive_dir());
+    let mut files = clipboard::FileClipboard::default();
     let mut rconn = conn;
+    let mut first = first;
     loop {
-        match rconn.recv() {
+        match first.take().map(Ok).unwrap_or_else(|| rconn.recv()) {
             Ok(BulkMsg::Clipboard(data)) => {
-                let _ = in_tx.send(data);
+                let _ = in_tx.send(clipboard::ApplyClipboard::Data(data));
+            }
+            Ok(BulkMsg::ClipboardFilesBegin { id, files: ids }) => {
+                receiver.abort();
+                files.begin(id, ids)?;
+            }
+            Ok(BulkMsg::ClipboardFilesEnd { id }) => {
+                let paths = files.finish(id)?;
+                let _ = in_tx.send(clipboard::ApplyClipboard::Files(paths));
+            }
+            Ok(BulkMsg::ClipboardFilesCancel { id }) => {
+                receiver.abort();
+                files.cancel(id);
             }
             Ok(
                 msg @ (BulkMsg::FileBegin { .. }
                 | BulkMsg::FileChunk { .. }
                 | BulkMsg::FileEnd { .. }),
             ) => {
-                if let Err(e) = receiver.handle(&msg) {
-                    tracing::warn!(error = %e, "file receive failed");
+                if let Some((id, path)) = receiver.handle(&msg)? {
+                    files.completed(id, &path);
                 }
             }
             // Peer's Hello: its screen size (kept LIVE for the offset maths,
@@ -376,6 +456,7 @@ fn serve_bulk(
             // adopt the mirrored version so the layout is only ever configured
             // on ONE machine.
             Ok(BulkMsg::Hello {
+                version,
                 name,
                 screen,
                 edge,
@@ -383,6 +464,10 @@ fn serve_bulk(
                 refresh,
                 ..
             }) => {
+                anyhow::ensure!(
+                    version == sharecursor_protocol::PROTOCOL_VERSION,
+                    "peer protocol changed"
+                );
                 tracing::info!(peer = %name, width = screen.0, height = screen.1, "peer reported its screen size (Hello)");
                 *sh.peer_screen.lock().unwrap() = screen;
                 record_peer_screen(&name, screen);
@@ -427,22 +512,25 @@ fn run_peer_input(
     sh: &Shared,
     cfg_name: &str,
     mut peer: Option<SocketAddr>,
+    stop: &AtomicBool,
 ) -> anyhow::Result<()> {
     let control = &sh.control;
     let mut injector = crate::emit::Injector::new()?;
     let mut prev_my_away = false;
-    let mut idle_ticks: u32 = 0;
+    let mut keepalive = Instant::now();
+    let mut config_poll = Instant::now();
     let mut cfg_mtime = std::fs::metadata(Config::default_path())
         .and_then(|m| m.modified())
         .ok();
-    let mut cfg_ticks: u32 = 0;
     let mut buf = [0u8; 2048];
-    loop {
+    udp.set_nonblocking(true)?;
+    #[cfg(windows)]
+    let _timer = crate::input_batch::windows_timer();
+    while !stop.load(Ordering::Relaxed) {
         // "Connect first, arrange after": watch the config; when the settings
         // window saves, reload the arrangement live + push it to the peer.
-        cfg_ticks += 1;
-        if cfg_ticks > 1500 {
-            cfg_ticks = 0;
+        if config_poll.elapsed() >= Duration::from_secs(1) {
+            config_poll = Instant::now();
             let m = std::fs::metadata(Config::default_path())
                 .and_then(|m| m.modified())
                 .ok();
@@ -452,7 +540,9 @@ fn run_peer_input(
             }
         }
         // ---- receive from the peer ----
+        let mut received = false;
         if let Ok(Some((pkt, from))) = udp.recv(&mut buf) {
+            received = true;
             if peer != Some(from) {
                 tracing::info!(%from, "peer input channel online");
                 peer = Some(from);
@@ -466,6 +556,11 @@ fn run_peer_input(
                     for ev in events {
                         if let Err(e) = injector.apply(ev) {
                             tracing::warn!(error = %e, "inject failed");
+                        }
+                        if matches!(ev, InputEvent::MouseMove { .. }) {
+                            if let Ok((x, y)) = injector.location() {
+                                control.visitor_position(x, y, sh.screen);
+                            }
                         }
                     }
                 }
@@ -504,9 +599,8 @@ fn run_peer_input(
         } else {
             // Idle keep-alive so the path stays warm and the peer learns our
             // address (the dialer pings first; NAT/firewall state stays open).
-            idle_ticks += 1;
-            if idle_ticks > 2000 {
-                idle_ticks = 0;
+            if keepalive.elapsed() >= Duration::from_secs(1) {
+                keepalive = Instant::now();
                 if let Some(p) = peer {
                     let _ = udp.send_to(
                         InputMsg::Ping {
@@ -586,153 +680,143 @@ fn run_peer_input(
         }
 
         // ---- forward my captured input while my pointer is away ----
-        let mut batch = Vec::new();
-        while let Ok(ev) = rx.try_recv() {
-            batch.push(ev);
-        }
+        let batch = crate::input_batch::drain(rx);
         if !batch.is_empty() {
             if let Some(p) = peer {
                 let _ = udp.send_to(InputMsg::Events(batch), p);
             }
-        } else {
+        } else if !received {
             std::thread::sleep(Duration::from_micros(500));
         }
     }
+    control.my_away.store(false, Ordering::Relaxed);
+    control.peer_away.store(false, Ordering::Relaxed);
+    *control.host_span.lock().unwrap() = None;
+    *sh.hello_tx.lock().unwrap() = None;
+    for ev in match release_all_modifiers() {
+        InputMsg::Events(events) => events,
+        _ => unreachable!(),
+    } {
+        let _ = injector.apply(ev);
+    }
+    Ok(())
 }
 
-/// Listener peer: accepts the connection. At runtime both sides are identical
-/// (symmetric ShareMouse-style control) — "server" only means "listens".
+/// Listener accepts input sessions and independent file transfers concurrently.
 pub fn serve(bind: &str) -> anyhow::Result<()> {
     let cfg = load_config()?;
-    let psk = cfg.psk.clone().into_bytes();
     let bind_addr = resolve(bind)?;
-    tracing::info!(%bind_addr, name = %cfg.name, "listening; both machines' mice/keyboards work — push through the shared edge");
-    tracing::info!("grant Accessibility permission on macOS for capture to work");
-
-    let sh = build_shared(&cfg);
-
-    // Capture runs once, globally. Both peers capture their own input.
-    let (tx, rx) = mpsc::channel();
-    {
-        let c = sh.control.clone();
-        let arr = sh.arrangement.clone();
-        let ps = sh.peer_screen.clone();
-        let screen = sh.screen;
-        std::thread::spawn(move || {
-            if let Err(e) = capture::run(tx, c, arr, screen, ps) {
-                tracing::error!(error = %e, "capture thread stopped");
-            }
-        });
-    }
-
-    // Advertise over mDNS so peers can find us without an IP.
     let my_id = Config::ensure_device_id(&Config::default_path());
+    let listener = TcpListener::bind(bind_addr)?;
     let _advert = discovery::advertise(&cfg.name, bind_addr.port(), &my_id)
         .map_err(|e| tracing::warn!(error = %e, "mDNS advertise failed"))
         .ok();
-
-    let listener = TcpListener::bind(bind_addr)?;
+    tracing::info!(%bind_addr, name = %cfg.name, "listening for encrypted input and file transfers");
     loop {
-        let (stream, _) = listener.accept()?;
-        let peer_ip = stream
-            .peer_addr()
-            .map(|a| a.ip().to_string())
-            .unwrap_or_default();
-        let (conn, input_sess) = match BulkConn::handshake(stream, &psk, Role::Responder) {
-            Ok(v) => v,
-            Err(e) => {
-                tracing::warn!(%peer_ip, error = %e, "handshake/auth failed; check the PSK");
-                continue;
-            }
-        };
-        tracing::info!(%peer_ip, "peer authenticated (encrypted session established)");
-
-        // Bulk channel: clipboard/files + Hello exchange (we send ours too, so
-        // the dialer can adopt our arrangement).
-        let hello = my_hello(&cfg.name, &sh, false);
-        let sh_bulk = sh.clone();
+        let (stream, addr) = listener.accept()?;
+        let cfg = cfg.clone();
         std::thread::spawn(move || {
-            // Listener only adopts the peer's layout when it has none itself.
-            let _ = serve_bulk(conn, Some(hello), sh_bulk, false);
+            let session = || -> anyhow::Result<()> {
+                stream.set_read_timeout(Some(Duration::from_secs(10)))?;
+                let (mut conn, input_sess) =
+                    BulkConn::handshake(stream, cfg.psk.as_bytes(), Role::Responder)?;
+                let first = conn.recv()?;
+                if matches!(first, BulkMsg::FileBegin { .. }) {
+                    conn.set_read_timeout(Some(Duration::from_secs(30)))?;
+                    let mut files = FileReceiver::new(crate::filexfer::receive_dir());
+                    let mut msg = first;
+                    loop {
+                        anyhow::ensure!(
+                            matches!(
+                                msg,
+                                BulkMsg::FileBegin { .. }
+                                    | BulkMsg::FileChunk { .. }
+                                    | BulkMsg::FileEnd { .. }
+                            ),
+                            "unexpected file message"
+                        );
+                        if let Some((id, _)) = files.handle(&msg)? {
+                            conn.send(&BulkMsg::FileReceived { id })?;
+                            return Ok(());
+                        }
+                        msg = conn.recv()?;
+                    }
+                }
+                validate_hello(&first)?;
+                conn.set_read_timeout(None)?;
+                let rt = runtime(&cfg);
+                let rx = rt
+                    .input
+                    .try_lock()
+                    .map_err(|_| anyhow::anyhow!("input session already active"))?;
+                while rx.try_recv().is_ok() {} // discard stale disconnected input
+                let sh = rt.shared.clone();
+                let udp = InputChannel::bind(bind_addr, None)?.with_cipher(Arc::new(input_sess));
+                let stop = Arc::new(AtomicBool::new(false));
+                let bulk_stop = stop.clone();
+                let bulk_sh = sh.clone();
+                let hello = my_hello(&cfg.name, &sh, false);
+                std::thread::spawn(move || {
+                    if let Err(e) =
+                        serve_bulk(conn, Some(hello), bulk_sh, false, Some(first), bulk_stop)
+                    {
+                        tracing::warn!(error = %e, "bulk channel closed");
+                    }
+                });
+                run_peer_input(&udp, &rx, &sh, &cfg.name, None, &stop)
+            };
+            if let Err(e) = session() {
+                tracing::warn!(peer = %addr, error = %e, "connection ended");
+            }
         });
-
-        // Encrypted UDP input channel for this session.
-        let udp = InputChannel::bind(bind_addr, None)?.with_cipher(Arc::new(input_sess));
-        udp.set_read_timeout(Some(Duration::from_millis(1)))?;
-        if let Err(e) = run_peer_input(&udp, &rx, &sh, &cfg.name, None) {
-            tracing::warn!(error = %e, "input session ended; awaiting a new peer");
-        }
     }
 }
 
-/// Client: receives input batches and injects them locally. `server` overrides
-/// the config's `server_host`; either may omit the port (config `port` used).
 pub fn connect(server: Option<&str>) -> anyhow::Result<()> {
     let cfg = load_config()?;
-    let psk = cfg.psk.clone().into_bytes();
-    let with_port = |h: &str| -> String {
-        if h.contains(':') {
-            h.to_string()
+    let with_port = |host: &str| {
+        if host.contains(':') {
+            host.to_string()
         } else {
-            format!("{h}:{}", cfg.port)
+            format!("{host}:{}", cfg.port)
         }
     };
     let server_addr = match server
-        .map(|s| s.to_string())
+        .map(str::to_string)
         .or_else(|| cfg.server_host.clone())
     {
         Some(host) => resolve(&with_port(&host))?,
-        None => {
-            tracing::info!("no server configured; searching via mDNS (3s)…");
-            discovery::discover(Duration::from_secs(3))?.ok_or_else(|| {
-                anyhow::anyhow!("no server found via mDNS; pass a host or set `server_host`")
-            })?
-        }
+        None => discovery::discover(Duration::from_secs(3))?.ok_or_else(|| {
+            anyhow::anyhow!("no server found via mDNS; pass a host or set server_host")
+        })?,
     };
-    tracing::info!(%server_addr, name = %cfg.name, "connecting; grant Accessibility permission on macOS");
-
-    // Handshake over TCP first, then key both channels from it.
-    let stream = TcpStream::connect(server_addr)?;
-    let (conn, input_sess): (BulkConn, Session) =
-        BulkConn::handshake(stream, &psk, Role::Initiator)?;
-    tracing::info!("authenticated with peer (encrypted session established)");
-
-    let sh = build_shared(&cfg);
-
-    // SYMMETRIC: the dialer captures its own input too — both machines' mice
-    // and keyboards work, whichever you grab (ShareMouse-style).
-    let (tx, rx) = mpsc::channel();
-    {
-        let c = sh.control.clone();
-        let arr = sh.arrangement.clone();
-        let ps = sh.peer_screen.clone();
-        let screen = sh.screen;
-        std::thread::spawn(move || {
-            if let Err(e) = capture::run(tx, c, arr, screen, ps) {
-                tracing::error!(error = %e, "capture thread stopped");
-            }
-        });
-    }
-
-    // Bulk channel: clipboard/files + Hello exchange. The dialer adopts the
-    // listener's arrangement, so you only configure the layout on one machine.
-    let hello = my_hello(&cfg.name, &sh, false);
-    let sh_bulk = sh.clone();
+    let stream = TcpStream::connect_timeout(&server_addr, Duration::from_secs(10))?;
+    stream.set_read_timeout(Some(Duration::from_secs(10)))?;
+    let (mut conn, input_sess) = BulkConn::handshake(stream, cfg.psk.as_bytes(), Role::Initiator)?;
+    let rt = runtime(&cfg);
+    let rx = rt
+        .input
+        .try_lock()
+        .map_err(|_| anyhow::anyhow!("input session already active"))?;
+    while rx.try_recv().is_ok() {}
+    let sh = rt.shared.clone();
+    conn.send(&my_hello(&cfg.name, &sh, false))?;
+    let first = conn.recv()?;
+    validate_hello(&first)?;
+    conn.set_read_timeout(None)?;
+    let channel = InputChannel::bind("0.0.0.0:0".parse().unwrap(), Some(server_addr))?
+        .with_cipher(Arc::new(input_sess));
+    let stop = Arc::new(AtomicBool::new(false));
+    let bulk_stop = stop.clone();
+    let bulk_sh = sh.clone();
     std::thread::spawn(move || {
-        if let Err(e) = serve_bulk(conn, Some(hello), sh_bulk, true) {
+        if let Err(e) = serve_bulk(conn, None, bulk_sh, true, Some(first), bulk_stop) {
             tracing::warn!(error = %e, "bulk channel closed");
         }
     });
-
-    // Encrypted UDP input channel; announce ourselves so the listener learns
-    // our address, then run the same symmetric pump as the listener.
-    let channel = InputChannel::bind("0.0.0.0:0".parse().unwrap(), Some(server_addr))?
-        .with_cipher(Arc::new(input_sess));
-    channel.set_read_timeout(Some(Duration::from_millis(1)))?;
     channel.send(InputMsg::Ping {
         nonce: 0,
         echo_nanos: 0,
     })?;
-
-    run_peer_input(&channel, &rx, &sh, &cfg.name, Some(server_addr))
+    run_peer_input(&channel, &rx, &sh, &cfg.name, Some(server_addr), &stop)
 }
