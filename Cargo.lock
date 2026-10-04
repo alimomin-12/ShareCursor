@@ -4022,6 +4022,7 @@ dependencies = [
  "dirs 5.0.1",
  "eframe",
  "enigo",
+ "getrandom 0.2.17",
  "mdns-sd",
  "rdev",
  "serde",
@@ -4034,6 +4035,7 @@ dependencies = [
  "tray-icon",
  "windows-sys 0.59.0",
  "winresource",
+ "winit",
 ]
 
 [[package]]

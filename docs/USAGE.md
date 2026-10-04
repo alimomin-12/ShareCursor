@@ -30,15 +30,23 @@ haven't installed yet, see [INSTALL.md](./INSTALL.md).
 
 ### On BOTH machines: open Settings and set the passphrase
 
-1. Launch ShareCursor. It lives in the **menu bar** (macOS, top‑right) or the
-   **system tray** (Windows, bottom‑right).
-2. Click the icon → **Settings & Monitor Manager**. This opens the visual
-   settings window.
+1. Launch ShareCursor. On a fresh installation it creates `config.toml` and
+   opens Settings automatically. It also lives in the **menu bar** (macOS,
+   top-right) or the **system tray** (Windows, bottom-right).
+2. On later launches, click the icon → **Settings & Monitor Manager** to open
+   the settings window again.
 3. Set the **shared passphrase** (same on both machines) and the machine names.
    Leave **Server host** blank (auto‑discovery finds the peer).
 4. On ONE machine, in the **arrangement** panel, drag the second monitor to
    where it physically sits (left / right / above / below — with any offset).
    The other machine adopts this layout automatically on connect. **Save**.
+5. Close Settings to start pairing. Each fresh installation generates its own
+   pairing code; copy the code from one machine into the other and save it on
+   both. Existing settings are preserved on later launches.
+
+The config is stored at `%APPDATA%\sharecursor\config.toml` on Windows and
+`~/Library/Application Support/sharecursor/config.toml` on macOS. No manual
+`init-config` command is needed for the app UI.
 
 > Screen sizes are **auto-detected**: this machine's from the OS, and the other
 > machine's is reported automatically the first time it connects. You can also

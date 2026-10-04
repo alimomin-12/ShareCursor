@@ -19,6 +19,7 @@ tracing-subscriber.workspace = true
 clap = { version = "4", features = ["derive"] }
 toml = "0.8"
 dirs = "5"
+getrandom = "0.2"
 
 # Native input capture/emulation + clipboard. Gated so the transport core and
 # latency benchmark always build without platform permissions.
@@ -35,6 +36,9 @@ tao = { version = "0.30", optional = true }
 # Visual settings / monitor-arrangement window (egui).
 eframe = { version = "0.29", optional = true }
 
+[target.'cfg(target_os = "macos")'.dependencies]
+winit = { version = "0.30", optional = true }
+
 # Windows-only: hide the console window when launched as the tray GUI.
 [target.'cfg(windows)'.dependencies]
 windows-sys = { version = "0.59", features = ["Win32_System_Console", "Win32_UI_WindowsAndMessaging"] }
@@ -47,4 +51,4 @@ winresource = "0.1"
 default = ["native"]
 native = ["dep:enigo", "dep:rdev", "dep:arboard", "dep:mdns-sd"]
 tray = ["native", "dep:tray-icon", "dep:tao"]
-gui = ["native", "dep:eframe"]
+gui = ["native", "dep:eframe", "dep:winit"]

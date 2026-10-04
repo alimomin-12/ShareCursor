@@ -198,16 +198,9 @@ fn reload_arrangement(cfg_name: &str, sh: &Shared) {
     tracing::info!("arrangement reloaded from settings and sent to the peer");
 }
 
-/// Load the config or explain how to create one.
+/// Load settings, initializing them on a fresh installation.
 fn load_config() -> anyhow::Result<Config> {
-    let path = Config::default_path();
-    if !path.exists() {
-        anyhow::bail!(
-            "no config at {} — run `sharecursor init-config` and edit the PSK + layout first",
-            path.display()
-        );
-    }
-    Config::load(&path)
+    Config::load_or_create(&Config::default_path())
 }
 
 /// This machine's screen size. Always prefer the LIVE OS-detected size so a

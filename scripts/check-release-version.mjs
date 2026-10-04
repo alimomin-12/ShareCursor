@@ -5,7 +5,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const repositoryRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const read = (filePath) => readFile(path.join(repositoryRoot, filePath), "utf8");
+const read = async (filePath) =>
+  (await readFile(path.join(repositoryRoot, filePath), "utf8")).replaceAll("\r\n", "\n");
 const expected = process.argv[2];
 
 const [cargo, lock, installer, homepage, changelog, macBuild] = await Promise.all([

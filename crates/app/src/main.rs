@@ -169,7 +169,7 @@ fn main() -> anyhow::Result<()> {
         Command::Run => {
             #[cfg(all(windows, feature = "tray"))]
             hide_console_window();
-            let cfg = config::Config::load(&config::Config::default_path())?;
+            let cfg = config::Config::load_or_create(&config::Config::default_path())?;
             match cfg.role.as_deref() {
                 Some("server") => {
                     tracing::info!("role = server; serving");
@@ -216,7 +216,11 @@ fn main() -> anyhow::Result<()> {
         #[cfg(not(feature = "native"))]
         Command::ScreenInfo => anyhow::bail!("screen-info requires the `native` feature"),
         #[cfg(feature = "gui")]
-        Command::Settings => gui::run(),
+        Command::Settings => {
+            #[cfg(all(windows, feature = "tray"))]
+            hide_console_window();
+            gui::run()
+        }
         #[cfg(not(feature = "gui"))]
         Command::Settings => {
             anyhow::bail!("settings window not built in; rebuild with `--features gui`")
