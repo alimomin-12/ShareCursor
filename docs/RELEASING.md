@@ -59,7 +59,10 @@ X.Y.Z` before tagging to verify every release surface.
 
 ## What CI does (`.github/workflows/release.yml`)
 
-- Trigger: pushing a tag matching `v*` (or manual `workflow_dispatch`).
+- Trigger: pushing a tag matching `v*`, manual `workflow_dispatch`, or a pull
+  request changing application or packaging code. Pull requests test the
+  startup and GUI features and upload both installers without publishing a
+  release; download them from the workflow run's Artifacts section.
 - `macos` job (macos-14): adds both Apple targets, runs
   `packaging/macos/build-app.sh $VERSION` → universal `.app` + `.dmg`.
 - `windows` job (windows-latest): `cargo build --release --features tray,gui`, then

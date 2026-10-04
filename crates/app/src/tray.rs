@@ -14,7 +14,7 @@
 use std::path::PathBuf;
 
 use tao::event::Event;
-use tao::event_loop::{ControlFlow, EventLoopBuilder};
+use tao::event_loop::{ControlFlow, EventLoopBuilder, EventLoopProxy};
 use tray_icon::menu::{Menu, MenuEvent, MenuItem, PredefinedMenuItem};
 use tray_icon::{Icon, TrayIconBuilder};
 
@@ -23,18 +23,23 @@ use crate::config::Config;
 /// Messages pumped into the tao event loop.
 enum UserEvent {
     Menu(MenuEvent),
+    SettingsClosed(std::io::Result<std::process::ExitStatus>),
+    PairFailed(String),
 }
 
 /// Launch the tray/menu-bar app. Blocks running the event loop.
 pub fn run() -> anyhow::Result<()> {
     let config_path = Config::default_path();
+    let first_run = !config_path.exists();
+    Config::load_or_create(&config_path)?;
 
     let event_loop = build_event_loop();
 
     // Forward menu events into the loop so it wakes without busy-polling.
     let proxy = event_loop.create_proxy();
+    let menu_proxy = proxy.clone();
     MenuEvent::set_event_handler(Some(move |event| {
-        let _ = proxy.send_event(UserEvent::Menu(event));
+        let _ = menu_proxy.send_event(UserEvent::Menu(event));
     }));
 
     // Menu items — ids captured so we can match clicks.
@@ -56,13 +61,9 @@ pub fn run() -> anyhow::Result<()> {
     menu.append(&PredefinedMenuItem::separator())?;
     menu.append(&item_quit)?;
 
-    // Behave like a background service: if the config already says which side
-    // this machine is, start it automatically so the user doesn't have to click
-    // Start every login. Without a role, wait for a menu choice.
-    // One button, one behaviour: auto-pair (role in the config only decides who
-    // listens; control is symmetric either way). Starts immediately on launch.
-    item_status.set_text("ShareCursor — pairing…");
-    spawn_pair();
+    // On a fresh installation, finish setup before pairing reads the passphrase.
+    let mut pairing = false;
+    let mut settings_open = false;
 
     // The tray icon must be created after the loop starts on macOS, so we build
     // it lazily on the first `Init` event and keep it alive here (RAII).
@@ -81,7 +82,27 @@ pub fn run() -> anyhow::Result<()> {
                     .with_icon(icon)
                     .build()
                 {
-                    Ok(t) => _tray = Some(t),
+                    Ok(t) => {
+                        _tray = Some(t);
+                        #[cfg(target_os = "macos")]
+                        wake_macos_run_loop();
+
+                        if first_run {
+                            item_status.set_text("ShareCursor — finish setup in Settings");
+                            match open_settings(&config_path, proxy.clone()) {
+                                Ok(()) => {
+                                    settings_open = true;
+                                    item_start.set_enabled(false);
+                                }
+                                Err(e) => item_status.set_text(format!("Setup failed: {e}")),
+                            }
+                        } else {
+                            pairing = true;
+                            item_start.set_enabled(false);
+                            item_status.set_text("ShareCursor — pairing…");
+                            spawn_pair(proxy.clone());
+                        }
+                    }
                     Err(e) => {
                         eprintln!("failed to create tray icon: {e}");
                         *control_flow = ControlFlow::Exit;
@@ -92,15 +113,64 @@ pub fn run() -> anyhow::Result<()> {
                 if ev.id == id_quit {
                     *control_flow = ControlFlow::Exit;
                 } else if ev.id == id_start {
-                    item_status.set_text("ShareCursor — pairing…");
-                    spawn_pair();
+                    if !pairing && !settings_open {
+                        pairing = true;
+                        item_start.set_enabled(false);
+                        item_status.set_text("ShareCursor — pairing…");
+                        spawn_pair(proxy.clone());
+                    }
                 } else if ev.id == id_settings {
-                    open_settings(&config_path);
+                    if !settings_open {
+                        match open_settings(&config_path, proxy.clone()) {
+                            Ok(()) => {
+                                settings_open = true;
+                                item_start.set_enabled(false);
+                            }
+                            Err(e) => item_status.set_text(format!("Settings failed: {e}")),
+                        }
+                    }
                 }
+            }
+            Event::UserEvent(UserEvent::SettingsClosed(result)) => {
+                settings_open = false;
+                match result {
+                    Ok(status) if status.success() && !pairing => {
+                        pairing = true;
+                        item_status.set_text("ShareCursor — pairing…");
+                        spawn_pair(proxy.clone());
+                    }
+                    Ok(status) if !status.success() => {
+                        item_status.set_text("ShareCursor — Settings failed to open");
+                    }
+                    Err(e) => item_status.set_text(format!("Settings failed: {e}")),
+                    _ => {}
+                }
+                item_start.set_enabled(!pairing);
+            }
+            Event::UserEvent(UserEvent::PairFailed(error)) => {
+                pairing = false;
+                item_start.set_enabled(!settings_open);
+                item_status.set_text(format!("Pairing failed: {error}"));
             }
             _ => {}
         }
     });
+}
+
+/// A windowless Tao loop needs a wake-up after creating the status item or
+/// macOS can leave it invisible until another UI event occurs.
+#[cfg(target_os = "macos")]
+fn wake_macos_run_loop() {
+    #[link(name = "CoreFoundation", kind = "framework")]
+    extern "C" {
+        fn CFRunLoopGetMain() -> *mut std::ffi::c_void;
+        fn CFRunLoopWakeUp(run_loop: *mut std::ffi::c_void);
+    }
+    // SAFETY: CoreFoundation returns the process's live main run loop; this
+    // function is called on that thread during the initial Tao event.
+    unsafe {
+        CFRunLoopWakeUp(CFRunLoopGetMain());
+    }
 }
 
 #[cfg(target_os = "macos")]
@@ -118,55 +188,54 @@ fn build_event_loop() -> tao::event_loop::EventLoop<UserEvent> {
 }
 
 /// Zero-config auto-pairing in the background (find the peer + connect).
-fn spawn_pair() {
-    std::thread::spawn(|| {
+fn spawn_pair(proxy: EventLoopProxy<UserEvent>) {
+    std::thread::spawn(move || {
         if let Err(e) = crate::run::pair() {
-            eprintln!("pairing error: {e}");
+            tracing::error!(error = %e, "pairing stopped");
+            let _ = proxy.send_event(UserEvent::PairFailed(e.to_string()));
         }
     });
 }
 
 /// Open the visual settings window (a separate `sharecursor settings` process,
 /// so it has its own event loop). Falls back to opening the config file.
-fn open_settings(path: &PathBuf) {
-    if let Ok(exe) = std::env::current_exe() {
-        if std::process::Command::new(&exe)
-            .arg("settings")
-            .spawn()
-            .is_ok()
+fn open_settings(_path: &PathBuf, proxy: EventLoopProxy<UserEvent>) -> anyhow::Result<()> {
+    #[cfg(feature = "gui")]
+    let mut child = {
+        let mut command = std::process::Command::new(std::env::current_exe()?);
+        command.arg("settings");
+        #[cfg(windows)]
         {
-            return;
+            use std::os::windows::process::CommandExt;
+            command.creation_flags(0x08000000); // CREATE_NO_WINDOW
         }
-    }
-    // Fallback: create + open the raw config file.
-    if !path.exists() {
-        let _ = Config::example().save(path);
-    }
-    let _ = open_path(path);
+        command.spawn()?
+    };
+    #[cfg(not(feature = "gui"))]
+    let mut child = open_path(_path)?;
+    std::thread::spawn(move || {
+        let _ = proxy.send_event(UserEvent::SettingsClosed(child.wait()));
+    });
+    Ok(())
 }
 
-#[cfg(target_os = "macos")]
-fn open_path(path: &PathBuf) -> std::io::Result<()> {
-    std::process::Command::new("open")
-        .arg(path)
-        .spawn()
-        .map(|_| ())
+#[cfg(all(not(feature = "gui"), target_os = "macos"))]
+fn open_path(path: &PathBuf) -> std::io::Result<std::process::Child> {
+    std::process::Command::new("open").arg(path).spawn()
 }
 
-#[cfg(target_os = "windows")]
-fn open_path(path: &PathBuf) -> std::io::Result<()> {
-    std::process::Command::new("explorer")
-        .arg(path)
-        .spawn()
-        .map(|_| ())
+#[cfg(all(not(feature = "gui"), target_os = "windows"))]
+fn open_path(path: &PathBuf) -> std::io::Result<std::process::Child> {
+    std::process::Command::new("explorer").arg(path).spawn()
 }
 
-#[cfg(all(not(target_os = "macos"), not(target_os = "windows")))]
-fn open_path(path: &PathBuf) -> std::io::Result<()> {
-    std::process::Command::new("xdg-open")
-        .arg(path)
-        .spawn()
-        .map(|_| ())
+#[cfg(all(
+    not(feature = "gui"),
+    not(target_os = "macos"),
+    not(target_os = "windows")
+))]
+fn open_path(path: &PathBuf) -> std::io::Result<std::process::Child> {
+    std::process::Command::new("xdg-open").arg(path).spawn()
 }
 
 /// The ShareCursor brand icon (a blue cursor-click glyph) — pre-rendered to raw

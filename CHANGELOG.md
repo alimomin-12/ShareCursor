@@ -7,6 +7,16 @@ All notable changes to ShareCursor are documented here. The format is based on
 
 ## [Unreleased]
 
+### Fixed
+- Fresh installations now create the per-user configuration before starting
+  pairing, with platform-appropriate machine names and unique pairing codes.
+- First launch opens Settings so setup is visible on macOS and Windows;
+  pairing starts after the window closes, using the saved passphrase.
+- macOS wakes the native run loop after creating the menu-bar icon so it
+  appears immediately. The settings window activates in the foreground.
+- Repeated Start clicks no longer create duplicate pairing workers, and
+  background startup failures are shown in the tray menu.
+
 ## [0.6.0] - 2026-08-29
 
 First stable release under the ShareCursor name.

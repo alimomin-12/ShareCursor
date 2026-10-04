@@ -105,10 +105,87 @@ impl Config {
     pub fn load(path: &Path) -> anyhow::Result<Self> {
         let text = std::fs::read_to_string(path)
             .map_err(|e| anyhow::anyhow!("cannot read config {}: {e}", path.display()))?;
-        let cfg: Config = toml::from_str(&text)
+        Self::parse(&text, path)
+    }
+
+    /// Initialize a fresh installation before starting any background workers.
+    /// Existing files, including invalid ones, are never replaced.
+    pub fn load_or_create(path: &Path) -> anyhow::Result<Self> {
+        use std::io::{ErrorKind, Write};
+
+        match std::fs::read_to_string(path) {
+            Ok(text) => Self::parse(&text, path),
+            Err(e) if e.kind() == ErrorKind::NotFound => {
+                let cfg = Self::starter()?;
+                if let Some(dir) = path.parent() {
+                    std::fs::create_dir_all(dir)?;
+                }
+                let text = cfg.to_toml()?;
+                match std::fs::OpenOptions::new()
+                    .write(true)
+                    .create_new(true)
+                    .open(path)
+                {
+                    Ok(mut file) => {
+                        file.write_all(text.as_bytes())?;
+                        Ok(cfg)
+                    }
+                    // Another launch may have initialized the file meanwhile.
+                    Err(e) if e.kind() == ErrorKind::AlreadyExists => Self::load(path),
+                    Err(e) => Err(anyhow::anyhow!(
+                        "cannot create config {}: {e}",
+                        path.display()
+                    )),
+                }
+            }
+            Err(e) => Err(anyhow::anyhow!(
+                "cannot read config {}: {e}",
+                path.display()
+            )),
+        }
+    }
+
+    fn parse(text: &str, path: &Path) -> anyhow::Result<Self> {
+        let cfg: Config = toml::from_str(text)
             .map_err(|e| anyhow::anyhow!("invalid config {}: {e}", path.display()))?;
         cfg.validate()?;
         Ok(cfg)
+    }
+
+    /// A platform-appropriate starter without a hard-coded host or role.
+    fn starter() -> anyhow::Result<Self> {
+        let mut cfg = Self::example();
+        cfg.name = if cfg!(target_os = "windows") {
+            "windows"
+        } else {
+            "mac"
+        }
+        .into();
+        cfg.psk = Self::generate_pairing_code()?;
+        cfg.server_host = None;
+        cfg.role = None;
+        cfg.device_id = Some(Self::random_hex()?);
+        cfg.validate()?;
+        Ok(cfg)
+    }
+
+    /// Generate a pairing passphrase with 128 bits of OS-provided randomness.
+    pub fn generate_pairing_code() -> anyhow::Result<String> {
+        let hex = Self::random_hex()?;
+        Ok(format!(
+            "{}-{}-{}-{}",
+            &hex[..8],
+            &hex[8..16],
+            &hex[16..24],
+            &hex[24..]
+        ))
+    }
+
+    fn random_hex() -> anyhow::Result<String> {
+        let mut bytes = [0u8; 16];
+        getrandom::getrandom(&mut bytes)
+            .map_err(|e| anyhow::anyhow!("cannot generate pairing identity: {e}"))?;
+        Ok(bytes.iter().map(|b| format!("{b:02x}")).collect())
     }
 
     /// Serialize to a TOML string.
@@ -197,6 +274,101 @@ impl Config {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    struct TestDir(PathBuf);
+
+    impl TestDir {
+        fn new() -> Self {
+            use std::sync::atomic::{AtomicU64, Ordering};
+            static NEXT: AtomicU64 = AtomicU64::new(0);
+            let path = std::env::temp_dir().join(format!(
+                "sharecursor-config-test-{}-{}",
+                std::process::id(),
+                NEXT.fetch_add(1, Ordering::Relaxed)
+            ));
+            std::fs::create_dir(&path).unwrap();
+            Self(path)
+        }
+
+        fn config_path(&self) -> PathBuf {
+            self.0.join("sharecursor").join("config.toml")
+        }
+    }
+
+    impl Drop for TestDir {
+        fn drop(&mut self) {
+            let _ = std::fs::remove_dir_all(&self.0);
+        }
+    }
+
+    #[test]
+    fn first_launch_creates_config_and_parent_directory() {
+        let dir = TestDir::new();
+        let path = dir.config_path();
+        let cfg = Config::load_or_create(&path).unwrap();
+
+        assert_eq!(Config::load(&path).unwrap(), cfg);
+        assert_eq!(cfg.name, if cfg!(windows) { "windows" } else { "mac" });
+        assert_eq!(cfg.role, None);
+        assert_eq!(cfg.server_host, None);
+        assert_eq!(cfg.psk.len(), 35);
+        assert_eq!(cfg.device_id.as_ref().unwrap().len(), 32);
+    }
+
+    #[test]
+    fn relaunch_preserves_settings_and_identity() {
+        let dir = TestDir::new();
+        let path = dir.config_path();
+        let mut cfg = Config::load_or_create(&path).unwrap();
+        cfg.port = 25000;
+        cfg.psk = "my-existing-shared-passphrase".into();
+        cfg.role = Some("client".into());
+        cfg.save(&path).unwrap();
+        let before = std::fs::read(&path).unwrap();
+
+        assert_eq!(Config::load_or_create(&path).unwrap(), cfg);
+        assert_eq!(std::fs::read(&path).unwrap(), before);
+    }
+
+    #[test]
+    fn invalid_existing_config_is_reported_and_preserved() {
+        let dir = TestDir::new();
+        let path = dir.config_path();
+        std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+        let text = "this is not valid TOML";
+        std::fs::write(&path, text).unwrap();
+
+        assert!(Config::load_or_create(&path).is_err());
+        assert_eq!(std::fs::read_to_string(&path).unwrap(), text);
+
+        let mut invalid = Config::example();
+        invalid.psk = "short".into();
+        invalid.save(&path).unwrap();
+        let before = std::fs::read(&path).unwrap();
+        assert!(Config::load_or_create(&path).is_err());
+        assert_eq!(std::fs::read(&path).unwrap(), before);
+    }
+
+    #[test]
+    fn config_read_errors_do_not_trigger_replacement() {
+        let dir = TestDir::new();
+        let path = dir.config_path();
+        std::fs::create_dir_all(&path).unwrap();
+
+        assert!(Config::load_or_create(&path).is_err());
+        assert!(path.is_dir());
+    }
+
+    #[test]
+    fn separate_installs_have_distinct_passphrases_and_device_ids() {
+        let first = TestDir::new();
+        let second = TestDir::new();
+        let a = Config::load_or_create(&first.config_path()).unwrap();
+        let b = Config::load_or_create(&second.config_path()).unwrap();
+
+        assert_ne!(a.psk, b.psk);
+        assert_ne!(a.device_id, b.device_id);
+    }
 
     #[test]
     fn example_roundtrips_through_toml() {

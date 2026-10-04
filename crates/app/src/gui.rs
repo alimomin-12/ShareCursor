@@ -10,39 +10,6 @@ use eframe::egui;
 
 use crate::config::{Config, Machine};
 
-/// A memorable, auto-generated pairing code — the user never has to invent a
-/// passphrase. Strong enough for a LAN PSK (≥ 64 bits of entropy).
-fn generate_code() -> String {
-    use std::time::{SystemTime, UNIX_EPOCH};
-    let mut seed = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .unwrap()
-        .subsec_nanos() as u64
-        ^ (std::process::id() as u64) << 32
-        ^ SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap()
-            .as_nanos() as u64;
-    let mut next = move || {
-        // xorshift64* — fine for a code; the real security is the X25519 handshake.
-        seed ^= seed << 13;
-        seed ^= seed >> 7;
-        seed ^= seed << 17;
-        seed
-    };
-    let words = [
-        "blue", "nova", "lynx", "echo", "iris", "palm", "volt", "mesa", "rune", "kite", "opal",
-        "dune", "fern", "hawk", "jade", "luna", "onyx", "pine", "sage", "zinc",
-    ];
-    format!(
-        "{}-{}-{}-{:04}",
-        words[(next() % 20) as usize],
-        words[(next() % 20) as usize],
-        words[(next() % 20) as usize],
-        next() % 10000
-    )
-}
-
 /// Distance between the two monitor centres along the shared edge (canvas px).
 fn adjacency(side: Side, this: egui::Vec2, other: egui::Vec2) -> f32 {
     let gap = 3.0;
@@ -201,6 +168,7 @@ mod tests {
 
 /// Launch the settings window (blocks until closed).
 pub fn run() -> anyhow::Result<()> {
+    let cfg = Config::load_or_create(&Config::default_path())?;
     let options = eframe::NativeOptions {
         viewport: egui::ViewportBuilder::default()
             .with_inner_size([560.0, 640.0])
@@ -211,12 +179,20 @@ pub fn run() -> anyhow::Result<()> {
                 height: 64,
             }))
             .with_title("ShareCursor — Settings & Monitor Manager"),
+        // The settings helper shares the LSUIElement bundle with the tray app.
+        // Give this process a regular, foreground window explicitly.
+        #[cfg(target_os = "macos")]
+        event_loop_builder: Some(Box::new(|builder| {
+            use winit::platform::macos::{ActivationPolicy, EventLoopBuilderExtMacOS};
+            builder.with_activation_policy(ActivationPolicy::Regular);
+            builder.with_activate_ignoring_other_apps(true);
+        })),
         ..Default::default()
     };
     eframe::run_native(
         "ShareCursor Settings",
         options,
-        Box::new(|cc| {
+        Box::new(move |cc| {
             // Clean light theme with the ShareCursor blue accent.
             cc.egui_ctx.set_visuals(egui::Visuals::light());
             let mut style = (*cc.egui_ctx.style()).clone();
@@ -227,7 +203,7 @@ pub fn run() -> anyhow::Result<()> {
             style.visuals.hyperlink_color = blue;
             style.visuals.widgets.hovered.bg_stroke = egui::Stroke::new(1.0, blue);
             cc.egui_ctx.set_style(style);
-            Ok(Box::new(SettingsApp::new()))
+            Ok(Box::new(SettingsApp::new(cfg)))
         }),
     )
     .map_err(|e| anyhow::anyhow!("settings window failed: {e}"))
@@ -279,61 +255,47 @@ struct SettingsApp {
 }
 
 impl SettingsApp {
-    fn new() -> Self {
-        let cfg = Config::load(&Config::default_path()).ok();
+    fn new(cfg: Config) -> Self {
         let this_res = crate::emit::main_display_size().unwrap_or((1470, 956));
 
         // Derive current arrangement from an existing config, if any.
-        let (this_name, other_name, side, other_res, psk, port, server_host, offset) = match &cfg {
-            Some(c) => {
-                let this = c.name.clone();
-                let other = c
-                    .machines
-                    .iter()
-                    .map(|m| m.name.clone())
-                    .find(|n| n != &this)
-                    .unwrap_or_else(|| "windows".into());
-                let side = c
-                    .machine(&this)
-                    .map(|m| {
-                        if m.right.is_some() {
-                            Side::Right
-                        } else if m.left.is_some() {
-                            Side::Left
-                        } else if m.top.is_some() {
-                            Side::Top
-                        } else {
-                            Side::Bottom
-                        }
-                    })
-                    .unwrap_or(Side::Right);
-                let peer_known = c.machine(&other).and_then(|m| m.screen).is_some();
-                let other_res = c
-                    .machine(&other)
-                    .and_then(|m| m.screen)
-                    .unwrap_or((1920, 1080));
-                let _ = peer_known;
-                (
-                    this,
-                    other,
-                    side,
-                    other_res,
-                    c.psk.clone(),
-                    c.port.to_string(),
-                    c.server_host.clone().unwrap_or_default(),
-                    c.offset,
-                )
-            }
-            None => (
-                "mac".into(),
-                "windows".into(),
-                Side::Right,
-                (1920, 1080),
-                generate_code(),
-                "24800".into(),
-                String::new(),
-                0,
-            ),
+        let (this_name, other_name, side, other_res, psk, port, server_host, offset) = {
+            let c = &cfg;
+            let this = c.name.clone();
+            let other = c
+                .machines
+                .iter()
+                .map(|m| m.name.clone())
+                .find(|n| n != &this)
+                .unwrap_or_else(|| "windows".into());
+            let side = c
+                .machine(&this)
+                .map(|m| {
+                    if m.right.is_some() {
+                        Side::Right
+                    } else if m.left.is_some() {
+                        Side::Left
+                    } else if m.top.is_some() {
+                        Side::Top
+                    } else {
+                        Side::Bottom
+                    }
+                })
+                .unwrap_or(Side::Right);
+            let other_res = c
+                .machine(&other)
+                .and_then(|m| m.screen)
+                .unwrap_or((1920, 1080));
+            (
+                this,
+                other,
+                side,
+                other_res,
+                c.psk.clone(),
+                c.port.to_string(),
+                c.server_host.clone().unwrap_or_default(),
+                c.offset,
+            )
         };
 
         Self {
@@ -351,13 +313,9 @@ impl SettingsApp {
             placed: false,
             show_psk: false,
             peer_known: cfg
-                .as_ref()
-                .map(|c| {
-                    c.machines
-                        .iter()
-                        .any(|m| m.name != c.name && m.screen.is_some())
-                })
-                .unwrap_or(false),
+                .machines
+                .iter()
+                .any(|m| m.name != cfg.name && m.screen.is_some()),
             status: String::new(),
         }
     }
@@ -421,7 +379,10 @@ impl eframe::App for SettingsApp {
                         self.show_psk = !self.show_psk;
                     }
                     if ui.button("\u{21BB} new").clicked() {
-                        self.psk = generate_code();
+                        match Config::generate_pairing_code() {
+                            Ok(code) => self.psk = code,
+                            Err(e) => self.status = format!("Could not generate a code: {e}"),
+                        }
                     }
                 });
                 ui.end_row();
