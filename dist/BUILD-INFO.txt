@@ -1,15 +1,26 @@
-ShareCursor startup-fix installers
+ShareCursor 0.6.1 installers — Windows input and file clipboard fixes
 
-Source commit: 090bc4fefb12674957d24103df58a3ac65c3ea71
-Pull request: https://github.com/alimomin-12/ShareCursor/pull/1
-Build: https://github.com/alimomin-12/ShareCursor/actions/runs/37185207278
+Tested source commit: 9109bb12e5c861f1034d5491f2cf78fa163e9705
+Main merge commit: 0f7d54f
+Pull request: https://github.com/alimomin-12/ShareCursor/pull/2
+Build: https://github.com/alimomin-12/ShareCursor/actions/runs/37188025123
+CI: https://github.com/alimomin-12/ShareCursor/actions/runs/37188025127
 
-Windows: ShareCursor-Setup-0.6.0.exe
-macOS (Apple Silicon + Intel): ShareCursor-0.6.0.dmg
+Windows: ShareCursor-Setup-0.6.1.exe
+macOS (Apple Silicon + Intel): ShareCursor-0.6.1.dmg
 Checksums: ShareCursor-SHA256SUMS.txt
 
-These are development builds containing the startup fix, with the existing 0.6.0 package version. They have not been published as a new release.
+Install this version on BOTH computers: protocol 6 rejects older input peers.
+Existing settings and the first-launch config/menu-bar fixes are retained.
+Copy regular files in Explorer/Finder; wait for transfer completion, then paste.
+Received files are also saved in Downloads/ShareCursor. Zip folders first.
+Folder clipboard copying and dragging files across screens are not supported.
 
-Automated formatting, clippy, and native tests passed on Windows, macOS, and Linux. Full tray/GUI tests passed on native Windows and macOS runners (30 tests each). Both installer formats and downloaded file checksums were verified. Manual installation and UI interaction have not been tested on physical machines.
+Verification: formatting, clippy and native tests passed on Windows, macOS and Linux. Full tray/GUI tests passed on Windows (43 tests) and macOS (40 tests), including native file clipboard write/read. Encrypted transfer tests verified exact bytes, duplicate-name preservation and interrupted-file cleanup. Injected Windows events bypass capture; physical events remain consumable. An 8,000-event motion burst became 16 bounded packets with no distance loss.
 
-On first launch, Settings opens and the per-user config is created automatically. Save the same pairing code on both computers and close Settings to begin pairing.
+Encrypted loopback transport benchmark (5,000 round trips):
+Windows median RTT 47.40 us, p99 76.60 us.
+macOS median RTT 33.54 us, p99 99.96 us.
+These measure transport overhead, not physical mouse or LAN latency.
+
+Installer builds and downloaded SHA-256 checksums were verified. Physical two-machine hand-off, manual installation and Explorer/Finder paste have not been tested in this environment. These installers are unsigned and have not been published as a tagged GitHub release.
