@@ -28,6 +28,7 @@ pub struct BulkConn {
 }
 
 impl BulkConn {
+    #[cfg(test)]
     pub fn new(stream: TcpStream) -> std::io::Result<Self> {
         stream.set_nodelay(true)?; // clipboard/file latency: don't Nagle-buffer
         Ok(Self {
@@ -64,20 +65,31 @@ impl BulkConn {
         Ok((conn, input))
     }
 
-    /// Clone into an independent handle sharing the same cipher. Counters reset
-    /// to 0: the clone is used for a single direction (all reads *or* all
-    /// writes), matching the peer's counter for that direction.
+    /// Split into a reader and writer, preserving any frames already consumed.
+    /// Each direction must subsequently be used by exactly one handle.
     pub fn try_clone(&self) -> std::io::Result<Self> {
         Ok(Self {
             stream: self.stream.try_clone()?,
             cipher: self.cipher.clone(),
-            send_ctr: 0,
-            recv_ctr: 0,
+            send_ctr: self.send_ctr,
+            recv_ctr: self.recv_ctr,
         })
+    }
+
+    pub fn shutdown(&self) {
+        let _ = self.stream.shutdown(std::net::Shutdown::Both);
+    }
+
+    pub fn set_read_timeout(&self, timeout: Option<std::time::Duration>) -> std::io::Result<()> {
+        self.stream.set_read_timeout(timeout)
     }
 
     pub fn send(&mut self, msg: &BulkMsg) -> anyhow::Result<()> {
         let body = msg.encode()?;
+        anyhow::ensure!(
+            body.len() <= MAX_FRAME as usize - 16,
+            "bulk frame too large"
+        );
         let payload = match &self.cipher {
             Some(session) => {
                 let ct = session.seal(self.send_ctr, &[], &body);
@@ -183,6 +195,34 @@ mod tests {
             client.send(m).unwrap();
             assert_eq!(&client.recv().unwrap(), m);
         }
+        server.join().unwrap();
+    }
+
+    #[test]
+    fn splitting_after_hello_preserves_encrypted_record_counters() {
+        let listener = TcpListener::bind("127.0.0.1:0").unwrap();
+        let addr = listener.local_addr().unwrap();
+        let server = std::thread::spawn(move || {
+            let (stream, _) = listener.accept().unwrap();
+            let (mut conn, _) =
+                BulkConn::handshake(stream, b"counter-test", Role::Responder).unwrap();
+            assert_eq!(conn.recv().unwrap(), BulkMsg::Heartbeat);
+            conn.send(&BulkMsg::Heartbeat).unwrap();
+            let mut split = conn.try_clone().unwrap();
+            assert_eq!(split.recv().unwrap(), BulkMsg::FileEnd { id: 42 });
+            split.send(&BulkMsg::FileReceived { id: 42 }).unwrap();
+        });
+        let (mut conn, _) = BulkConn::handshake(
+            TcpStream::connect(addr).unwrap(),
+            b"counter-test",
+            Role::Initiator,
+        )
+        .unwrap();
+        conn.send(&BulkMsg::Heartbeat).unwrap();
+        assert_eq!(conn.recv().unwrap(), BulkMsg::Heartbeat);
+        let mut split = conn.try_clone().unwrap();
+        split.send(&BulkMsg::FileEnd { id: 42 }).unwrap();
+        assert_eq!(split.recv().unwrap(), BulkMsg::FileReceived { id: 42 });
         server.join().unwrap();
     }
 }

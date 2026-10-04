@@ -4,9 +4,9 @@ All types live in `crates/protocol/src/lib.rs`. Encoding is
 [postcard](https://docs.rs/postcard) — a compact, `serde`-based binary format
 chosen because it is small and fast (important on the input hot path).
 
-**Versioning:** `PROTOCOL_VERSION` (currently `1`). Bump it on any breaking wire
-change and document the change here. The handshake exchanges versions so peers
-can refuse mismatches in the future.
+**Versioning:** `PROTOCOL_VERSION` is `6`. Input peers exchange and validate
+versions before starting a session; both computers must run the same version.
+Version 6 adds native file clipboard batches and standalone file receipt acknowledgements.
 
 ## Two channels
 
@@ -29,8 +29,8 @@ blocking — the reason we use UDP). Control/ping messages bypass this check.
 ```
 enum InputMsg {
     Events(Vec<InputEvent>),   // a coalesced tick of input
-    Enter { edge: Edge, entry: f32 },  // server → client: you have control
-    Leave,                     // either direction: control returns to server
+    PointerEnter { edge: Edge, pos: i32, span: (i32, i32) },
+    PointerEnd { pos: Option<i32> },
     Ping { nonce: u64, echo_nanos: u64 },
     Pong { nonce: u64, echo_nanos: u64 },
 }
@@ -46,9 +46,10 @@ enum InputEvent {
 }
 ```
 
-Events are **coalesced per capture tick** into one `Events(Vec<..>)` so that a
+Consecutive motion events are **coalesced per capture tick** into one `Events(Vec<..>)` so that a
 high mouse polling rate does not flood the network or cause the classic
-"jumpiness" when polling exceeds display refresh.
+"jumpiness" when polling exceeds display refresh. Click/key ordering is preserved;
+each packet contains at most 32 events, fitting the 2048-byte receive buffer.
 
 ### Portable `Key`
 macOS and Windows use different raw keycodes, so we never send a raw scancode.
@@ -66,13 +67,17 @@ a huge allocation).
 ### `BulkMsg`
 ```
 enum BulkMsg {
-    Hello { version: u16, name: String, screen: (u32,u32) },  // reserved
+    Hello { version: u16, name: String, screen: (u32,u32), edge: Option<Edge>, offset: i32, refresh: bool },
     Welcome { version: u16, name: String },                   // reserved
     Clipboard(ClipboardData),
     FileBegin { id: u64, name: String, size: u64 },
     FileChunk { id: u64, offset: u64, data: Vec<u8> },
     FileEnd { id: u64 },
     Heartbeat,
+    ClipboardFilesBegin { id: u64, files: Vec<u64> },
+    ClipboardFilesEnd { id: u64 },
+    ClipboardFilesCancel { id: u64 },
+    FileReceived { id: u64 },
 }
 
 enum ClipboardData {
@@ -83,9 +88,20 @@ enum ClipboardData {
 
 ### File transfer
 `FileBegin` → many `FileChunk` (64 KiB each, written at `offset`) → `FileEnd`.
-Offsets make it robust and resumable-in-principle. The receiver sanitizes the
-filename (strips path components) to prevent path-traversal, and writes into
-`./received/`.
+Chunks must be contiguous and within the declared size. The receiver sanitizes
+filenames for both platforms and writes temporary files into `Downloads/ShareCursor`.
+It publishes a complete file after size validation and disk sync, chooses a unique
+name instead of overwriting downloads, and cleans up interrupted partial files.
+
+File clipboard flow is `ClipboardFilesBegin` → the listed file transfers →
+`ClipboardFilesEnd`. Only then are local file URLs/paths installed on the native
+clipboard. Cancelled/incomplete batches never replace the clipboard. Up to 256
+regular files are supported per selection; folders should be zipped first.
+The outgoing queue has eight slots to bound buffered file data.
+
+Standalone `send-file` performs the same encrypted handshake, starts with
+`FileBegin` rather than `Hello`, and waits for `FileReceived`. The listener accepts
+these connections independently while an input session is active.
 
 ## Encryption framing
 

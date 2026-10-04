@@ -31,8 +31,8 @@ Mac-capable answer to **Mouse Without Borders**, and effectively **Universal
 Control for Windows**.
 
 - **One keyboard & mouse** — push your cursor across the screen edge to control the other machine.
-- **Shared clipboard** — copy on one machine, paste on the other (text + images).
-- **Drag-and-drop files** — reliable, chunked transfer between machines.
+- **Shared clipboard** — copy on one machine, paste on the other (text, images, and regular files).
+- **File copy/paste** — select files in Explorer/Finder and copy; after transfer completes, paste them on the other computer. Received files are staged in `Downloads/ShareCursor`. Zip folders before copying. Dragging files across screens is not supported.
 - **End-to-end encrypted** — X25519 + a shared passphrase + ChaCha20-Poly1305. LAN-only, no cloud, no accounts.
 - **Latency-first** — dedicated UDP input path, ~6 µs one-way transport overhead.
 

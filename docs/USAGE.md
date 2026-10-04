@@ -21,6 +21,7 @@ haven't installed yet, see [INSTALL.md](./INSTALL.md).
   machines find each other on the LAN and connect — **no IP addresses**.
 - Both machines need the **same passphrase** (it authenticates + encrypts).
 - Both machines must be on the **same Wi‑Fi / network**.
+- Install ShareCursor **0.6.1 on both machines**; this update uses protocol 6.
 - The **monitor arrangement** only needs to be set on ONE machine — the other
   adopts the mirrored layout automatically when they connect.
 
@@ -141,10 +142,21 @@ You should see **"client authenticated (encrypted session established)"** on the
 Mac. Then test the edge switch, clipboard, and:
 ```bash
 # send a file to the other machine (use the OTHER machine's IP:port)
-sharecursor send-file 192.168.1.30:24800 ./report.pdf   # lands in ./received there
+sharecursor send-file 192.168.1.30:24800 ./report.pdf   # lands in Downloads/ShareCursor there
 ```
 
 ---
+
+## Copy and paste files
+
+Select regular files in Explorer or Finder, then copy them (`Ctrl+C` on Windows,
+`Cmd+C` on Mac). Leave ShareCursor connected while the files transfer. Once the
+selection finishes downloading, paste into the destination folder (`Ctrl+V` or
+`Cmd+V`). A Windows keyboard controlling the Mac maps Ctrl to Cmd automatically.
+
+The received files are also available in `Downloads/ShareCursor`. Larger files
+need time to transfer before they can be pasted. Zip folders before copying;
+dragging files across screens and folder clipboard copying are not supported.
 
 ## Find the server's IP
 

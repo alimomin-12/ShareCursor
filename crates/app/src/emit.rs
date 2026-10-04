@@ -37,6 +37,13 @@ impl Injector {
         Ok(())
     }
 
+    #[cfg(windows)]
+    pub fn location(&self) -> anyhow::Result<(i32, i32)> {
+        self.enigo
+            .location()
+            .map_err(|e| anyhow::anyhow!("cursor location: {e:?}"))
+    }
+
     /// Apply one input event locally.
     pub fn apply(&mut self, ev: InputEvent) -> anyhow::Result<()> {
         match ev {

@@ -41,7 +41,7 @@ winit = { version = "0.30", optional = true }
 
 # Windows-only: hide the console window when launched as the tray GUI.
 [target.'cfg(windows)'.dependencies]
-windows-sys = { version = "0.59", features = ["Win32_System_Console", "Win32_UI_WindowsAndMessaging"] }
+windows-sys = { version = "0.59", features = ["Win32_System_Console", "Win32_System_LibraryLoader", "Win32_System_DataExchange", "Win32_UI_HiDpi", "Win32_UI_WindowsAndMessaging", "Win32_Media"] }
 
 # Windows-only: embed the app icon into the .exe so Explorer/taskbar show it.
 [target.'cfg(windows)'.build-dependencies]

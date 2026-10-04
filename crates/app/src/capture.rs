@@ -22,6 +22,9 @@ use crate::control::Control;
 use crate::edge::EdgeConfig;
 use crate::keymap;
 
+#[cfg(windows)]
+mod windows;
+
 /// Hotkey that toggles whether control is on the remote client.
 pub const TOGGLE_KEY: rdev::Key = rdev::Key::F12;
 
@@ -138,12 +141,13 @@ pub fn run(
     #[cfg(not(target_os = "macos"))]
     let _ = screen;
     // grab's callback is `Fn` (not `FnMut`) so mutable state lives behind locks.
+    #[cfg(not(windows))]
     let last_pos: Mutex<Option<(f64, f64)>> = Mutex::new(None);
     // macOS: screen centre we warp the hidden cursor back to, and a transition
     // tracker so we (un)hide the cursor only when control changes.
     #[cfg(target_os = "macos")]
     let (cx, cy) = (screen.0 as f64 / 2.0, screen.1 as f64 / 2.0);
-    #[cfg(target_os = "macos")]
+    #[cfg(any(target_os = "macos", windows))]
     let was_active = std::sync::atomic::AtomicBool::new(false);
     #[cfg(target_os = "macos")]
     mac_cursor::zero_suppression();
@@ -270,6 +274,23 @@ pub fn run(
 
         let is_active = control.my_away.load(Ordering::Relaxed);
 
+        #[cfg(windows)]
+        {
+            let was = was_active.swap(is_active, Ordering::Relaxed);
+            if is_active && !was {
+                windows::park(screen.0 as i32 / 2, screen.1 as i32 / 2);
+                // The edge event uses the pre-parking position, so skip it.
+                if matches!(event.event_type, EventType::MouseMove { .. }) {
+                    return None;
+                }
+            } else if !is_active && was {
+                if let Some((edge, perp)) = control.return_to.lock().unwrap().take() {
+                    let (x, y) = crate::edge::entry_point(edge, perp, screen.0, screen.1);
+                    windows::park(x, y);
+                }
+            }
+        }
+
         // macOS: on control changes, hide/show the local cursor and recentre it.
         #[cfg(target_os = "macos")]
         {
@@ -333,7 +354,17 @@ pub fn run(
                         e
                     }
                 };
-                #[cfg(not(target_os = "macos"))]
+                #[cfg(windows)]
+                let ev = if is_active {
+                    windows::position().and_then(|cursor| {
+                        let (dx, dy) =
+                            windows::motion_delta((x.round() as i32, y.round() as i32), cursor);
+                        (dx != 0 || dy != 0).then_some(InputEvent::MouseMove { dx, dy })
+                    })
+                } else {
+                    None
+                };
+                #[cfg(all(not(target_os = "macos"), not(windows)))]
                 let ev = {
                     let mut lp = last_pos.lock().unwrap();
                     let e = (*lp).map(|(px, py)| InputEvent::MouseMove {
@@ -392,6 +423,9 @@ pub fn run(
         }
     };
 
+    #[cfg(windows)]
+    windows::grab(callback)?;
+    #[cfg(not(windows))]
     rdev::grab(callback).map_err(|e| anyhow::anyhow!("input capture failed: {e:?}"))?;
     Ok(())
 }
